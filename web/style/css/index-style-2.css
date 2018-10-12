@@ -1,0 +1,151 @@
+
+.industries, .our-products {
+text-align: center;
+max-width: 1300px; 
+margin: 0 auto; 
+padding-bottom: 30px;
+
+}
+
+
+.industries h1 { 
+font-size: 2.5em;
+}
+
+.characteristics-holder{
+    display: flex;
+    margin: 0 auto;
+    align-items:center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+section .our-offers {
+    width: 400px;
+    margin: 10px auto;
+    min-height:150px;
+    display: inline-block;
+    -webkit-box-shadow: 1px 1px 10px rgba(229,229,229,0.8);;
+    -moz-box-shadow: 1px 1px 10px rgba(229,229,229,0.8);;
+    box-shadow: 1px 1px 10px rgba(229,229,229,0.8);;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding:5px;
+}
+
+section .our-offers:hover{
+    -webkit-box-shadow: 1px 2px 10px rgba(0,229,229,1);
+    -moz-box-shadow: 1px 2px 10px rgba(0,229,229,1);
+    box-shadow: 1px 2px 10px rgba(0,229,229,1);
+}
+
+
+.text { 
+margin-left: 64px; 
+text-align: left; 
+font-size: 0.85em; 
+vertical-align: top; 
+}
+
+  .industries .icon {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    font-size: 2em;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    float: left;
+	vertical-align: bottom; 
+}
+
+.product-plastic-box{
+    width: 320px;
+    margin: 0px 10px 10px;
+    display: inline-block;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    height: 150px;
+    overflow: hidden;
+}
+ .product-plastic-box:hover{
+     background-blend-mode: multiply;
+ }
+
+ .father-prod-holder{
+     text-align: center;
+ }
+ 
+ #more-products-box{
+     text-align: left;
+ }
+
+.box-top{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,0.0);
+    text-align: center;
+}
+
+.plus-button{
+    display: none;
+    align-items: center;
+    font-size: 1.5em;
+    background: rgba(255,255,255,0.5);
+    width: 60px;
+    height: 60px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.plus-button:hover{
+    background: rgba(255,255,255,0.9);
+}
+
+.fa-plus{
+    margin: 0 auto;
+    font-size: 1.5em;
+    font-weight: 100;
+    color: #FA6A2E;
+}
+ 
+@media screen and (max-width: 992px) {
+    .father-prod-holder{
+        text-align: center;
+        padding: 0px;
+    }
+}
+
+  @media screen and (max-width: 768px) {
+      .our-offers{
+          width: 300px;
+      }
+
+      .characteristics-holder{
+          display: block;
+      }
+
+      section .our-offers {
+          width: 300px;
+          display: block;
+      }
+      
+      #more-products-box{
+          text-align: center;
+      }
+
+      .product-plastic-box{
+          width:300px;
+          padding:0px;
+          margin: 0 auto;
+      }
+
+  }
+
+	

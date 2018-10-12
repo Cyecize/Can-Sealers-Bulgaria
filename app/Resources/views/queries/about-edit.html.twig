@@ -1,0 +1,9 @@
+<form method="post" action="{{ path('get_about-edit') }}" enctype="multipart/form-data">
+    <div class="form-group">
+        <textarea maxlength="255" style="font-size: 0.8em;" rows="10" name="about_us[aboutUs]" class="form-control">{{ aboutUs }}</textarea>
+    </div>
+    <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-primary">Запази »</button>
+    </div>
+</form>

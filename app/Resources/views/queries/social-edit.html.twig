@@ -1,0 +1,23 @@
+<h4>Редакция на линк: {{ social.id }}</h4>
+<form method="post" action="/edit-social/{{ social.id }}" enctype="multipart/form-data">
+
+    <div class="container text-left">
+        <div class="form-group">
+            <label for="icon-input">Въведете икона (font-awesome)</label>
+            <input id="icon-input" type="text" value="{{ social.icon }}" name="social_link[icon]" class="form-control" maxlength="20" required>
+        </div>
+        <div class="form-group">
+            <label for="link-input">Въведете линк</label>
+            <input id="link-input" type="text" value="{{ social.link }}" name="social_link[link]" class="form-control" maxlength="150" required>
+        </div>
+
+        <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+        <input type="hidden" name="social_link[id]" value="{{ social.id }}">
+
+        <div class="form-group text-right">
+            <button type="button" class="btn-close-modal btn btn-primary fat-text alert-danger btn-xs">Откажи</button>
+            <button type="submit" class="btn btn-outline-primary">Запази »</button>
+        </div>
+    </div>
+</form>
+

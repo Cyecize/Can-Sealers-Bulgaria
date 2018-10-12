@@ -1,0 +1,31 @@
+{% extends 'panel.twig' %}
+{% set user = app.user %}
+{# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+{# @var user \AppBundle\Entity\User #}
+{# @var information \AppBundle\Service\TwigInformer #}
+
+{% block title %}{{ dict.websiteName }} - {{ user.username }} {% endblock %}
+{% block sectionContent %}
+    {% embed 'users/partials/user-details.html.twig' with {'user':user} %} {% endembed %}
+{% endblock %}
+
+{% block panelSidebar %}
+    {% embed 'partials/sidebar/sidebar.html.twig' %}
+        {% block sidebarBody %}
+            <section class="sidebar-item">
+                <h4>{{ dict.profile }}</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="#">
+                        {{ dict.changePassword }}
+                    </a>
+                    <a class="list-group-item list-group-item-action" href="#">
+                        {{ dict.changePersonalInfo }}
+                    </a>
+                    <a class="list-group-item list-group-item-action" href="#">
+                        {{ dict.removeAccount }}
+                    </a>
+                </div>
+            </section>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

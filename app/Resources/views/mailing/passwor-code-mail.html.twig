@@ -1,0 +1,20 @@
+<div style="margin: 0 auto; text-align: center; padding: 20px;">
+
+    <h1>Здравей, {{ user.username }}!</h1>
+    <div style="text-align: left;">
+        <h2>Беше изпратено запитване за нулиране на паролата на този профил.</h2>
+    </div>
+
+    <div style="text-align: left;">
+        <label for="message-box">Код: </label><br>
+        <p style="" id="message-box">{{ passForm.code }}</p>
+    </div>
+    <div style="text-align: left;">
+        <p>Директен линк за подмяна на парола:</p>
+        <a href="{{ passForm.link }}">{{ passForm.link }}</a>
+    </div>
+
+    <h1>НЕ КЛИКАЙТЕ, АКО НЕ СТЕ НАПРАВИЛИ ЗАЯВКА!</h1>
+
+    <small>Zatvarachki.com</small>
+</div>

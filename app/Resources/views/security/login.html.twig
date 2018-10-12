@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %} Затварачки БГ - Вход {% endblock %}
+{% block body %}
+    {# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+    {% set dict = localLang.dictionary %}
+
+    <div class="fit-in-screen">
+        <h1 class="fat-text">{{ dict.login }}</h1>
+        <hr>
+
+        <form name="authenticate" action="{{ path('security_login') }}" method="post">
+            {% if error %}
+                <h3 class="alert alert-danger">{{ error }}</h3>
+            {% endif %}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="username" name="_username"
+                           placeholder="{{ dict.username }} / {{ dict.email }}" value="{{ last_username }}">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="_password"
+                           placeholder="{{ dict.password }}" required>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-outline-primary">{{ dict.go }}!</button>
+                </div>
+            </div>
+        </form>
+        {% embed 'security/lang/' ~ dict.localLang ~ '/login-additional.html.twig' %} {% endembed %}
+    </div>
+
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: 3306
+    database_name: wwwzatva_zatvarachki
+    database_user: wwwzatvarachki
+    database_password: R1E8N7mA1KeYuEBJ04lC
+    mailer_transport: smtp
+    mailer_host: mail.zatvarachki.com
+    mailer_user: sender@zatvarachki.com
+    mailer_password: 'zatvarachkiZaVseki'
+    mailer_port: 465
+    secret: ThisTokenIsNotSoSecretChangeIt

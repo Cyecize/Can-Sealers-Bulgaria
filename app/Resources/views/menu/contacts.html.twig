@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ dict.websiteName }} - {{ dict.contacts }}{% endblock %}
+{% block body %}
+
+    <div class="fit-in-screen clearfix">
+
+        <h1 class="fat-text">{{ dict.contacts }}</h1>
+        <hr>
+        {% block contacts %}
+            <section>
+                {#{% if error %}#}
+                    {#{% if error == 'success' %}#}
+                        {#<h1 class="alert alert-success">Вашето запитване беше изпратено</h1>#}
+                    {#{% else %}#}
+                        {#<h1 class="alert alert-danger">{{ error }}</h1>#}
+                    {#{% endif %}#}
+                {#{% endif %}#}
+                {% embed 'partials/forms/contact-form.html.twig' %} {% endembed %}
+            </section>
+        {% endblock %}
+
+    </div>
+
+{% endblock %}

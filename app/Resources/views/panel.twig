@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container pt-2 max-width-container bg-container mt-container pb-container">
+        {% if error is defined and error %}
+            <h3 class="alert alert-danger response-text">{{ error }}</h3>
+        {% endif %}
+        {% if info is defined and info %}
+            <h3 class="alert alert-success response-text">{{ info }}</h3>
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="main_content" style="display: none;">
+                    {% block sectionContent %}
+                        <p>Place your content here</p>
+                    {% endblock %}
+                </div>
+            </div>
+            {% block panelSidebar %}
+
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+
+    {% block sectionStylesheets %}
+
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            setTimeout(function () {
+                $('.response-text').fadeOut(1000);
+            }, 3000);
+            setTimeout(function () {
+                $('.main_content').fadeIn(600);
+            }, 200);
+        });
+    </script>
+    {% block sectionScripts %}
+
+    {% endblock %}
+{% endblock %}

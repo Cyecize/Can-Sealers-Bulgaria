@@ -1,0 +1,22 @@
+{# @var information \AppBundle\Service\TwigInformer #}
+
+<div class="row p-0 m-0">
+    <div class="col-md-6">
+        <div>
+            <div class="text-left">
+                <h3 class="fat-text">{{ dict.address }}:</h3>
+                <p>{{ information.websiteInfo.address }}</p>
+                <small>{{ information.websiteInfo.location }}</small>
+                <hr>
+                <h3 class="fat-text">{{ dict.sendQuestion }}</h3>
+                <br>
+            </div>
+            {% embed 'partials/forms/contact-form-fields.html.twig' %} {% endembed %}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1686.0148084491134!2d23.224567948996214!3d43.42681724970395!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4754cb4a872ca671%3A0xfe63d10811ab6b02!2z0YPQuy4g4oCe0J_QvtC_INCf0YPQvdGH0L7igJwgNCwgMzQwNSDQodC10LLQtdGA0L3QsCDQv9GA0L7QvNC40YjQu9C10L3QsCDQt9C-0L3QsCwg0JzQvtC90YLQsNC90LA!5e0!3m2!1sbg!2sbg!4v1510005865323"
+                width="100%" height="450" frameborder="0" style="border:0; margin-top: 5px;" allowfullscreen></iframe>
+    </div>
+</div>

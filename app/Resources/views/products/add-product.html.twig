@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% block title %}Добавяне на нов продукт: {{ category.categoryName }}{% endblock %}
+{% block body %}
+    <div class="fit-in-screen clearfix">
+        <h2>Добавяне на продукт към {{ category.categoryName }}</h2>
+        <hr>
+
+        <div class="com-md-6">
+            {% if error %}
+                <h3 class="alert alert-danger">{{ error }}</h3>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                <div class="col-md-6 clearfix">
+                    <div class="form-group">
+                        <label for="product-type">Тип на продукт</label>
+                        <input value="{{ product.productType }}" required name="product[productType]" id="product-type"
+                               placeholder="Затварачка, рецепта..." type="text" class="form-control" maxlength="40">
+                    </div>
+                    <div class="form-group">
+                        <label for="product-name">Име на продукт</label>
+                        <input value="{{ product.productName }}" required name="product[productName]" id="product-name"
+                               placeholder="Име на продукта" type="text" class="form-control" maxlength="40">
+                    </div>
+                    <div class="form-group">
+                        <label for="alt-message">Описание на снмиката</label>
+                        <input value="{{ product.altMessage }}" required name="product[altMessage]" id="alt-message"
+                               placeholder="Описание на снимката" type="text" class="form-control" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="prod-description">Описание на продукта</label>
+                        <textarea required name="product[productDescription]" id="prod-description" class="form-control"
+                                  rows="8">{{ product.productDescription }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-price">Цена на продукта</label>
+                        <input type="number" step="any" name="product[price]" id="product-price" class="form-control"
+                               value="{{ product.price }}">
+                        <small>За безплатен продукт(рецепта), изберете цена 0</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tax-status">Включва ДДС</label>
+                        <input style="height: 20px; width: 20px;" class="form-check-inline" id="tax-status"
+                               type="checkbox" name="product[taxClear]" {% if product.taxClear %} checked
+                               {% endif %}value="true">
+                    </div>
+
+                    {{ form_row(form._token) }}
+                    <div class="form-group">
+                        <label for="image-file">Избор на снимка (Препотъчително с ниска резолюция)</label>
+                        <label id="image-file-l1" class="form-control alert-danger" for="image-file">Не е избрана
+                            снимка</label>
+                        <input required style="display: none;" id="image-file" name="image[img_file]" type="file">
+                    </div>
+                    <div class="object-right">
+                        <button class="btn btn-primary" type="submit">Добавяне</button>
+                    </div>
+
+                </div>
+                <div class="col-md-6 clearfix text-center"
+                ">
+                <label id="img-preview-caption" class="preview-label">Преглед:</label>
+                <img src="" id="img-prev" class="preview-img" style="display: none;">
+        </div>
+
+        </form>
+    </div>
+
+    </div>
+    <!-- script after -->
+    <script src="{{ asset('style/js/product/add-image-to-gallery.js') }}"></script>
+    <!-- end script after -->
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('style/css/product/images.css') }}">
+{% endblock %}

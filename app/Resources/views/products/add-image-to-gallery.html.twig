@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Добавяне на снимка към продукт: {{ product.productName }}{% endblock %}
+{% block body %}
+    <div class="fit-in-screen clearfix">
+        <h2>Добавяне на снимка към галерията на {{ product.productName }} </h2>
+        <hr>
+
+        <div class="com-md-6">
+            {% if error %}
+                <h3 class="alert alert-danger">{{ error }}</h3>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="img-alt">Описание на снимката</label>
+                        <input required id="img-alt" type="text" class="form-control" name="image[altMessage]"
+                               placeholder="Кратко описание на снимката" maxlength="35"
+                               value="{{ imageToUpload.altMessage }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="targetprod">Снимката се отнася за:</label>
+                        <input id="targetprod" type="text" class="form-control" disabled
+                               value="{{ product.productName }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image-file">Избор на снимка</label>
+                        <label id="image-file-l1" class="form-control alert-danger" for="image-file">Не е избрана
+                            снимка</label>
+                        <input required style="display: none;" id="image-file" name="image[img_file]" type="file">
+                    </div>
+                    {{ form_row(form._token) }}
+                    <div class="object-right">
+                        <button class="btn btn-primary" type="submit">Добавяне</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <label id="img-preview-caption" class="preview-label">Преглед:</label>
+            <img src="" id="img-prev" class="preview-img" style="display: none;">
+        </div>
+    </div>
+    <!-- script after -->
+    <script src="{{ asset('style/js/product/add-image-to-gallery.js') }}"></script>
+    <!-- end script after -->
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('style/css/product/images.css') }}">
+{% endblock %}

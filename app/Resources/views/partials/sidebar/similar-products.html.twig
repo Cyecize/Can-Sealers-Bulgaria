@@ -1,0 +1,6 @@
+<div class="sidebar-section pt-2">
+    <p class="text-dark font-weight-bold">{{ categoryName }}:</p>
+    {% for product in products %}
+        {% embed 'products/partials/small-product-card.html.twig' with {'product':product} %} {% endembed %}
+    {% endfor %}
+</div>

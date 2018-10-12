@@ -1,0 +1,9 @@
+<p>{{ dict.username }}: <strong>{{ user.username }}</strong></p>
+<p>{{ dict.name }}: <strong>{{ user.fullName }}</strong></p>
+{% if app.user.email == user.email or is_granted('ROLE_ADMIN') %}
+    <p>{{ dict.email }}: <strong>{{ user.email }} - {{ dict.privateInfo }}</strong></p>
+    <p>{{ dict.phoneNumber }}: <strong>{{ user.phoneNumber }} - {{ dict.privateInfo }}</strong></p>
+{% endif %}
+<p>
+    {{ dict.registeredOn }}: <strong>{{ user.dateRegistered|date(information.dateFormat) }}</strong>
+</p>

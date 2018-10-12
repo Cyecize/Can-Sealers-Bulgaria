@@ -1,0 +1,10 @@
+<form method="post" action="{{ path('get_characteristic', {'id':charr.id}) }}" enctype="multipart/form-data">
+    <input type="hidden" name="characteristic[id]" value="{{ charr.id }}">
+    <input type="text" name="characteristic[icon]" class="form-control" maxlength="100" value="{{ charr.icon }}">
+    <input type="text" name="characteristic[title]" class="form-control" maxlength="40" value="{{ charr.title }}">
+    <textarea name="characteristic[body]" maxlength="250" class="form-control">{{ charr.body }}</textarea>
+    <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+    <div class="pull-right">
+        <button class=" btn btn-outline-primary">Запази »</button>
+    </div>
+</form>

@@ -1,0 +1,27 @@
+<div style="margin: 0 auto; text-align: center; padding: 20px;">
+
+    <h1>Имате въпрос от {{ notification.fullName }}
+        <small>{{ notification.dateFormat }}</small>
+    </h1>
+    <div style="text-align: left;">
+        <h2>тел. номер: {{ notification.phoneNumber }}</h2>
+    </div>
+
+    <div style="text-align: left;">
+        <label for="message-box">Въпрос: </label><br>
+        <p style="" id="message-box">{{ notification.message }}</p>
+    </div>
+
+
+    {% if notification.usernameId %}
+        <div style="text-align: left;">
+            <h2>Потребителско ID: {{ notification.usernameId }}</h2>
+        </div>
+    {% endif %}
+
+    {% if notification.email %}
+        <div style="text-align: left;">
+            <h2>Email: {{ notification.email }}</h2>
+        </div>
+    {% endif %}
+</div>

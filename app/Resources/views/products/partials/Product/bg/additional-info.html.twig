@@ -1,0 +1,9 @@
+{# @var product \AppBundle\Entity\Product #}
+{# @var information \AppBundle\Service\TwigInformer #}
+
+<h2>Контакти</h2>
+<hr>
+<p class="m-0">Имате ли въпроси относно  {{ product.productName }}?</p>
+<small>Например поддържани размери на кутии или как да поръчате.</small>
+<p class="mt-2">Можете да ни питате  <a href="{{ path('contacts') }}?about=Относно продукт {{ product.productName }}">тук</a>.</p>
+<p>Или може да ни се обадите на номер: {{ information.contacts.phoneNumber }}</p>

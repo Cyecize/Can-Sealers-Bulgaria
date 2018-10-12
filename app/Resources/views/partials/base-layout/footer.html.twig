@@ -1,0 +1,126 @@
+<link rel="stylesheet" type="text/css" href="{{ asset('style/css/footer-distributed-with-address-and-phones.css') }}">
+<!--Thanks to Freebie: 5 Beautiful and Responsive Footer Templates for the footer design-->
+{# @var information \AppBundle\Service\TwigInformer #}
+<footer class="footer-distributed clearfix">
+    <div class="footer-holder" style="max-width: 1300px; margin: 0 auto;">
+        <div class="footer-left">
+            <h3>Zatvar<span>achki</span></h3>
+            <ul class="footer-links" style="list-style: none;">
+                <li>
+                    <label>BG
+                        <input name="lang" type="radio" value="bg">
+                    </label>
+                    <label>EN
+                        <input name="lang" type="radio" value="en">
+                    </label>
+                </li>
+                <li>
+                    <a href="{{ path('homepage') }}">
+                        <span class="text-orange-hover smooth"> {{ dict.home }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('show_categories') }}">
+                        <span class="text-orange-hover smooth">{{ dict.products }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('contacts') }}">
+                        <span class="text-orange-hover smooth">{{ dict.contacts }}</span>
+                    </a>
+                </li>
+                {% if app.user %}
+
+                    <li>
+                        <a href="{{ path('security_logout') }}">
+                            <span class="text-orange-hover smooth">{{ dict.logout }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('my_profile') }}">
+                            <span class="text-orange-hover smooth text-uppercase">{{ app.user.username }}</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path('security_login') }}">
+                            <span class="text-orange-hover smooth">{{ dict.login }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('security_register') }}">
+                            <span class="text-orange-hover smooth">{{ dict.register }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            <a href="https://www.linkedin.com/in/cyecize/" target="_blank" style="text-decoration: none;">
+                <p class="footer-company-name">&copy; 2017 Изработено от Tsvetelin Yakimov </p>
+            </a>
+        </div>
+
+        <div class="footer-center" id="center-footer">
+            {% if app.user %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <p class="btn btn-primary btn-sm" id="edit-contact-info">
+                        Редакция »
+                    </p>
+                {% endif %}
+            {% endif %}
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p>{{ information.websiteInfo.address }}
+                    <span>{{ information.websiteInfo.location }}</span>
+                </p>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>{{ information.contacts.phoneNumber }}</p>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>{{ information.contacts.phoneNumber2 }}</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p>
+                    <a href="mailto:{{ information.contacts.email }}?Subject=Въпрос%20относно">{{ information.contacts.email }}</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-right" id="right-footer">
+
+            <div id="about-us-footer">
+                <p class="footer-company-about">
+                    <span>{{ dict.aboutUs }}</span>
+                    {{ information.websiteInfo.aboutUs }}
+                </p>
+                {% if app.user %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="object-right">
+                            <p class="btn btn-primary btn-sm" id="edit-about-us">
+                                Редакция »
+                            </p>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <div class="footer-icons">
+                {% for link in information.socialLinks %}
+                    <div style="display:inline-block; color: white;">
+                        <a href="{{ link.link }}"><i class="fa {{ link.icon }}"></i></a>
+                        {% if app.user %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="object-right">
+                                    <i class="fa fa-pencil-square-o social-link-edit" linkId="{{ link.id }}" aria-hidden="true"></i>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</footer>

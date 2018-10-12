@@ -1,0 +1,66 @@
+{#<nav class="navbar navbar-inverse navbar-fixed-top">#}
+<nav class="navbar navbar-expand-lg  fixed-top" id="navbar-main">
+    <div class="container max-width-container">
+        <a class="navbar-brand" href="/">
+            <span class="cookiefont t-white"> Zatvar<span>achki</span></span>
+        </a>
+        <button class="navbar-toggler bg-dark " type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon fa fa-bars text-primary d-flex align-items-center justify-content-center"
+                  style="font-size: 1.3em;"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <!-- consider adding items on the left -->
+                <li class="nav-item">
+                    <div class="text-info d-mobile-none">{{ dict.callNow }}</div>
+                    <span>
+                        <i class="fa fa-phone"></i>
+                        <a href="tel:{{ information.contacts.phoneNumber }}" class="text-info">
+                            {{ information.contacts.phoneNumber }}
+                        </a>
+                    </span>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto t-white ">
+                <li class="nav-item ">
+                    <a href="/" class="nav-link smooth text-orange-hover">{{ dict.home }}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('show_categories') }}" class="nav-link smooth text-orange-hover">
+                        {{ dict.products }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('contacts') }}" class="nav-link smooth text-orange-hover">{{ dict.contacts }}</a>
+                </li>
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a href="{{ path('security_logout') }}" class="nav-link smooth text-orange-hover">
+                            {{ dict.logout }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('my_profile') }}" class="nav-link smooth text-orange-hover">
+                            {{ app.user.getUsername }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{{ path('security_login') }}" class="nav-link smooth text-orange-hover">
+                            {{ dict.login }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('security_register') }}" class="nav-link smooth text-orange-hover">
+                            {{ dict.register }}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

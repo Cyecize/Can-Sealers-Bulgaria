@@ -1,0 +1,25 @@
+{# @var category \AppBundle\Entity\ProductCategory #}
+{# @var parentCategory \AppBundle\Entity\ProductCategory #}
+{# @var twigUtil \AppBundle\Utils\TwigUtil #}
+
+<div class="sidebar-item">
+    <p class="text-dark font-weight-bold">
+        {% block catSectionTitle %}
+            {{ dict.categories }}
+        {% endblock %}
+        {% if parentCategory is defined and parentCategory %}
+            <a href="{{ path('category_details', {'catName':parentCategory.latinName}) }}">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        {% endif %}
+    </p>
+    <small><a href="{{ path('show_categories') }}">{{ dict.all }}</a></small>
+    <div class="list-group">
+        {% for category in categories %}
+            <a class="list-group-item list-group-item-action"
+               href="{{ path('category_details', {'catName':category.latinName}) }}">
+                {{ twigUtil.categoryName(category, dict.localLang) }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
