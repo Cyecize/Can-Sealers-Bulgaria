@@ -1,78 +1,82 @@
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-
-.navbar{
-	background: rgba(0,0,0,0);
+.navbar {
+    background: rgba(0, 0, 0, 0);
 }
 
 .site-header {
-	
-	background: linear-gradient(rgba(60,62,74,0.8), rgba(60,62,74,0.1)), url('../../img/header-bg.png');
+    background: linear-gradient(rgba(60, 62, 74, 0.7), rgba(60, 62, 74, 0.01)), url('../../img/header-bg.png');
+    /*background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;*/
+    -webkit-background-size: cover;
+    background-size: cover;
+    text-align: center;
+    min-height: 420px;
+}
 
-	/*background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100% 100%;*/
-	-webkit-background-size: cover;
-	background-size: cover;
-
-	text-align: center;
-	min-height:420px;
-
-	}
-
-.site-header{
-	/*enhanced*/
-	display: flex;
-	align-items: flex-end;
+.site-header {
+    /*enhanced*/
+    display: flex;
+    align-items: flex-end;
 }
 
 .navigation {
-	
-  text-align: right; 
-  padding: 30px; 
+
+    text-align: right;
+    padding: 30px;
 }
 
 .navigation li {
-	
-	display: inline-block; 
-	margin-right: 35px; 
-	text-transform: uppercase; 
-	color: white; 
-	font-weight: bold; 
-	
+
+    display: inline-block;
+    margin-right: 35px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+
 }
 
 .navigation li:hover {
-	
-	color: #FA6A2E; 
+
+    color: #FA6A2E;
 }
 
 .navigation a {
-	
-	text-decoration: none; 
+
+    text-decoration: none;
 }
 
 .code-mesh-left {
-	
-	float: left; 
+
+    float: left;
 }
 
 .mid-header {
-	text-align: center;
-	/*padding-top: 100px; originally but i made the header FLEX and aligned
-	center cause the customer did not want testimonies(4) so i made them invisible*/
-	margin: 0 auto;
+    text-align: center;
+    /*padding-top: 100px; originally but i made the header FLEX and aligned
+    center cause the customer did not want testimonies(4) so i made them invisible*/
+    margin: 0 auto;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
-.mid-header h1{
-	/*color: white;*/
-	/*color: #FA6A2E;*/
-	/*-webkit-box-shadow:  2px 2px 10px rgba(229,229,229,1);
-	-moz-box-shadow:  2px 2px 10px rgba(229,229,229,1);
-	box-shadow:  2px 2px 10px rgba(229,229,229,1);
-	background: rgba(229,229,229,0.5); /
-	*/
-	color: rgba(0,190,2,1);
+
+.bg-banner {
+    -webkit-box-shadow: 0px 0px 66px 5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 66px 5px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 66px 5px rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.mid-header h1 {
+    /*color: white;*/
+    /*color: #FA6A2E;*/
+    /*-webkit-box-shadow:  2px 2px 10px rgba(229,229,229,1);
+    -moz-box-shadow:  2px 2px 10px rgba(229,229,229,1);
+    box-shadow:  2px 2px 10px rgba(229,229,229,1);
+    background: rgba(229,229,229,0.5); /
+    */
+    color: rgba(0, 190, 2, 1);
 }
 
 /*.mid-header h1:hover{
@@ -82,418 +86,440 @@
 }*/
 
 .both {
-	
-	display: inline-block; 
-	
+
+    display: inline-block;
+
 }
+
 .mid-header-text {
-	
-	display: inline-block; 
-	min-width: 350px; 
-	max-width: 500px; 
-	color: white; 
-	text-align: left; 
+
+    display: inline-block;
+    min-width: 350px;
+    max-width: 500px;
+    color: white;
+    text-align: left;
 
 }
+
 .mid-header-text h1 {
-	color:white;
-	font-weight: 100;
+    color: white;
+    font-weight: 100;
 
 }
+
 .play-button {
-	
-	font-size: 3em; 
-	
-	float: right; 
-	margin-top: 20px; 
-	
+
+    font-size: 3em;
+
+    float: right;
+    margin-top: 20px;
+
 }
+
 .play-button:hover {
-	
-	color: #FA6A2E; 
+
+    color: #FA6A2E;
 }
 
 .lower-header {
-	
-	display: inline-block; 
-	margin-top: 50px; 
+
+    display: inline-block;
+    margin-top: 50px;
 
 }
 
 .lower-header h2 {
-	
-	font-size: 0.75em; 
-	color: white; 
-	font-weight: 100; 
-	vertical-align: middle; 
+
+    font-size: 0.75em;
+    color: white;
+    font-weight: 100;
+    vertical-align: middle;
 }
 
-.join-us-header{
-	
-	display:inline-block;
-	width: 310px; 
-	height: 200px; 
-	text-align: left; 
-	
-	vertical-align: top; 
-	margin-right: 5px; 
-}
+.join-us-header {
 
+    display: inline-block;
+    width: 310px;
+    height: 200px;
+    text-align: left;
+
+    vertical-align: top;
+    margin-right: 5px;
+}
 
 .join-us-header h2 {
-	margin-top: 50px; 
+    margin-top: 50px;
 }
 
 .join-us-header:hover {
-	box-sizing: border-box; 
-	
+    box-sizing: border-box;
+
     border-bottom: 15px #FA6A2E solid;
-	border-color: #FA6A2E; 
-	
+    border-color: #FA6A2E;
+
 }
+
 .join-us-header h1 {
-	
-	color: white; 
-	font-size: 1.5em;
+
+    color: white;
+    font-size: 1.5em;
 }
 
 .moto {
-	
-	min-height: 400px; 
-	
-	text-align: center; 
-	position: relative; 
+
+    min-height: 400px;
+
+    text-align: center;
+    position: relative;
 }
 
 .moto-content {
-	
 
-	padding: 30px; 
-	position:relative;
+    padding: 30px;
+    position: relative;
 }
-
-
 
 .moto-middle h2 {
-	
-	font-size: 0.8em; 
-	font-weight: 400; 
-	
+
+    font-size: 0.8em;
+    font-weight: 400;
+
 }
 
-.moto-left , .moto-middle , .moto-right{
-	
-	display: inline-block;
-	 
-	vertical-align: top; 
-	margin: 30px;
-	text-align: left; 
-	margin-right: 20px; 
-	margin-left: 20px; 
+.moto-left, .moto-middle, .moto-right {
+
+    display: inline-block;
+
+    vertical-align: top;
+    margin: 30px;
+    text-align: left;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .moto-left {
-	
-	width: 340px; 
-	text-align: right;
+
+    width: 340px;
+    text-align: right;
 }
 
 .moto-left h1 {
-	
-	color: #3C3E4A; 
-	font-size: 1.4em;
+
+    color: #3C3E4A;
+    font-size: 1.4em;
 }
 
 .moto-left h2 {
-	display:inline-block;
-	font-size: 0.8em;
-	color: #3C3E4A; 
-	margin-top: 20px; 
-	
+    display: inline-block;
+    font-size: 0.8em;
+    color: #3C3E4A;
+    margin-top: 20px;
+
 }
 
 .moto-right {
-	
-	width: 300px;
+
+    width: 300px;
 }
 
 .moto-middle {
-	
-	width: 400px; 
-}
-.moto-middle hr {
-	
-	margin-top: 30px;
-}
-#strange-orange-moto {
-	
-	display: inline-block;
-	
-	vertical-align: top; 
-	width: 400px; 
-	height: 90%;
-position:absolute; 
 
-background-color: rgba(250,106,46,0.8); 
-	
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-left: 55%;
+    width: 400px;
+}
+
+.moto-middle hr {
+
+    margin-top: 30px;
+}
+
+#strange-orange-moto {
+
+    display: inline-block;
+
+    vertical-align: top;
+    width: 400px;
+    height: 90%;
+    position: absolute;
+
+    background-color: rgba(250, 106, 46, 0.8);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 55%;
 }
 
 .schedule {
-	
-	color:white; 
-	background-color:#3C3E4A;
-	text-align: center;
-	border: 1px white solid;
-	padding: 40px; 
-	
-	padding-left: 100px; 
-	padding-right: 100px; 
+
+    color: white;
+    background-color: #3C3E4A;
+    text-align: center;
+    border: 1px white solid;
+    padding: 40px;
+
+    padding-left: 100px;
+    padding-right: 100px;
 }
+
 .schedule h1 {
-	
-	text-align: left; 
-	
-	 margin-left: 60px; 
+
+    text-align: left;
+
+    margin-left: 60px;
 
 }
 
 .schedule-schedule {
-	
-	
-	max-width: 1300px; 
-	margin: 0 auto; 
-	
+
+    max-width: 1300px;
+    margin: 0 auto;
+
 }
 
 .schedule-schedule h1 {
-	
-	font-size: 1em; 
-	font-weight: 100;
-	float: left; 
-	
+
+    font-size: 1em;
+    font-weight: 100;
+    float: left;
+
 }
+
 .schedule-schedule h2 {
-	
-	font-weight: 100;
-	font-size: 0.7em;
-	float: left; 
-	margin-left: 10px; 
-	margin-top: 18px; 
-	
+
+    font-weight: 100;
+    font-size: 0.7em;
+    float: left;
+    margin-left: 10px;
+    margin-top: 18px;
+
 }
+
 .schedule-ico {
-	background-color: rgba(250,106,46,1);
-	border-radius: 50%; 
-	width: 45px; 
-	height: 45px; 
-	line-height: 45px; 
-	float: left;
-	
+    background-color: rgba(250, 106, 46, 1);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    float: left;
+
 }
+
 .schedule-schedule li {
-	
-	display: inline-block; 
-	
-	min-width: 400px;
-	margin-right: 100px; 
-	margin-top: 100px;
+
+    display: inline-block;
+
+    min-width: 400px;
+    margin-right: 100px;
+    margin-top: 100px;
 }
-.fa-address-book , .fa-microphone , .fa-cutlery {
-  margin-top: 15px; 
+
+.fa-address-book, .fa-microphone, .fa-cutlery {
+    margin-top: 15px;
 }
+
 .schedule-schedule ul {
-	
-	margin: 0 auto; 
-	padding: 0; 
+
+    margin: 0 auto;
+    padding: 0;
 }
 
 .schedule-schedule h1 {
-	
-	margin-left: 10px; 
+
+    margin-left: 10px;
 }
 
 .speakers {
-	
-	text-align: center; 
-	padding-top: 40px; 
-	padding-left: 100px; 
-	padding-right: 100px; 
-	padding-top: 40px; 
-	height: 800px; 
-	
+
+    text-align: center;
+    padding-top: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 40px;
+    height: 800px;
+
 }
 
 .speakers-text {
-	
-	
+
 }
+
 .speakers h1 {
-	
-	color: #3C3E4A;
-	font-size: 1.3em; 
-	 text-align: left; 
+
+    color: #3C3E4A;
+    font-size: 1.3em;
+    text-align: left;
 }
+
 .speakers h2 {
-	 
-	
-	font-weight: 100; 
-	font-size: 0.7em; 
-	
+
+    font-weight: 100;
+    font-size: 0.7em;
+
 }
+
 .speakers-left-text {
-	
-	display: inline-block; 
-	max-width: 550px; 
-	
+
+    display: inline-block;
+    max-width: 550px;
+
 }
+
 .speakers-right-text {
-	
-	display: inline-block ;
-	
-	
+
+    display: inline-block;
+
 }
+
 .speakers-profiles {
-	
-	max-width: 1100px; 
-	text-align: center; 
-	
-	margin: 0 auto; 
- 
+
+    max-width: 1100px;
+    text-align: center;
+
+    margin: 0 auto;
+
 }
+
 #holder {
-	
-	display: inline-block; 
-	width: 200px; 
-	height: 280px; 
-	 
-	margin: 20px; 
-	float: left; 
-	    box-shadow: 10px 10px  10px rgba(0, 0, 0, 0.2);
-		text-align: left; 
+
+    display: inline-block;
+    width: 200px;
+    height: 280px;
+
+    margin: 20px;
+    float: left;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+    text-align: left;
 }
 
 #holder:hover {
-	
-	 box-shadow: 15px 15px  10px rgba(0, 0, 0, 0.4);
-	
+
+    box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.4);
+
 }
 
 #holder p {
-	
-	font-weight: bold; 
-	color: #3C3E4A;
+
+    font-weight: bold;
+    color: #3C3E4A;
 }
 
 #holder h2 {
-	text-transform: uppercase; 
-	color: rgba(0,0,0,0.5);
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
 }
-
 
 .subscribe {
-	
-	background-color: #3C3E4A;
-	
-	text-align: center; 
-	color: white; 
-	padding: 100px; 
+
+    background-color: #3C3E4A;
+
+    text-align: center;
+    color: white;
+    padding: 100px;
 }
+
 #email input {
-	
-	border: none; 
-	border-bottom: 2px rgba(250,106,46,1) solid; 
-	color: white; 
-	font-size: 20px; 
-	background-color: #3C3E4A; 
-	display: inline-block;
-	margin-right: 20px; 
-	
-	
+
+    border: none;
+    border-bottom: 2px rgba(250, 106, 46, 1) solid;
+    color: white;
+    font-size: 20px;
+    background-color: #3C3E4A;
+    display: inline-block;
+    margin-right: 20px;
+
 }
+
 #email input::-webkit-input-placeholder {
-	
-	color: white; 
+
+    color: white;
 }
 
 #email input:focus {
-	
-	outline: none; 
+
+    outline: none;
 }
+
 .subscribe-box {
-	
-	display: inline-block; 
-	width: 70%; 
-	height: 300px; 
-	border: 1px white solid; 
-	padding: 40px;
+
+    display: inline-block;
+    width: 70%;
+    height: 300px;
+    border: 1px white solid;
+    padding: 40px;
 }
+
 .subscribe-box h1 {
-	font-weight:900;
-	font-size: 2.4em; 
+    font-weight: 900;
+    font-size: 2.4em;
 }
 
 .subscribe-box p {
-	
-	display: inline-block; 
-	width: 580px; 
-	font-size: 0.85em; 
+
+    display: inline-block;
+    width: 580px;
+    font-size: 0.85em;
 }
 
 #email {
-	
-	margin-top: 30px; 
-	 
-	text-align: center; 
-	height: 60px; 
+
+    margin-top: 30px;
+
+    text-align: center;
+    height: 60px;
 }
 
 .button {
-	display: inline-block; 
-	background-color: rgba(250,106,46,1);
-	border-radius: 20px; 
-	padding: 10px; 
-	font-weight: bold; 
-	padding-left: 20px; 
-	padding-right: 20px; 
+    display: inline-block;
+    background-color: rgba(250, 106, 46, 1);
+    border-radius: 20px;
+    padding: 10px;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .button:hover {
-	background-color: #292A2F; 
+    background-color: #292A2F;
 }
+
 .site-footer {
-	
-	background-color: #292A2F;
-	 
-	color: white; 
-	padding: 50px; 
+
+    background-color: #292A2F;
+
+    color: white;
+    padding: 50px;
 }
 
 .site-footer h1 {
-	
-	margin: 0 auto;
-	font-size: 0.75em; 
-	display: inline-block;
-	float: left;
-	color: rgba(255,255,255,0.9); 
+
+    margin: 0 auto;
+    font-size: 0.75em;
+    display: inline-block;
+    float: left;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .site-footer h2 {
-	
-	margin: 0 auto; 
-	display: inline-block; 
-	font-size: 0.75em; 
-	float: right; 
-	color: rgba(255,255,255,0.5); 
+
+    margin: 0 auto;
+    display: inline-block;
+    font-size: 0.75em;
+    float: right;
+    color: rgba(255, 255, 255, 0.5);
 }
 
+@media screen and (max-width: 768px) {
+    .font-banner {
+        font-size: 2.5em;
+    }
 
-
-
-
+    .bg-banner{
+        background: transparent;
+        -webkit-box-shadow: inset 0 0 0px #FFFFFF;
+        -moz-box-shadow: inset 0 0 0px #FFFFFF;
+        box-shadow: inset 0 0 0px #FFFFFF;
+    }
+}
 
 
 

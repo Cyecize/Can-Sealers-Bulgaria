@@ -35,7 +35,6 @@ class DefaultController extends BaseController
     {
         // replace this example code with whatever you need
         $err = $request->get('error');
-
         return $this->render(':default:index.html.twig', [
             'characteristics' => $characteristicsService->getCharacteristics(),
             'err' => $err, //error

@@ -7,6 +7,12 @@ Zatvarachki BG is a simple website that has products (can sealers and cans), rec
 Originally created in 2017 it is now being reworked to support two languages, some new features
 and to put better code practices in practice.
 
+Visit
+--------------
+https://zatvarachki.com/
+--------------
+https://zatvarachki.com/?lang=en
+
 The main features
 --------------
 

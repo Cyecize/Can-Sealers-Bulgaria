@@ -18,7 +18,7 @@ class LanguagePackBG implements ILanguagePack
     public const LOGIN = "Вход";
     public const REGISTER = "Регистрация";
     public const CALL_NOW = "Обадете се сега:";
-    public const WELCOME_MESSAGE = "С НАС ЖИВОТА ВИ СТАВА ПО-ВКУСЕН";
+    public const WELCOME_MESSAGE = "С Нас Живота Ви Става По-Вкусен";
     public const WE_GUARANTEE = "Ние Гарантираме";
     public const CATEGORIES = "Категории:";
     public const ADDRESS = "Адрес";
