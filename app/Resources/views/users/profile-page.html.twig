@@ -15,13 +15,13 @@
             <section class="sidebar-item">
                 <h4>{{ dict.profile }}</h4>
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action" href="#">
+                    <a class="list-group-item list-group-item-action" href="{{ path('edit_password') }}">
                         {{ dict.changePassword }}
                     </a>
-                    <a class="list-group-item list-group-item-action" href="#">
+                    <a class="list-group-item list-group-item-action" href="{{ path('edit_personal_info') }}">
                         {{ dict.changePersonalInfo }}
                     </a>
-                    <a class="list-group-item list-group-item-action" href="#">
+                    <a class="list-group-item list-group-item-action" href="{{ path('remove_account') }}">
                         {{ dict.removeAccount }}
                     </a>
                 </div>

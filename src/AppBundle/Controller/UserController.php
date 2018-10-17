@@ -8,19 +8,22 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Constants\Constants;
-use AppBundle\Entity\User;
+use AppBundle\BindingModel\ChangePasswordBindingModel;
+use AppBundle\BindingModel\PersonalInfoBindingModel;
+use AppBundle\Exception\IllegalArgumentException;
+use AppBundle\Exception\NotFoundException;
+use AppBundle\Form\EditPasswordType;
+use AppBundle\Form\PersonalInfoType;
 use AppBundle\Service\LocalLanguage;
 use AppBundle\Service\UserService;
-use AppBundle\Utils\RandomCreator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Swift_TransportException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends BaseController
 {
+    private const USER_NOT_FOUND_MSG = "User not found!";
+
     /**
      * @var UserService
      */
@@ -33,8 +36,26 @@ class UserController extends BaseController
     }
 
     /**
+     * @Route("/user/show/{username}", name="show_user", defaults={"username":null})
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param $username
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws NotFoundException
+     */
+    public function userDetailsAction($username){
+        $user = $this->userService->findOneByUsername($username);
+        if($user == null)
+            throw new NotFoundException(self::USER_NOT_FOUND_MSG);
+        return $this->render('menu/show-user.html.twig', [
+            'user'=>$user,
+        ]);
+    }
+
+    /**
      * @Route("/profile", name="my_profile")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function myProfileAction(Request $request)
     {
@@ -46,298 +67,77 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/edit-password", name="edit_password")
+     * @Route("/user/edit/password", name="edit_password")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \AppBundle\Exception\InternalRestException
      */
-    public function editPasswordAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function editPasswordAction(Request $request)
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser()->getId());
-
-        $userPasswords = new UserPasswords();
-        $form = $this->createForm(UserPasswordType::class, $userPasswords);
+        $bindingModel = new ChangePasswordBindingModel();
+        $form = $this->createForm(EditPasswordType::class, $bindingModel);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-
-
-            $oldPass = $userPasswords->getOldPassword();
-            if (!$userPasswords->isPasswordsValid())
-                return $this->redirectToRoute('my_profile', array('error' => 'Попълнете всички полета!'));
-            if (!password_verify($oldPass, $user->getPassword()))
-                return $this->redirectToRoute('my_profile', array('error' => 'Невалидна стара парола!'));
-            if (!$userPasswords->isPasswordsEqual())
-                return $this->redirectToRoute('my_profile', array('error' => 'Паролите не съвпадат'));
-
-            $newPassword = $encoder->encodePassword($user, $userPasswords->getNewPassword());
-            $user->setPassword($newPassword);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute("security_logout");
-        }
-
-        return $this->render(":Queries:password-edit.html.twig",
-            [
-                'form' => $form->createView(),
-            ]);
-    }
-
-    /**
-     * @Route("/edit-personal", name="edit_personal_info")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-     */
-    public function editPersonalInfoAction(Request $request)
-    {
-
-        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser()->getId());
-        $editedUser = new User();
-        $form = $this->createForm(UserPersonalInfoType::class, $editedUser);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            $user->setPhoneNumber($editedUser->getPhoneNumber());
-            $user->setFullName($editedUser->getFullName());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->merge($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute("my_profile");
-        }
-
-        return $this->render(":Queries:personal-info-edit.html.twig",
-            [
-                'form' => $form->createView(),
-            ]);
-    }
-
-    /**
-     * @Route("/remove-user/{username}", name="remove_user", defaults={"username"=null})
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-     */
-    public function removeUserAction(Request $request)
-    {
-        if (!$this->getUser()->getAdminStatus()) {
-            return $this->redirectToRoute("homepage");
-        }
-        $userRepo = $this->getDoctrine()->getRepository(User::class);
-
-        $users = $userRepo->findAll();
-        $userToRemove = $request->get('userToRemove');
-
-        if ($userToRemove != null) {
-            $targetUser = $userRepo->findOneBy(array('username' => $userToRemove));
-
-            if ($targetUser == null)
-                $targetUser = $userRepo->findOneBy(array('email' => $userToRemove));
-            if ($targetUser == null)
-                return $this->redirectToRoute('my_profile', ['error' => "Невалидно потр. име или E-Mail"]);
-            if ($targetUser->getAdminStatus())
-                return $this->redirectToRoute("my_profile", ['error' => "Опитахте се да изтриете администраторски акаунт"]);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($targetUser);
-            $entityManager->flush();
-
-            return $this->redirectToRoute("my_profile");
-        }
-
-        return $this->render(':Queries:user-remove.html.twig',
-            [
-                'users' => $users,
-            ]);
-    }
-
-    /**
-     * @Route("/grant-user", name="grant_user_admin_status")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-     */
-    public function grantUserAction(Request $request)
-    {
-        if (!$this->getUser()->getAdminStatus()) {
-            return $this->redirectToRoute("homepage");
-        }
-        $userRepo = $this->getDoctrine()->getRepository(User::class);
-
-        $users = $userRepo->findAll();
-        $userToGrant = $request->get('userToRemove');
-
-        if ($userToGrant != null) {
-            $targetUser = $userRepo->findOneBy(array('username' => $userToGrant));
-
-            if ($targetUser == null)
-                $targetUser = $userRepo->findOneBy(array('email' => $userToGrant));
-            if ($targetUser == null)
-                return $this->redirectToRoute('my_profile', ['error' => "Невалидно потр. име или E-Mail"]);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $targetUser->setAdminStatus(true);
-            $entityManager->persist($targetUser);
-            $entityManager->flush();
-
-            return $this->redirectToRoute("my_profile");
-        }
-
-        return $this->render(":Queries:user-grant-admin.html.twig",
-            [
-                'users' => $users,
-            ]);
-    }
-
-    /**
-     * @Route("/recover-password", name="password_recovery")
-     *
-     **/
-    public function recoverPasswordAction(Request $request)
-    {
-
-
-        return $this->render(":default:recover-password.html.twig",
-            [
-                'information' => $this->manageInformation(),
-            ]);
-    }
-
-    /**
-     * @Route("/search-user-for-recovery/{username}", name="search_user_for_recovery", defaults={"username"=null})
-     **/
-    public function searchUserAction(Request $request, $username, \Swift_Mailer $mailer)
-    {
-        $user = null;
-        $errorMessage = null;
-        if ($username == null) {
-            $errorMessage = "Невалидно потр. име или E-Mail";
-            goto  escape;
-        }
-        $userRepo = $this->getDoctrine()->getRepository(User::class);
-        $user = $userRepo->findOneBy(array('username' => $username));
-        if ($user == null)
-            $user = $userRepo->findOneBy(array('email' => $username));
-        if ($user == null) {
-            $errorMessage = "Несъществуващо потр. име или E-Mail";
-            goto  escape;
-        }
-
-        //send code section
-        $userToSend = $request->get('targetUser');
-        if ($userToSend != null) {
-            $passwordRecovery = new PasswordRecovery();
-            $passwordRecovery->setUserId($user->getId());
-            $passwordRecovery->setCode(RandomCreator::createSecretCode());
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($passwordRecovery);
-            $entityManager->flush();
-
-            //send mail
-            $message = (new \Swift_Message("Zatvarachki -> забравена парола"))
-                ->setFrom([Constants::$mailer => Constants::$mailerAs])
-                ->setTo($user->getEmail())
-                ->setBody($this->renderView(
-                    ':Mailing:passwor-code-mail.html.twig',
-                    array('user' => $user, 'passForm' => $passwordRecovery)
-                ),
-                    'text/html');
-
+        $error = null;
+        if ($form->isSubmitted() && count($this->validate($bindingModel)) < 1) {
+            $this->validateToken($request);
             try {
-                $mailer->send($message);
-            } catch (Swift_TransportException $e) {
+                $this->userService->changePassword($this->userService->findOneById($this->getUserId()), $bindingModel);
+                return $this->redirectToRoute('security_logout');
+            } catch (IllegalArgumentException $e) {
+                $error = $this->language->forName($e->getMessage());
             }
-            //end sendEmail
-
-            return $this->render(":default:password-code-sent.html.twig",
-                [
-                    'user' => $user,
-                    'information' => $this->manageInformation()
-                ]);
         }
-        //end send code section
-
-
         escape:
-        return $this->render(":Queries:search-user.html.twig", [
-            'errorMessage' => $errorMessage,
-            'user' => $user,
+        return $this->render(':users/settings:change-password.html.twig', [
+            'form1' => $form->createView(),
+            'error' => $error
         ]);
     }
 
     /**
-     * @Route("/recovery/password/{code}", name="change_recovered_password", defaults={"code"=null})
-     **/
-    public function recoverPasswordFromCodeAction(Request $request, $code)
+     * @Route("/user/edit/info", name="edit_personal_info")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \AppBundle\Exception\InternalRestException
+     */
+    public function editPersonalInfoAction(Request $request)
     {
-        $error = null;
-        $codeGet = $request->get('secretCode');
-        if ($code == null && $codeGet != null) {
-            return $this->redirectToRoute("change_recovered_password", ['code' => $codeGet]);
-        }
-        $codeClass = $this->getDoctrine()->getRepository(PasswordRecovery::class)->findOneBy(
-            [
-                'code' => $code,
-                'status' => [PasswordRecovery::$OPEN, PasswordRecovery::$IN_PROGRESS]
-            ]);
-        if ($codeClass == null) {
-            $error = "Невалиден код!";
-            return $this->redirectToRoute("homepage", ['error' => $error]);
-        }
-        $entityManager = $this->getDoctrine()->getManager();
-        if ($codeClass->getStatus() == $codeClass::$OPEN) {
-            $codeClass->setStatus($codeClass::$IN_PROGRESS);
-            $entityManager->merge($codeClass);
-            $entityManager->flush();
-        }
-        $user = $this->getDoctrine()->getRepository(User::class)->find($codeClass->getUserId());
-
-        $passwordForm = new UserPasswords();
-        $form = $this->createForm(UserPasswordType::class, $passwordForm);
+        $bindingModel = new PersonalInfoBindingModel();
+        $form = $this->createForm(PersonalInfoType::class, $bindingModel);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if (!$passwordForm->isPasswordsEqual()) {
-                $error = "Паролите не съвпадат";
-                goto escape;
-            }
-            if (trim(strlen($passwordForm->getNewPassword())) < Constants::$passowordLen) {
-                $error = "Паролите са под " . Constants::$passowordLen . " знака";
-                goto escape;
-            }
-            $user->setPassword($this->get('security.password_encoder')->encodePassword($user, trim($passwordForm->getNewPassword())));
-            $codeClass->setStatus(PasswordRecovery::$FINISHED);
-            $entityManager->merge($user);
-            $entityManager->merge($codeClass);
-            $entityManager->flush();
-
-
-            //clean old requests
-            $oldRequests = $this->getDoctrine()->getRepository(PasswordRecovery::class)->findBy(
-                [
-                    'userId' => $user->getId(),
-                    'status' => [PasswordRecovery::$OPEN, PasswordRecovery::$IN_PROGRESS]
-                ]);
-
-            $connection = $entityManager->getConnection();
-            foreach ($oldRequests as $oldRequest) {
-                $idToRemove = $oldRequest->getId();
-                $statement = $connection->prepare("DELETE FROM password_recoveries WHERE  id = '$idToRemove'");
-                $statement->execute();
-            }
-            $entityManager->flush();
-            //end clean all old requests
-
-            return $this->redirectToRoute("security_login");
+        if ($form->isSubmitted() && count($this->validate($bindingModel)) < 1) {
+            $this->validateToken($request);
+            $this->userService->editUserInfo($this->userService->findOneById($this->getUserId()), $bindingModel);
+            return $this->redirectToRoute('my_profile');
         }
 
-
-        escape:
-        return $this->render(":default:change-recovered-password.html.twig",
-            [
-                'information' => $this->manageInformation(),
-                'error' => $error,
-                'form' => $form->createView(),
-            ]);
-
+        return $this->render('users/settings/edit-personal-info.html.twig', [
+            'form1' => $form->createView(),
+        ]);
     }
 
-
+    /**
+     * @Route("/user/account/remove", name="remove_account", defaults={"username"=null})
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws IllegalArgumentException
+     * @throws \AppBundle\Exception\InternalRestException
+     */
+    public function removeUserAction(Request $request)
+    {
+        if ($request->getMethod() == "POST") {
+            $userId = $this->getUserId(); //TODO !This is important since after invalidating session userId will be null
+            $this->validateToken($request);
+            $this->get('security.token_storage')->setToken(null);
+            $this->get('session')->invalidate();
+            $this->userService->removeAccount($this->userService->findOneById($userId));
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render('users/settings/remove-profile.html.twig');
+    }
 }

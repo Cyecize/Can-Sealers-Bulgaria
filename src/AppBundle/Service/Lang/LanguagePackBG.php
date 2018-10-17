@@ -54,13 +54,25 @@ class LanguagePackBG implements ILanguagePack
     public const PROFILE = "Профил";
     public const REGISTERED_ON = "Регистриран на";
     public const CHANGE_PASSWORD = "Смяна на парола";
-    public const CHANGE_PERSONAL_INFO = "Сманя на лична информация";
-    public const REMOVE_ACCOUNT = "Премахване на приятел";
+    public const CHANGE_PERSONAL_INFO = "Смяна на лична информация";
+    public const REMOVE_ACCOUNT = "Премахване на профил";
     public const PRIVATE_INFO = "Скрито";
     public const PHONE_NUMBER = "Тел. номер";
     public const NAME = "Име";
     public const OPTIONAL = "По Желание";
     public const USERNAME_OR_EMAIL_DOES_NOT_EXIST = "Потребител с това потр. име или Е-Mail не е намерен!";
+    public const INVALID_PASSWORD = "Неправилна парола!";
+    public const SAVE = "Запазване";
+
+    public function save(): string
+    {
+       return self::SAVE;
+    }
+
+    public function invalidPassword(): string
+    {
+        return self::INVALID_PASSWORD;
+    }
 
     public function usernameOrEmailDoesNotExist(): string
     {

@@ -10,9 +10,11 @@ namespace AppBundle\Service;
 
 
 use AppBundle\BindingModel\ChangePasswordBindingModel;
+use AppBundle\BindingModel\PersonalInfoBindingModel;
 use AppBundle\Entity\Role;
 use AppBundle\Entity\User;
 use AppBundle\Exception\IllegalArgumentException;
+use AppBundle\Form\PersonalInfoType;
 
 interface UserService
 {
@@ -43,6 +45,12 @@ interface UserService
      * @throws IllegalArgumentException
      */
     function changePassword(User $user, ChangePasswordBindingModel $bindingModel, bool $verify = true) : void ;
+
+    /**
+     * @param User $user
+     * @param PersonalInfoBindingModel $bindingModel
+     */
+    function editUserInfo(User $user, PersonalInfoBindingModel $bindingModel) : void ;
 
     /**
      * @param User $user

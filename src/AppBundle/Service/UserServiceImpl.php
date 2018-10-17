@@ -3,10 +3,12 @@
 namespace AppBundle\Service;
 
 use AppBundle\BindingModel\ChangePasswordBindingModel;
+use AppBundle\BindingModel\PersonalInfoBindingModel;
 use AppBundle\Constants\Roles;
 use AppBundle\Entity\Role;
 use AppBundle\Entity\User;
 use AppBundle\Exception\IllegalArgumentException;
+use AppBundle\Utils\ModelMapper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Exception\UnsupportedException;
@@ -16,6 +18,7 @@ class UserServiceImpl implements UserService
     private const CANNOT_ALTER_ADMIN = "Cannot remove admin privileges!";
     private const USER_HAS_THAT_ROLE = "User already has that role!";
     private const USER_DOES_NOT_HAVE_ROLE = "User doesn't have that role!";
+    private const CANNOT_ALTER_GOD = "Cannot alter god account!";
 
     /**
      * @var EntityManagerInterface
@@ -32,12 +35,18 @@ class UserServiceImpl implements UserService
      */
     private $passwordEncoder;
 
+    /**
+     * @var ModelMapper
+     */
+    private $modelMapper;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder)
+
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, ModelMapper $modelMapper)
     {
         $this->entityManager = $entityManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->userRepo = $entityManager->getRepository(User::class);
+        $this->modelMapper = $modelMapper;
     }
 
     function save(User $user): void
@@ -48,6 +57,8 @@ class UserServiceImpl implements UserService
 
     function removeRole(User $user, Role $role): void
     {
+        if($user->hasRole(Roles::ROLE_GOD))
+            throw new IllegalArgumentException(self::CANNOT_ALTER_GOD);
         if ($user->hasRole(Roles::ROLE_ADMIN) && $role->getRole() == Roles::ROLE_ADMIN)
             throw new IllegalArgumentException(self::CANNOT_ALTER_ADMIN);
         if (!$user->hasRole($role->getRole()))
@@ -67,16 +78,24 @@ class UserServiceImpl implements UserService
     function changePassword(User $user, ChangePasswordBindingModel $bindingModel, bool $verify = true): void
     {
         if ($verify && !password_verify($bindingModel->getOldPassword(), $user->getPassword()))
-            throw new IllegalArgumentException("passwordIsIncorrect");
+            throw new IllegalArgumentException("invalidPassword");
         $user->setPassword($this->passwordEncoder->encodePassword($user, $bindingModel->getNewPassword()));
         $this->entityManager->merge($user);
         $this->entityManager->flush();
     }
 
+    public function editUserInfo(User $user, PersonalInfoBindingModel $bindingModel): void
+    {
+        $user = $this->modelMapper->merge($bindingModel, $user);
+        $this->save($user);
+    }
+
     function removeAccount(User $user): void
     {
-        // TODO: Implement removeAccount() method.
-        throw new UnsupportedException("TODO: Implement this later");
+        if($user->hasRole(Roles::ROLE_GOD))
+            throw new IllegalArgumentException(self::CANNOT_ALTER_GOD);
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
     }
 
     function findOneById(int $id): ?User

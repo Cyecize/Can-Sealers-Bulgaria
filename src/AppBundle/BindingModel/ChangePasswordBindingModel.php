@@ -14,18 +14,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ChangePasswordBindingModel
 {
     /**
-     * @Assert\NotNull(message="fieldCannotBeEmpty")
+     * @Assert\NotNull(message="fieldCannotBeNull")
      */
     private $oldPassword;
 
     /**
-     * @Assert\NotNull(message="fieldCannotBeEmpty")
-     * @Assert\Length(min=6, minMessage="passwordIsLessThanLength")
+     * @Assert\NotNull(message="fieldCannotBeNull")
+     * @Assert\Length(min=6, minMessage="passwordLengthInvalid")
      */
     private $newPassword;
 
     /**
-     * @Assert\NotNull(message="fieldCannotBeEmpty")
+     * @Assert\NotNull(message="fieldCannotBeNull")
      * @Assert\EqualTo(propertyPath="newPassword", message="passwordsDoNotMatch")
      */
     private $confPassword;

@@ -1,0 +1,27 @@
+{% extends 'users/profile-page.html.twig' %}
+{# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+{# @var twigUtil \AppBundle\Utils\TwigUtil #}
+{% block sectionContent %}
+    <h2 class="text-dark">{{ dict.changePersonalInfo }}</h2>
+    <hr>
+    <div class="container">
+        <div class="col-md-6">
+            <form method="post">
+                <div class="form-group">
+                    <label for="phoneNumber">{{ dict.phoneNumber }}</label>
+                    <input  value="{{ app.user.phoneNumber }}" type="text" id="phoneNumber" name="personal_info[phoneNumber]" class="form-control">
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.phoneNumber} %} {% endembed %}
+                </div>
+                <div class="form-group">
+                    <label for="fullName">{{ dict.yourName }}</label>
+                    <input value="{{ app.user.fullName }}" type="text" id="fullName" name="personal_info[fullName]" class="form-control">
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.fullName} %} {% endembed %}
+                </div>
+                <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+                <div class="text-right">
+                    <button type="submit" class="btn btn-outline-dark">{{ dict.save }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

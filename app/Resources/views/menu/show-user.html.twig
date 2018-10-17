@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+{# @var user \AppBundle\Entity\User #}
+{% block title %}{{ dict.websiteName }} - {{ user.username }}{% endblock %}
+{% block body %}
+    <div class="container pt-2 max-width-container bg-container mt-container pb-container">
+        {% embed 'users/partials/user-details.html.twig' with {'user':user, 'dict':dict} %} {% endembed %}
+    </div>
+{% endblock %}

@@ -246,7 +246,11 @@ class User implements UserInterface
 
     public function hasRole(string $role): bool
     {
-        return $this->roles->containsKey($role);
+        foreach ($this->roles as $r) {
+            if($r->getRole() == $role)
+                return true;
+        }
+        return false;
     }
 
     public function addRole(Role $role): void

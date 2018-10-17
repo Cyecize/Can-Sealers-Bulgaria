@@ -11,8 +11,7 @@ namespace AppBundle\Utils;
 
 class DateFormatter
 {
-    public static function formatStandart(\DateTime $date){
+    public static function formatStandard(\DateTime $date){
         return date_format ( $date, "d/m/Y г. в  h:i ч." );
     }
-
 }

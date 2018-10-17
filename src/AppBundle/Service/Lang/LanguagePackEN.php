@@ -62,6 +62,18 @@ class LanguagePackEN implements ILanguagePack
     public const NAME = "Name";
     public const OPTIONAL = "Optional";
     public const USERNAME_OR_EMAIL_DOES_NOT_EXIST = "Username or E-Mail does not exist!";
+    public const INVALID_PASSWORD = "Invalid Password!";
+    public const SAVE = "Save";
+
+    public function save(): string
+    {
+        return self::SAVE;
+    }
+
+    public function invalidPassword(): string
+    {
+        return self::INVALID_PASSWORD;
+    }
 
     public function usernameOrEmailDoesNotExist(): string
     {

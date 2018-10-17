@@ -111,4 +111,7 @@ interface ILanguagePack
 
     function usernameOrEmailDoesNotExist() : string ;
 
+    function invalidPassword() : string ;
+
+    function save() : string ;
 }
