@@ -8,7 +8,6 @@
 
 namespace AppBundle\Service\Lang;
 
-
 use AppBundle\Constants\Config;
 
 class LanguagePackEN implements ILanguagePack
@@ -64,6 +63,54 @@ class LanguagePackEN implements ILanguagePack
     public const USERNAME_OR_EMAIL_DOES_NOT_EXIST = "Username or E-Mail does not exist!";
     public const INVALID_PASSWORD = "Invalid Password!";
     public const SAVE = "Save";
+    public const ADMIN_PANEL = "Admin Panel";
+    public const ADD_PRODUCT = "New Product";
+    public const SHOW_ALL = "Show All";
+    public const EDIT = "Edit";
+    public const USERS = "Users";
+    public const REMOVE = "Remove";
+    public const CREATE_CATEGORY = "Create Category";
+    public const NAME_TAKEN = "Name already in use";
+
+    function createCategory(): string
+    {
+        return self::CREATE_CATEGORY;
+    }
+
+    function nameTaken(): string
+    {
+        return self::NAME_TAKEN;
+    }
+
+    public function remove(): string
+    {
+        return self::REMOVE;
+    }
+
+    function adminPanel(): string
+    {
+        return self::ADMIN_PANEL;
+    }
+
+    function addProduct(): string
+    {
+        return self::ADD_PRODUCT;
+    }
+
+    function showAll(): string
+    {
+        return self::SHOW_ALL;
+    }
+
+    function edit(): string
+    {
+        return self::EDIT;
+    }
+
+    function users(): string
+    {
+        return self::USERS;
+    }
 
     public function save(): string
     {

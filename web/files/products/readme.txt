@@ -1,0 +1,1 @@
+This directory holds the image files for every product.

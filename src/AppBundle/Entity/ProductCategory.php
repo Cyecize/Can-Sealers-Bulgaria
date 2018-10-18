@@ -61,7 +61,7 @@ class ProductCategory
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -133,7 +133,7 @@ class ProductCategory
     /**
      * @param ProductCategory $parentCategory
      */
-    public function setParentCategory(ProductCategory $parentCategory): void
+    public function setParentCategory(ProductCategory $parentCategory = null): void
     {
         $this->parentCategory = $parentCategory;
     }

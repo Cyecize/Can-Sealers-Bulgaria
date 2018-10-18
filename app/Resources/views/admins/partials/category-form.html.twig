@@ -1,0 +1,38 @@
+<form method="post">
+    <div class="form-group">
+        <label for="parentCatId">Parent Category</label>
+        <select name="category[parentCatId]" id="parentCatId" class="form-control">
+            <option value="" selected>-- This Is Main Category --</option>
+            {% set thisCatId = null %}
+            {% if model.parentCategory is defined %}
+                {% if model.parentCategory %}
+                    {% set thisCatId = model.parentCategory.id %}
+                {% endif %}
+            {% else %}
+                {% set thisCatId = model.parentCatId %}
+            {% endif %}
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if thisCatId == category.id %}selected{% endif %}>
+                    {{ twigUtil.categoryName(category, dict.localLang) }}
+                </option>
+            {% endfor %}
+        </select>
+        {{ form_errors(form1.parentCatId) }}
+    </div>
+    <div class="form-group">
+        <label for="catName">Bulgarian Name</label>
+        <input type="text" required maxlength="50" class="form-control" name="category[categoryName]" id="catName"
+               value="{{ model.categoryName }}">
+        {{ form_errors(form1.categoryName) }}
+    </div>
+    <div class="form-group">
+        <label for="latinName">English Name</label>
+        <input type="text" required maxlength="50" class="form-control" name="category[latinName]" id="latinName"
+               value="{{ model.latinName }}">
+        {{ form_errors(form1.latinName) }}
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+        <button type="submit" class="btn btn-outline-primary">{{ dict.save }}</button>
+    </div>
+</form>

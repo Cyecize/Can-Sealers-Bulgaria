@@ -38,6 +38,7 @@ $(function () {
             }
         }
     }
+
     initNavbar();
     // !Navbar fixed or normal position
 
@@ -64,6 +65,7 @@ $(function () {
             });
         });
     }
+
     initSocialLinks();
     /*!Social Links*/
 
@@ -79,6 +81,7 @@ $(function () {
             });
         });
     }
+
     initContactInfo();
     /* ! Contact Info*/
 
@@ -89,12 +92,14 @@ $(function () {
             var self = $(this);
             $.ajax({
                 url: "/edit-about",
-                success:function (data) {
+                success: function (data) {
                     self.parent().parent().html(data);
                 }
             });
         });
     }
+
     initAboutUs();
     /*!5 -> About Us*/
+
 });

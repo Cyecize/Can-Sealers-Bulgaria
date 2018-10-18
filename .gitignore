@@ -18,3 +18,7 @@
 /web/dev_img/
 /web/dev_img/*
 **/.idea/
+/web/files/*
+!/web/files/products
+/web/files/products/*
+!/web/files/products/readme.txt

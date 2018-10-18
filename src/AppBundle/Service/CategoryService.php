@@ -8,10 +8,28 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\BindingModel\CategoryBindingModel;
 use AppBundle\Entity\ProductCategory;
+use AppBundle\Exception\IllegalArgumentException;
+
 
 interface CategoryService
 {
+    /**
+     * @param ProductCategory $category
+     * @param CategoryBindingModel $bindingModel
+     * @return ProductCategory
+     * @throws IllegalArgumentException
+     */
+    function editCategory(ProductCategory $category, CategoryBindingModel $bindingModel) : ProductCategory;
+
+    /**
+     * @param CategoryBindingModel $bindingModel
+     * @return ProductCategory
+     * @throws IllegalArgumentException
+     */
+    function createCategory(CategoryBindingModel $bindingModel): ProductCategory;
+
     /**
      * @param int $id
      * @return ProductCategory|null

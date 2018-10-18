@@ -8,13 +8,17 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\BindingModel\CategoryBindingModel;
 use AppBundle\Entity\ProductCategory;
+use AppBundle\Exception\IllegalArgumentException;
 use AppBundle\Exception\NotFoundException;
+use AppBundle\Form\CategoryType;
 use AppBundle\Service\CategoryService;
 use AppBundle\Service\LocalLanguage;
 use AppBundle\Service\ProductService;
 use AppBundle\Utils\Pageable;
 use AppBundle\ViewModel\BrowseProductsViewModel;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -71,4 +75,75 @@ class CategoryController extends BaseController
                 'viewModel' => new BrowseProductsViewModel($category, $this->productService->findByCategoryRecursive($category, new Pageable($request)), $category->getSubcategories()),
             ]);
     }
+
+    /**
+     * @Route("/admin/category/create", name="create_category")
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \AppBundle\Exception\InternalRestException
+     */
+    public function createCategoryAction(Request $request)
+    {
+        $bindingModel = new CategoryBindingModel();
+        $form = $this->createForm(CategoryType::class, $bindingModel);
+        $form->handleRequest($request);
+
+        $err = null;
+        if ($form->isSubmitted() && count($this->validate($bindingModel)) < 1) {
+            $this->validateToken($request);
+            try {
+                $category = $this->categoryService->createCategory($bindingModel);
+                return $this->redirectToRoute('category_details', ['catName' => $category->getCategoryName()]);
+            } catch (IllegalArgumentException $e) {
+                $err = $this->language->forName($e->getMessage());
+            }
+        }
+
+        return $this->render('admins/categories/add-category.html.twig', [
+            'categories' => $this->categoryService->findAll(),
+            'form1' => $form->createView(),
+            'error' => $err,
+            'model' => $bindingModel,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/category/edit/{catId}", name="edit_category", defaults={"catId" = null})
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     * @param $catId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws NotFoundException
+     * @throws \AppBundle\Exception\InternalRestException
+     */
+    public function editCategoryAction(Request $request, $catId)
+    {
+        $category = $this->categoryService->findOneById($catId);
+        if($category == null)
+            throw new NotFoundException(sprintf($this->dictionary->categoryNotFoundFormat(), $catId));
+        $err = null;
+
+        $bindingModel = new CategoryBindingModel();
+        $form = $this->createForm(CategoryType::class, $bindingModel);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && count($this->validate($bindingModel)) < 1){
+            $this->validateToken($request);
+            try {
+                $category = $this->categoryService->editCategory($category,$bindingModel);
+                return $this->redirectToRoute('category_details', ['catName' => $category->getCategoryName()]);
+            } catch (IllegalArgumentException $e) {
+                $err = $this->language->forName($e->getMessage());
+            }
+        }
+
+        return $this->render('admins/categories/add-category.html.twig', [
+            'categories' => $this->categoryService->findAll(),
+            'form1' => $form->createView(),
+            'error' => $err,
+            'model' => $category,
+        ]);
+    }
+
 }

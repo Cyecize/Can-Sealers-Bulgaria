@@ -8,7 +8,8 @@
 
 namespace AppBundle\Service;
 
-
+use AppBundle\BindingModel\CreateProductBindingModel;
+use AppBundle\BindingModel\EditProductBindingModel;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategory;
 use AppBundle\Utils\Page;
@@ -16,6 +17,21 @@ use AppBundle\Utils\Pageable;
 
 interface ProductService
 {
+    /**
+     * @param Product $product
+     * @param EditProductBindingModel $bindingModel
+     * @param ProductCategory $category
+     * @return Product
+     */
+    public function editProduct(Product $product, EditProductBindingModel $bindingModel, ProductCategory $category) : Product;
+
+    /**
+     * @param CreateProductBindingModel $bindingModel
+     * @param ProductCategory $category
+     * @return Product
+     */
+    public function createProduct(CreateProductBindingModel $bindingModel, ProductCategory $category) : Product;
+
     /**
      * @param int|null $id
      * @param bool $showHidden

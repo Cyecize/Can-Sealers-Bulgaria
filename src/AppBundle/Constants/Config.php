@@ -18,4 +18,6 @@ class Config
     public const COOKIE_NEUTRAL_LANG = "neutral";
 
     public const COOKIE_LANG_NAME = "lang";
+
+    public const PRODUCT_FILES_PATH = "files/" . "products/";
 }

@@ -1,0 +1,100 @@
+{% extends 'admins/admin-panel.html.twig' %}
+{% block sectionContent %}
+    <h2 class="text-dark">All Users</h2>
+    <input type="text" placeholder="Search by Username" id="searchUserField">
+    <hr>
+    <div class="container">
+        <table class="table">
+            <thead class="rounded bg-dark p-0 text-light">
+            <tr>
+                <th scope="row">
+                    Username
+                </th>
+                <th scope="row">
+
+                </th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            {% for user in users %}
+                {#<hr>#}
+                <tr username="{{ user.username }}">
+                    <th>
+                        <a href="{{ path('show_user', {'username': user.username}) }}"><p
+                                    class="text-dark">{{ user.username }}</p></a>
+                    </th>
+                    <th class="text-right">
+                        <button type="button" roleType="ROLE_ADMIN"
+                                class="btn btn-success btn-outline-danger  {% if user.hasRole('ROLE_ADMIN') %} active remove-role-btn {% else %} add-role-btn {% endif %}"
+                                userId="{{ user.id }}">Admin
+                        </button>
+                    </th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block sectionScripts %}
+    <script>
+        {#var removeRoleUrl = '{{ path('remove_role') }}';#}
+        {#var addRoleUrl = '{{ path('add_role') }}';#}
+
+        function getBtnProps(btn) {
+            btn = $(btn);
+            return {
+                role: btn.attr('roleType'),
+                userId: btn.attr('userId')
+            };
+        }
+
+        function ajaxCall(url, props) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {token: CSRF_TOKEN, roleType: props['role'], userId: props['userId']},
+                success: function () {
+                    location.reload();
+                },
+                error: function (err) {
+                    alert(err['responseJSON']['message']);
+                }
+            });
+        }
+
+        $(function () {
+            $('.remove-role-btn').on('click', function (e) {
+                var props = getBtnProps(this);
+                if (!confirm('Alter user with id: ' + props['userId'] + ' and remove his role: ' + props['role'] + ' ?'))
+                    return;
+                ajaxCall(removeRoleUrl, props);
+            });
+
+            $('.add-role-btn').on('click', function () {
+                var props = getBtnProps(this);
+                if (!confirm('Alter user with id: ' + props['userId'] + ' and add role: ' + props['role'] + ' ?'))
+                    return;
+                ajaxCall(addRoleUrl, props);
+            });
+        });
+
+        $(function () {
+           var searchField = $('#searchUserField');
+           var tableBody = $('#tableBody');
+           var tableRows = tableBody.find('tr');
+
+            searchField.on('change', function (e) {
+                var searchWord = $(this).val();
+                tableRows.each(function (index,r) {
+                    var usrName = $(r).attr('username');
+                    if(usrName.indexOf(searchWord) !== -1)
+                        $(r).show();
+                    else
+                        $(r).hide();
+                }) ;
+           });
+        });
+
+    </script>
+{% endblock %}

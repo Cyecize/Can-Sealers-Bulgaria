@@ -15,4 +15,6 @@ class ProductType
 
     public const RECEIPT = "Receipt";
 
+    public const PRODUCT_TYPES = array(self::PRODUCT, self::RECEIPT);
+
 }

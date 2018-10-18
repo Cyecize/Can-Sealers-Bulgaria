@@ -8,8 +8,11 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\BindingModel\CreateProductBindingModel;
+use AppBundle\BindingModel\EditProductBindingModel;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategory;
+use AppBundle\Utils\ModelMapper;
 use AppBundle\Utils\Page;
 use AppBundle\Utils\Pageable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,10 +29,45 @@ class ProductServiceImpl implements ProductService
      */
     private $productRepo;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var ModelMapper
+     */
+    private $modelMapper;
+
+    /**
+     * @var FileService
+     */
+    private $fileService;
+
+    public function __construct(EntityManagerInterface $em, ModelMapper $modelMapper, FileService $fileService)
     {
         $this->entityManager = $em;
         $this->productRepo = $em->getRepository(Product::class);
+        $this->modelMapper = $modelMapper;
+        $this->fileService = $fileService;
+    }
+
+    public function editProduct(Product $product, EditProductBindingModel $bindingModel, ProductCategory $category): Product
+    {
+        $product = $this->modelMapper->merge($bindingModel, $product, true);
+        $this->modelMapper->merge($bindingModel, $product);
+        $product->setCategory($category);
+        if ($bindingModel->getImage() != null) {
+            $this->fileService->removeFile(substr($product->getImgPath(), 1));
+            $product->setImgPath($this->fileService->uploadProductImage($bindingModel->getImage()));
+        }
+        return $this->save($product);
+    }
+
+    public function createProduct(CreateProductBindingModel $bindingModel, ProductCategory $category): Product
+    {
+        $product = new Product();
+        $product->setCategory($category);
+        $product = $this->modelMapper->merge($bindingModel, $product);
+        $product->setImgPath($this->fileService->uploadProductImage($bindingModel->getImage()));
+        $this->entityManager->persist($product);
+        $this->entityManager->flush();
+        return $product;
     }
 
     public function findOneById(int $id = null, bool $showHidden = false): ?Product
@@ -67,4 +105,10 @@ class ProductServiceImpl implements ProductService
         return $this->productRepo->findAll();
     }
 
+    private function save(Product $product): Product
+    {
+        $this->entityManager->merge($product);
+        $this->entityManager->flush();
+        return $product;
+    }
 }

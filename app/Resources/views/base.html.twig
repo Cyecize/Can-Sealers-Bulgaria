@@ -3,7 +3,7 @@
 {# @var dict \AppBundle\Service\Lang\ILanguagePack #}
 {% set dict = localLang.dictionary %}
 
-<html>
+<html lang="{{ dict.localLang }}">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -17,7 +17,7 @@ class UserRegisterBindingModel
      * @Assert\NotNull(message="fieldCannotBeNull")
      * @Assert\NotBlank(message="fieldCannotBeNull")
      * @Assert\Length(max="25", min="1", maxMessage="invalidValue", minMessage="invalidValue")
-     * @Assert\Regex(pattern="/^\w+$/", message="invalidValue")
+     * @Assert\Regex(pattern="/^[a-zA-Z]{1,}[\w-_0-9]*$/", message="invalidValue")
      */
     private $username;
 

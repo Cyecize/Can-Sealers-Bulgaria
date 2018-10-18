@@ -19,8 +19,8 @@
                     <div class="col-lg-9">
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="mt-2 mb-2">
-                                <a href="/products/edit/{{ viewModel.product.id }}" class="btn btn-outline-dark">
-                                    Редакция
+                                <a href="{{ path('edit_product', {'id':viewModel.product.id}) }}" class="btn btn-outline-dark">
+                                    {{ dict.edit }}
                                 </a>
                             </div>
                         {% endif %}

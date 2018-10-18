@@ -1,0 +1,20 @@
+{% extends 'admins/admin-panel.html.twig' %}
+{# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+{# @var information \AppBundle\Service\TwigInformer #}
+{# @var twigUtil \AppBundle\Utils\TwigUtil #}
+{% block sectionContent %}
+    <h2>{{ dict.addProduct }}</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            {% embed 'admins/partials/product-form.html.twig' %} {% endembed %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block sectionScripts %}
+    <script src="{{ asset('style/js/img-preview.js') }}"></script>
+    <script>
+        ImagePreviewManager.attachEvent('productImage', 'imgPrev');
+    </script>
+{% endblock %}

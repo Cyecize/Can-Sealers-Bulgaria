@@ -1,0 +1,68 @@
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="productType">Product Type</label>
+        <select required id="productType" name="create_product[productType]" class="form-control">
+            <option disabled selected value="">Choose</option>
+            {% for type in information.productTypes %}
+                <option {% if type == model.productType %} selected {% endif %}>
+                    {{ type }}
+                </option>
+            {% endfor %}
+        </select>
+        {{ form_errors(form1.productType) }}
+    </div>
+    <div class="form-group">
+        <label for="category">{{ dict.category }}</label>
+        <select required id="category" name="create_product[categoryId]" class="form-control">
+            <option disabled selected value="">Choose</option>
+            {% for cat in categories %}
+            {% set catId = null %}
+            {% if model.category is defined %}
+                {% set catId = model.category.id %}
+            {% else %}
+                {% set catId = model.categoryId %}
+            {% endif %}
+            <option value="{{ cat.id }}" {% if cat.id == catId %}selected {% endif %}>
+                {{ twigUtil.categoryName(cat, dict.localLang) }}
+            </option>
+            {% endfor %}
+        </select>
+        {{ form_errors(form1.categoryId) }}
+    </div>
+    <div class="form-group">
+        <label for="productName">{{ dict.name }}</label>
+        <input required id="productName" maxlength="40" type="text" name="create_product[productName]"
+               value="{{ model.productName }}" class="form-control">
+        {{ form_errors(form1.productName) }}
+    </div>
+    <div class="form-group">
+        <label for="price">{{ dict.price }}</label>
+        <input required id="price" type="number" step="any" name="create_product[price]" value="{{ model.price }}"
+               class="form-control">
+        {{ form_errors(form1.price) }}
+    </div>
+    <div class="form-group">
+        <label for="hidden">{{ dict.privateInfo }}</label>
+        <input id="hidden" type="checkbox" name="create_product[hidden]"
+               {% if model.hidden %}checked{% endif %}>
+        {{ form_errors(form1.hidden) }}
+    </div>
+    <div class="form-group">
+        <label for="productDescription">Description</label>
+        <textarea rows="10" id="productDescription" name="create_product[productDescription]"
+                  class="form-control">{{ model.productDescription }}</textarea>
+        {{ form_errors(form1.productDescription) }}
+    </div>
+    <div class="form-group">
+        <label for="productImage">Image</label>
+        <input type="file" id="productImage" name="create_product[image]" class="form-control">
+        {{ form_errors(form1.image) }}
+        <div style="max-width: 400px;">
+            <img src="{% if model.imgPath is defined %}{{ model.imgPath }}{% endif %}" id="imgPrev" width="100%">
+        </div>
+    </div>
+    <div class="form-group text-right">
+        <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+        <button class="btn btn-outline-primary" type="submit">{{ dict.save }}</button>
+    </div>
+</form>

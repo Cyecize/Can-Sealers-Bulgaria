@@ -8,16 +8,22 @@
 
 namespace AppBundle\Utils;
 
-
 class ModelMapper
 {
 
     public function map($sourceInstance, $destinationClass)
     {
-        return $this->merge($sourceInstance, new $destinationClass);
+        return $this->merge($sourceInstance, new $destinationClass, true);
     }
 
-    public function merge($sourceInstance, $destinationInstance){
+    /**
+     * @param $sourceInstance
+     * @param $destinationInstance
+     * @param bool $skipNull
+     * @return mixed
+     */
+    public function merge($sourceInstance, $destinationInstance, bool $skipNull = false)
+    {
         $reflOfDestination = new \ReflectionObject($destinationInstance);
         $reflOfSource = new \ReflectionObject($sourceInstance);
 
@@ -29,8 +35,9 @@ class ModelMapper
             $destProperty->setAccessible(true);
 
             $sourceValue = $sourceProperty->getValue($sourceInstance);
-            if ($sourceValue != null)
-                $destProperty->setValue($destinationInstance,$sourceValue);
+            if (!$skipNull && $sourceValue == null)
+                continue;
+            $destProperty->setValue($destinationInstance, $sourceValue);
         }
 
         return $destinationInstance;

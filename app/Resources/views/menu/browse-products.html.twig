@@ -9,6 +9,9 @@
             <small>({{ viewModel.productPage.itemsCount }})</small>
         </h2>
         <h4>{{ dict.category }}: {{ twigUtil.categoryName(viewModel.category, dict.localLang) }}</h4>
+        {% if is_granted('ROLE_ADMIN') and viewModel.category.id != null %}
+            <a href="{{ path('edit_category', {'catId':viewModel.category.id}) }}" class="d-inline">{{ dict.category }} - {{ dict.edit }}</a>
+        {% endif %}
         <hr>
         <div class="row" style="margin-top: 30px;">
             <div class="col-lg-9">

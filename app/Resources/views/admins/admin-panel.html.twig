@@ -1,0 +1,43 @@
+{% extends 'panel.twig' %}
+{# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+{% block title %} {{ dict.websiteName }} - Admin Panel {% endblock %}
+
+{% block sectionContent %}
+    <h3 class="text-warning">Изберете една от опциите вдясно.</h3>
+{% endblock %}
+
+{% block panelSidebar %}
+    {% embed 'partials/sidebar/sidebar.html.twig' %}
+        {% block sidebarBody %}
+            <section class="sidebar-item">
+                <h4>{{ dict.products }}</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{{ path('create_product') }}">
+                        {{ dict.addProduct }}
+                    </a>
+                    <a class="list-group-item list-group-item-action" href="{{ path('admin_browse_products') }}">
+                        {{ dict.showAll }}
+                    </a>
+                </div>
+            </section>
+            <hr>
+            <section class="sidebar-item">
+                <h4>{{ dict.categories }}</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{{ path('create_category') }}">
+                        {{ dict.createCategory }}
+                    </a>
+                </div>
+            </section>
+            <hr>
+            <section class="sidebar-item">
+                <h4>{{ dict.users }}</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{{ path('users_observe') }}">
+                        {{ dict.showAll }}
+                    </a>
+                </div>
+            </section>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

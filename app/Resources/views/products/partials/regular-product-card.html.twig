@@ -16,7 +16,7 @@
         <div class="card-footer">
             <small class="text-muted row">
                 {% if  is_granted('ROLE_ADMIN') %}
-                    <a class="col-md-5 btn btn-sm btn-outline-dark  " href="/products/edit/{{ product.id }}">Edit</a>
+                    <a class="col-md-5 btn btn-sm btn-outline-dark  " href="{{ path('edit_product', {'id':product.id}) }}">{{ dict.edit }}</a>
                 {% endif %}
                 <a class="col-md-5 btn btn-sm ml-auto btn-outline-success" href="{{ path('product_details', {'prodId':product.id}) }}">
                     {{ dict.details }}

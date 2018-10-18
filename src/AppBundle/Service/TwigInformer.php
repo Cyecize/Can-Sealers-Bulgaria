@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Constants\ProductType;
 
 class TwigInformer
 {
@@ -48,7 +49,17 @@ class TwigInformer
         return $this->socialLinks;
     }
 
+    /**
+     * @return string
+     */
     public function getDateFormat() : string {
         return "d/m/Y";
+    }
+
+    /**
+     * @return array
+     */
+    public function getProductTypes() : array {
+        return ProductType::PRODUCT_TYPES;
     }
 }

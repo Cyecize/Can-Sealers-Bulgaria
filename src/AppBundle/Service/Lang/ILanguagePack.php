@@ -114,4 +114,21 @@ interface ILanguagePack
     function invalidPassword() : string ;
 
     function save() : string ;
+
+    function adminPanel() : string ;
+
+    function addProduct() : string ;
+
+    function showAll() : string ;
+
+    function edit()  :string ;
+
+    function users() : string ;
+
+    function remove() : string ;
+
+    function createCategory() : string ;
+
+    function nameTaken() : string ;
+
 }

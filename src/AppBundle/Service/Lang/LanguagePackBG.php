@@ -63,10 +63,58 @@ class LanguagePackBG implements ILanguagePack
     public const USERNAME_OR_EMAIL_DOES_NOT_EXIST = "Потребител с това потр. име или Е-Mail не е намерен!";
     public const INVALID_PASSWORD = "Неправилна парола!";
     public const SAVE = "Запазване";
+    public const ADMIN_PANEL = "Администраторски панел";
+    public const ADD_PRODUCT = "Нов продукт";
+    public const SHOW_ALL = "Покажи всички";
+    public const EDIT = "Редакция";
+    public const USERS = "Потребители";
+    public const REMOVE = "Премахване";
+    public const CREATE_CATEGORY = "Създаване на категория";
+    public const NAME_TAKEN = "Името е заето";
+
+    function createCategory(): string
+    {
+       return self::CREATE_CATEGORY;
+    }
+
+    function nameTaken(): string
+    {
+        return self::NAME_TAKEN;
+    }
+
+    public function remove(): string
+    {
+        return self::REMOVE;
+    }
+
+    function adminPanel(): string
+    {
+        return self::ADMIN_PANEL;
+    }
+
+    function addProduct(): string
+    {
+        return self::ADD_PRODUCT;
+    }
+
+    function showAll(): string
+    {
+        return self::SHOW_ALL;
+    }
+
+    function edit(): string
+    {
+        return self::EDIT;
+    }
+
+    function users(): string
+    {
+        return self::USERS;
+    }
 
     public function save(): string
     {
-       return self::SAVE;
+        return self::SAVE;
     }
 
     public function invalidPassword(): string
@@ -81,7 +129,7 @@ class LanguagePackBG implements ILanguagePack
 
     public function optional(): string
     {
-       return self::OPTIONAL;
+        return self::OPTIONAL;
     }
 
     function changePassword(): string

@@ -87,6 +87,11 @@
                     <a href="mailto:{{ information.contacts.email }}?Subject=Въпрос%20относно">{{ information.contacts.email }}</a>
                 </p>
             </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <p>
+                    <a href="{{ path('admin_panel') }}">{{ dict.adminPanel }}</a>
+                </p>
+            {% endif %}
         </div>
 
         <div class="footer-right" id="right-footer">
