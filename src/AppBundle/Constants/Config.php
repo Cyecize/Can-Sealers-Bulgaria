@@ -20,4 +20,6 @@ class Config
     public const COOKIE_LANG_NAME = "lang";
 
     public const PRODUCT_FILES_PATH = "files/" . "products/";
+
+    public const GALLERIES_PATH = "files/galleries/";
 }

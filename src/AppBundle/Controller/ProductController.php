@@ -9,6 +9,7 @@ use AppBundle\Entity\Gallery;
 use AppBundle\Exception\NotFoundException;
 use AppBundle\Form\CreateProductType;
 use AppBundle\Service\CategoryService;
+use AppBundle\Service\GalleryService;
 use AppBundle\Service\LocalLanguage;
 use AppBundle\Service\ProductService;
 use AppBundle\Utils\PageRequest;
@@ -32,11 +33,17 @@ class ProductController extends BaseController
      */
     private $categoryService;
 
-    public function __construct(LocalLanguage $language, ProductService $productService, CategoryService $categoryService)
+    /**
+     * @var GalleryService
+     */
+    private $galleryService;
+
+    public function __construct(LocalLanguage $language, ProductService $productService, CategoryService $categoryService, GalleryService $galleryService)
     {
         parent::__construct($language);
         $this->productService = $productService;
         $this->categoryService = $categoryService;
+        $this->galleryService = $galleryService;
     }
 
     /**
@@ -113,7 +120,8 @@ class ProductController extends BaseController
             'error' => $err,
             'model' => $product,
             'form1' => $form->createView(),
-            'categories' => $this->categoryService->findAll()
+            'categories' => $this->categoryService->findAll(),
+            'gallery'=>$this->galleryService->findByProduct($product)
         ]);
     }
 

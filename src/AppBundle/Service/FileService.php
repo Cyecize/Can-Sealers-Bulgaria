@@ -37,4 +37,11 @@ interface FileService
      * @return string
      */
     public function uploadProductImage(UploadedFile $file) : string ;
+
+    /**
+     * @param UploadedFile $file
+     * @param int $galleryId
+     * @return string
+     */
+    public function uploadGalleryImage(UploadedFile $file, int $galleryId) : string ;
 }

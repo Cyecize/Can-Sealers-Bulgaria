@@ -149,29 +149,29 @@ class InformationController extends BaseController
      * @throws InternalRestException
      * @throws IllegalArgumentException
      */
-    public function characteristicAction(Request $request, $id){
-
+    public function characteristicAction(Request $request, $id)
+    {
         $error = null;
         $characteristic = $this->characteristicsService->findOneById($id);
-        if($characteristic == null)
+        if ($characteristic == null)
             throw new InternalRestException("Characteristic not found!");
 
         $bindingModel = new CharacteristicBindingModel();
         $form = $this->createForm(CharacteristicType::class, $bindingModel);
         $form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if ($form->isSubmitted()) {
             $this->validateToken($request);
-            if(count($this->validate($bindingModel)) > 0)
-                return $this->redirectToRoute("homepage", ["error"=>"Въведените данни не са валидни! Не оставяйте празни полета!"]);
+            if (count($this->validate($bindingModel)) > 0)
+                return $this->redirectToRoute("homepage", ["error" => "Въведените данни не са валидни! Не оставяйте празни полета!"]);
             $this->characteristicsService->saveCharacteristic($bindingModel);
             return $this->redirectToRoute("homepage");
         }
 
-        return $this->render(":queries:characteristics.html.twig",[
-            'charr'=>$characteristic,
-            'error'=>$error,
-            'form'=>$form->createView(),
+        return $this->render(":queries:characteristics.html.twig", [
+            'charr' => $characteristic,
+            'error' => $error,
+            'form' => $form->createView(),
         ]);
 
     }

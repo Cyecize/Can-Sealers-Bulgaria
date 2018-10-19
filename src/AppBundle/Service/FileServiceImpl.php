@@ -64,4 +64,10 @@ class FileServiceImpl implements FileService
         $fileName = $this->uploadFile($file, Config::PRODUCT_FILES_PATH);
         return "/" . Config::PRODUCT_FILES_PATH . $fileName;
     }
+
+    public function uploadGalleryImage(UploadedFile $file, int $galleryId): string
+    {
+        $fileName = $this->uploadFile($file, Config::GALLERIES_PATH . $galleryId . "/");
+        return "/" . Config::GALLERIES_PATH . $galleryId . "/" . $fileName;
+    }
 }

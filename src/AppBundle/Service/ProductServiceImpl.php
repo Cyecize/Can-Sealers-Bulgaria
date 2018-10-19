@@ -74,8 +74,7 @@ class ProductServiceImpl implements ProductService
     {
         if ($showHidden)
             return $this->productRepo->find($id);
-        else
-            return $this->productRepo->findOneBy(array('id' => $id, 'hidden' => false));
+        return $this->productRepo->findOneBy(array('id' => $id, 'hidden' => false));
     }
 
     public function findByCategoryRecursive(ProductCategory $category, Pageable $pageable): Page

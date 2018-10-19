@@ -59,8 +59,6 @@ class UserServiceImpl implements UserService
     {
         if($user->hasRole(Roles::ROLE_GOD))
             throw new IllegalArgumentException(self::CANNOT_ALTER_GOD);
-        if ($user->hasRole(Roles::ROLE_ADMIN) && $role->getRole() == Roles::ROLE_ADMIN)
-            throw new IllegalArgumentException(self::CANNOT_ALTER_ADMIN);
         if (!$user->hasRole($role->getRole()))
             throw new IllegalArgumentException(self::USER_DOES_NOT_HAVE_ROLE);
         $user->removeRole($role);

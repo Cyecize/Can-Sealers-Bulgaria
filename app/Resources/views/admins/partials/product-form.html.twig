@@ -57,6 +57,7 @@
         <label for="productImage">Image</label>
         <input type="file" id="productImage" name="create_product[image]" class="form-control">
         {{ form_errors(form1.image) }}
+        <br>
         <div style="max-width: 400px;">
             <img src="{% if model.imgPath is defined %}{{ model.imgPath }}{% endif %}" id="imgPrev" width="100%">
         </div>

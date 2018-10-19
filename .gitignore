@@ -22,3 +22,6 @@
 !/web/files/products
 /web/files/products/*
 !/web/files/products/readme.txt
+!/web/files/galleries
+/web/files/galleries/*
+!/web/files/galleries/readme.txt

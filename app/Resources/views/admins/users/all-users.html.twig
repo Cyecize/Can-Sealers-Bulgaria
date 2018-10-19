@@ -38,8 +38,8 @@
 
 {% block sectionScripts %}
     <script>
-        {#var removeRoleUrl = '{{ path('remove_role') }}';#}
-        {#var addRoleUrl = '{{ path('add_role') }}';#}
+        var removeRoleUrl = '{{ path('remove_role') }}';
+        var addRoleUrl = '{{ path('add_role') }}';
 
         function getBtnProps(btn) {
             btn = $(btn);
@@ -58,6 +58,7 @@
                     location.reload();
                 },
                 error: function (err) {
+                    console.log(err);
                     alert(err['responseJSON']['message']);
                 }
             });
