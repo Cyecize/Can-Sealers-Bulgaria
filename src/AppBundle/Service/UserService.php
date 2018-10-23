@@ -14,7 +14,6 @@ use AppBundle\BindingModel\PersonalInfoBindingModel;
 use AppBundle\Entity\Role;
 use AppBundle\Entity\User;
 use AppBundle\Exception\IllegalArgumentException;
-use AppBundle\Form\PersonalInfoType;
 
 interface UserService
 {

@@ -1,27 +1,21 @@
-<div style="margin: 0 auto; text-align: center; padding: 20px;">
-
-    <h1>Имате въпрос от {{ notification.fullName }}
-        <small>{{ notification.dateFormat }}</small>
-    </h1>
-    <div style="text-align: left;">
-        <h2>тел. номер: {{ notification.phoneNumber }}</h2>
+<div style="margin: 0 auto; padding: 20px;">
+    <h2>Имате въпрос</h2>
+    <div>
+        <h3>От:  {{ question.fullName }}</h3>
+        <p>Дата: {{ question.dateFormat }}</p>
+        <p>тел. номер: {{ question.phoneNumber }}</p>
+        {% if question.user %}
+            <p>Потр. име: {{ user.username }}.  Преглед на профила <a href="{{ url('show_user', {'username':user.username}) }}">тук</a>. </p>
+            <p>Email: {{ user.email }}</p>
+        {% endif %}
     </div>
-
+    <br>
     <div style="text-align: left;">
         <label for="message-box">Въпрос: </label><br>
-        <p style="" id="message-box">{{ notification.message }}</p>
+        <p id="message-box">{{ question.message }}</p>
     </div>
-
-
-    {% if notification.usernameId %}
-        <div style="text-align: left;">
-            <h2>Потребителско ID: {{ notification.usernameId }}</h2>
-        </div>
-    {% endif %}
-
-    {% if notification.email %}
-        <div style="text-align: left;">
-            <h2>Email: {{ notification.email }}</h2>
-        </div>
-    {% endif %}
+    <br>
+    <div>
+        <p><a href="{{ url('question_details', {'qid':question.id}) }}">Преглед в сайта</a> </p>
+    </div>
 </div>

@@ -9,13 +9,9 @@
         <hr>
         {% block contacts %}
             <section>
-                {#{% if error %}#}
-                    {#{% if error == 'success' %}#}
-                        {#<h1 class="alert alert-success">Вашето запитване беше изпратено</h1>#}
-                    {#{% else %}#}
-                        {#<h1 class="alert alert-danger">{{ error }}</h1>#}
-                    {#{% endif %}#}
-                {#{% endif %}#}
+                {% if info is defined and info != null %}
+                    <h2 class="alert alert-success">{{ info }}</h2>
+                {% endif %}
                 {% embed 'partials/forms/contact-form.html.twig' %} {% endembed %}
             </section>
         {% endblock %}

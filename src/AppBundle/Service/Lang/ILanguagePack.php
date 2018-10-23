@@ -131,4 +131,18 @@ interface ILanguagePack
 
     function nameTaken() : string ;
 
+    function yourMessageWasSent() : string ;
+
+    function viewFullScreen() : string ;
+
+    function removeAll() : string ;
+
+    function noNotifications() : string ;
+
+    function questions() : string ;
+
+    function notifications() : string ;
+
+    function notifyAll() : string ;
+
 }

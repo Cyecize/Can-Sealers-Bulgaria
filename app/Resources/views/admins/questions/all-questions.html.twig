@@ -1,0 +1,46 @@
+{% extends 'admins/admin-panel.html.twig' %}
+{# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+{% block sectionContent %}
+    <h2>{{ dict.questions }}</h2>
+    <hr>
+    <div>
+        <table class="table">
+            <thead class="rounded bg-dark p-0 text-light">
+            <tr>
+                <th scope="row">
+                    Id
+                </th>
+                <th scope="row">
+
+                </th>
+                <th scope="row">
+
+                </th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            {# @var question \AppBundle\Entity\Question #}
+            {% for question in page.elements %}
+                <tr>
+                    <td>
+                        <a href="{{ path('question_details', {'qid':question.id}) }}">
+                            <p class="text-dark">{{ question.id }}</p>
+                        </a>
+                    </td>
+                    <td>
+                        <small class="text-dark">
+                            {{ question.dateFormat }}
+                        </small>
+                    </td>
+                    <td>
+                        <small class="text-dark">
+                            {{ question.fullName }}
+                        </small>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% embed 'partials/pagination.html.twig' with {'page':page} %} {% endembed %}
+{% endblock %}

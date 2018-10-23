@@ -7,6 +7,8 @@ use AppBundle\Constants\Roles;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserRegisterType;
 use AppBundle\Service\FirstRunService;
+use AppBundle\Service\LogService;
+use AppBundle\Service\NotificationSendingService;
 use AppBundle\Service\RoleService;
 use AppBundle\Utils\ModelMapper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,13 +19,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends BaseController
 {
 
+    private const LOGGER_LOCATION = "Security Controller";
+
     /**
      * @Route("/login", name="security_login" )
      * @Security("is_anonymous()", message="You are already logged in")
      * @param AuthenticationUtils $authUtils
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function loginAction(AuthenticationUtils $authUtils)
+    public function loginAction(AuthenticationUtils $authUtils, Request $request)
     {
         $lastUsername = null;
         // get the login error if there is one
@@ -33,14 +39,17 @@ class SecurityController extends BaseController
         $lastUsername = $authUtils->getLastUsername();
 
         if ($error != null) {
-            $error = "Wrong Password!";
+            $error = $this->dictionary->invalidPassword();
             $repo = $this->getDoctrine()->getRepository(User::class);
-            $existingUser = $repo->findOneBy(array("username" => $lastUsername, 'email' => $lastUsername));
+            $existingUser = $repo->findByUsernameOrEmail($lastUsername);
             if ($existingUser == null) {
                 $lastUsername = null;
                 $error = $this->dictionary->usernameOrEmailDoesNotExist();
             }
         }
+
+        $queryName = $request->get('u');
+        if($queryName != null) $lastUsername = $queryName;
 
         return $this->render(":security:login.html.twig",
             array(
@@ -56,9 +65,12 @@ class SecurityController extends BaseController
      * @param ModelMapper $modelMapper
      * @param RoleService $roleService
      * @param FirstRunService $firstRunService
+     * @param LogService $logService
+     * @param NotificationSendingService $notificationSendingService
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function registerAction(Request $request, ModelMapper $modelMapper, RoleService $roleService, FirstRunService $firstRunService)
+    public function registerAction(Request $request, ModelMapper $modelMapper, RoleService $roleService, FirstRunService $firstRunService,
+                                   LogService $logService, NotificationSendingService $notificationSendingService)
     {
         $userRepo = $this->getDoctrine()->getRepository(User::class);
         $bindingModel = new UserRegisterBindingModel();
@@ -98,7 +110,10 @@ class SecurityController extends BaseController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute("security_login");
+            $notificationSendingService->onUserRegister($user);
+            $logService->log(self::LOGGER_LOCATION, sprintf("User with username %s was created", $user->getUsername()));
+
+            return $this->redirectToRoute("security_login", ['u'=>$user->getUsername()]);
         }
 
         escape:

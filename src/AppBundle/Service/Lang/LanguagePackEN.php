@@ -46,7 +46,7 @@ class LanguagePackEN implements ILanguagePack
     public const CURRENCY = "BGN";
     public const EMPTY_CATEGORY = "Empty Category.";
     public const CAT_NOT_FOUND_FORMAT = "Category with name %s was not found.";
-    public const OUR_CAN_SEALERS = "Our Can Sealers";
+    public const OUR_CAN_SEALERS = "Our Products";
     public const PREVIOUS = "Previous";
     public const NEXT = "Next";
     public const PRODUCT_NOT_FOUND = "Product Not Found!";
@@ -71,6 +71,48 @@ class LanguagePackEN implements ILanguagePack
     public const REMOVE = "Remove";
     public const CREATE_CATEGORY = "Create Category";
     public const NAME_TAKEN = "Name already in use";
+    public const YOUR_MESSAGE_WAS_SENT = "Your message was sent.";
+    public const VIEW_FULL_SCREEN = "Show on full screen";
+    public const REMOVE_ALL = "Clear all";
+    public const NO_NOTIFICATIONS = "All Good!";
+    public const QUESTIONS = "Questions";
+    public const NOTIFICATIONS = "Notifications";
+    public const NOTIFY_ALL = "Notify All";
+
+    function questions(): string
+    {
+        return self::QUESTIONS;
+    }
+
+    function notifications(): string
+    {
+        return self::NOTIFICATIONS;
+    }
+
+    function notifyAll(): string
+    {
+        return self::NOTIFY_ALL;
+    }
+
+    function viewFullScreen(): string
+    {
+        return self::VIEW_FULL_SCREEN;
+    }
+
+    function removeAll(): string
+    {
+        return self::REMOVE_ALL;
+    }
+
+    function noNotifications(): string
+    {
+        return self::NO_NOTIFICATIONS;
+    }
+
+    public function yourMessageWasSent(): string
+    {
+        return self::YOUR_MESSAGE_WAS_SENT;
+    }
 
     function createCategory(): string
     {

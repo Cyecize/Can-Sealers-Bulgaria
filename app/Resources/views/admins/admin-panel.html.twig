@@ -38,6 +38,33 @@
                     </a>
                 </div>
             </section>
+            <hr>
+            <section class="sidebar-item">
+                <h4>{{ dict.notifications }}</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{{ path('notify_all_users') }}">
+                        {{ dict.notifyAll }}
+                    </a>
+                </div>
+            </section>
+            <hr>
+            <section class="sidebar-item">
+                <h4>{{ dict.questions }}</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{{ path('observe_questions') }}?size=10">
+                        {{ dict.showAll }}
+                    </a>
+                </div>
+            </section>
+            <hr>
+            <section class="sidebar-item">
+                <h4>Logs</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{{ path('show_logs') }}?size=20">
+                        Show Logs
+                    </a>
+                </div>
+            </section>
         {% endblock %}
     {% endembed %}
 {% endblock %}

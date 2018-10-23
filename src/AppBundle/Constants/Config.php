@@ -11,6 +11,10 @@ namespace AppBundle\Constants;
 
 class Config
 {
+    public const DEFAULT_TIMEZONE = "Europe/Sofia";
+
+    public const SIMPLE_DATE_FORMAT = "d M, Y -  H:m a";
+
     public const COOKIE_BG_LANG = "bg";
 
     public const COOKIE_EN_LANG = "en";
@@ -22,4 +26,8 @@ class Config
     public const PRODUCT_FILES_PATH = "files/" . "products/";
 
     public const GALLERIES_PATH = "files/galleries/";
+
+    public const MAILER_SENDER_NAME = "Zatvarachki BG";
+
+
 }

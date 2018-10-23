@@ -9,7 +9,7 @@
 namespace AppBundle\Exception;
 
 
-interface RestException
+interface RestException extends \Throwable
 {
 
 }

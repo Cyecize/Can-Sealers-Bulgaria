@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Constants\Config;
 use AppBundle\Constants\ProductType;
 
 class TwigInformer
@@ -61,5 +62,12 @@ class TwigInformer
      */
     public function getProductTypes() : array {
         return ProductType::PRODUCT_TYPES;
+    }
+
+    /**
+     * @return string
+     */
+    public function simpleDateFormat(){
+        return Config::SIMPLE_DATE_FORMAT;
     }
 }

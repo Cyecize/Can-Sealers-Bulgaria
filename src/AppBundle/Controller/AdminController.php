@@ -8,9 +8,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\BindingModel\NotificationBindingModel;
 use AppBundle\Exception\IllegalArgumentException;
 use AppBundle\Exception\InternalRestException;
+use AppBundle\Form\NotificationType;
 use AppBundle\Service\LocalLanguage;
+use AppBundle\Service\NotificationSendingService;
 use AppBundle\Service\RoleService;
 use AppBundle\Service\UserService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -32,19 +35,31 @@ class AdminController extends BaseController
      */
     private $roleService;
 
-    public function __construct(LocalLanguage $language, UserService $userService, RoleService $roleService)
+    /**
+     * @var NotificationSendingService
+     */
+    private $notificationService;
+
+    public function __construct(LocalLanguage $language, UserService $userService,
+                                RoleService $roleService, NotificationSendingService $notificationService)
     {
         parent::__construct($language);
         $this->userService = $userService;
         $this->roleService = $roleService;
+        $this->notificationService = $notificationService;
     }
 
     /**
      * @Route("/admin/panel", name="admin_panel")
      * @Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function adminPanelAction(){
-        return $this->render('admins/admin-panel.html.twig');
+    public function adminPanelAction(Request $request)
+    {
+        return $this->render('admins/admin-panel.html.twig', [
+            'info' => $request->get('info')
+        ]);
     }
 
     /**
@@ -56,6 +71,31 @@ class AdminController extends BaseController
         $users = $this->userService->findAll();
         return $this->render('admins/users/all-users.html.twig', [
             'users' => $users,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/users/notify", name="notify_all_users")
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function notifyUsersAction(Request $request)
+    {
+        $bindingModel = new NotificationBindingModel();
+        $form = $this->createForm(NotificationType::class, $bindingModel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if (count($this->validate($bindingModel)) > 0)
+                goto escape;
+            $this->notificationService->notifyAll($bindingModel->getMessage(), $bindingModel->getHref());
+            return $this->redirectToRoute('admin_panel', ['info' => "Message was sent!"]);
+        }
+
+        escape:
+        return $this->render('admins/users/send-notification.html.twig', [
+            'form1' => $form->createView(),
         ]);
     }
 
@@ -75,7 +115,7 @@ class AdminController extends BaseController
         } catch (IllegalArgumentException $e) {
             throw new InternalRestException($e->getMessage());
         }
-        return new JsonResponse(['message'=>"Role added"]);
+        return new JsonResponse(['message' => "Role added"]);
     }
 
     /**
@@ -94,7 +134,7 @@ class AdminController extends BaseController
         } catch (IllegalArgumentException $e) {
             throw new InternalRestException($e->getMessage());
         }
-        return new JsonResponse(['message'=>"Role removed"]);
+        return new JsonResponse(['message' => "Role removed"]);
     }
 
     //private
@@ -114,6 +154,6 @@ class AdminController extends BaseController
         $role = $this->roleService->findByRoleName($roleType);
         if ($user == null || $role == null)
             throw new InternalRestException(self::INVALID_FORM_PARAMETERS);
-        return ['user'=>$user, 'role'=>$role];
+        return ['user' => $user, 'role' => $role];
     }
 }

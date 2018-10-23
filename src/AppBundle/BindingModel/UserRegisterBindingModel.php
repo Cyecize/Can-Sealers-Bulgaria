@@ -44,7 +44,7 @@ class UserRegisterBindingModel
     private $phoneNumber;
 
     /**
-     * @Assert\Length(max="90", maxMessage="invalidValue")
+     * @Assert\Length(max="50", maxMessage="invalidValue")
      */
     private $fullName;
 

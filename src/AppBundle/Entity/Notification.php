@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Constants\Config;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,53 +23,11 @@ class Notification
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="username_id", type="integer", nullable=true)
-     */
-    private $usernameId;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="full_name", type="string", length=50)
+     * @ORM\Column(name="content", type="string", length=255)
      */
-    private $fullName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=50, nullable=true)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone_number", type="string", length=15)
-     */
-    private $phoneNumber;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="message", type="text")
-     */
-    private $message;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="target_id", type="integer")
-     */
-    private $targetId;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="seen", type="boolean")
-     */
-    private $seen;
+    private $content;
 
     /**
      * @var \DateTime
@@ -77,14 +36,41 @@ class Notification
      */
     private $date;
 
-    private $about;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="href", type="string", length=255)
+     */
+    private $href;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_seen", type="boolean")
+     */
+    private $isSeen;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @var User
+     */
+    private $user;
+
 
     public function __construct()
     {
-        $this->date= new \DateTime('now', new \DateTimeZone('Europe/Sofia'));
-        $this->seen = false;
+        $this->isSeen = false;
+        $this->date = new \DateTime('now', new \DateTimeZone(Config::DEFAULT_TIMEZONE));
     }
 
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * Get id
@@ -97,171 +83,27 @@ class Notification
     }
 
     /**
-     * Set usernameId
+     * Set content
      *
-     * @param integer $usernameId
+     * @param string $content
      *
      * @return Notification
      */
-    public function setUsernameId($usernameId)
+    public function setContent($content)
     {
-        $this->usernameId = $usernameId;
+        $this->content = $content;
 
         return $this;
     }
 
     /**
-     * Get usernameId
-     *
-     * @return int
-     */
-    public function getUsernameId()
-    {
-        return $this->usernameId;
-    }
-
-    /**
-     * Set fullName
-     *
-     * @param string $fullName
-     *
-     * @return Notification
-     */
-    public function setFullName($fullName)
-    {
-        $this->fullName = $fullName;
-
-        return $this;
-    }
-
-    /**
-     * Get fullName
+     * Get content
      *
      * @return string
      */
-    public function getFullName()
+    public function getContent()
     {
-        return $this->fullName;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Notification
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set phoneNumber
-     *
-     * @param string $phoneNumber
-     *
-     * @return Notification
-     */
-    public function setPhoneNumber($phoneNumber)
-    {
-        $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get phoneNumber
-     *
-     * @return string
-     */
-    public function getPhoneNumber()
-    {
-        return $this->phoneNumber;
-    }
-
-    /**
-     * Set message
-     *
-     * @param string $message
-     *
-     * @return Notification
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get message
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    /**
-     * Set targetId
-     *
-     * @param integer $targetId
-     *
-     * @return Notification
-     */
-    public function setTargetId($targetId)
-    {
-        $this->targetId = $targetId;
-
-        return $this;
-    }
-
-    /**
-     * Get targetId
-     *
-     * @return int
-     */
-    public function getTargetId()
-    {
-        return $this->targetId;
-    }
-
-    /**
-     * Set seen
-     *
-     * @param boolean $seen
-     *
-     * @return Notification
-     */
-    public function setSeen($seen)
-    {
-        $this->seen = $seen;
-
-        return $this;
-    }
-
-    /**
-     * Get seen
-     *
-     * @return bool
-     */
-    public function getSeen()
-    {
-        return $this->seen;
+        return $this->content;
     }
 
     /**
@@ -289,48 +131,67 @@ class Notification
     }
 
     /**
-     * @return mixed
+     * Set href
+     *
+     * @param string $href
+     *
+     * @return Notification
      */
-    public function getAbout()
+    public function setHref($href)
     {
-        return $this->about;
+        $this->href = $href;
+
+        return $this;
     }
 
     /**
-     * @param mixed $about
+     * Get href
+     *
+     * @return string
      */
-    public function setAbout($about)
+    public function getHref()
     {
-        $this->about = $about;
+        return $this->href;
     }
 
-    public function isValid() : bool {
+    /**
+     * Set isSeen
+     *
+     * @param boolean $isSeen
+     *
+     * @return Notification
+     */
+    public function setIsSeen($isSeen)
+    {
+        $this->isSeen = $isSeen;
 
-        if($this->fullName == null || $this->phoneNumber == null || $this->message == null)
-            return false;
-        return true;
+        return $this;
     }
 
-    public function getDateFormat() :string {
-        return date_format ( $this->date, "d/m/Y г. в  h:i ч." );
+    /**
+     * Get isSeen
+     *
+     * @return bool
+     */
+    public function getIsSeen()
+    {
+        return $this->isSeen;
     }
 
-    public function createSummary(){
-        $summary = "";
-        if(strlen($this->message) < 50)
-            $summary = $this->message;
-        else
-            $summary = substr($this->message, 0, 50) . "...";
-        return $summary;
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
     }
 
-    public function manageUser(User $user){
-        $this->setPhoneNumber($user->getPhoneNumber());
-        $this->setEmail($user->getEmail());
-        $this->setFullName($user->getFullName());
-        $this->setUsernameId($user->getId());
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
-
-
 }
 

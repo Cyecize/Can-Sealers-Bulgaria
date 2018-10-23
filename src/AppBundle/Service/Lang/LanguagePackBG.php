@@ -46,7 +46,7 @@ class LanguagePackBG implements ILanguagePack
     public const CURRENCY = "лв.";
     public const EMPTY_CATEGORY = "Категорията е празна.";
     public const CAT_NOT_FOUND_FORMAT = "Категория с име %s не беше намерена.";
-    public const OUR_CAN_SEALERS = "Нашите Затварачки";
+    public const OUR_CAN_SEALERS = "Нашите Продукти";
     public const PREVIOUS = "Предишна";
     public const NEXT = "Следваща";
     public const PRODUCT_NOT_FOUND = "Продуктът не е намерен!";
@@ -71,10 +71,52 @@ class LanguagePackBG implements ILanguagePack
     public const REMOVE = "Премахване";
     public const CREATE_CATEGORY = "Създаване на категория";
     public const NAME_TAKEN = "Името е заето";
+    public const YOUR_MESSAGE_WAS_SENT = "Вашето запитване беше изпратено.";
+    public const VIEW_FULL_SCREEN = "Показване на цял екран";
+    public const REMOVE_ALL = "Премахване на всички";
+    public const NO_NOTIFICATIONS = "Няма нови известия!";
+    public const QUESTIONS = "Въпроси";
+    public const NOTIFICATIONS = "Известия";
+    public const NOTIFY_ALL = "Извести всички";
+
+    function questions(): string
+    {
+        return self::QUESTIONS;
+    }
+
+    function notifications(): string
+    {
+        return self::NOTIFICATIONS;
+    }
+
+    function notifyAll(): string
+    {
+       return self::NOTIFY_ALL;
+    }
+
+    function viewFullScreen(): string
+    {
+        return self::VIEW_FULL_SCREEN;
+    }
+
+    function removeAll(): string
+    {
+        return self::REMOVE_ALL;
+    }
+
+    function noNotifications(): string
+    {
+        return self::NO_NOTIFICATIONS;
+    }
+
+    public function yourMessageWasSent(): string
+    {
+        return self::YOUR_MESSAGE_WAS_SENT;
+    }
 
     function createCategory(): string
     {
-       return self::CREATE_CATEGORY;
+        return self::CREATE_CATEGORY;
     }
 
     function nameTaken(): string

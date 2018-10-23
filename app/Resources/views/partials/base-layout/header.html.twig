@@ -26,6 +26,14 @@
             </ul>
 
             <ul class="navbar-nav ml-auto t-white ">
+                {% if app.user %}
+                    <li class="nav-item">
+                        <div class="nav-link position-relative">
+                            <i class="fa fa-bell" id="notificationsBtn"></i>
+                            <div id="hidden-noti-bar" class="notifications-section">Shiiiet</div>
+                        </div>
+                    </li>
+                {% endif %}
                 <li class="nav-item ">
                     <a href="/" class="nav-link smooth text-orange-hover">{{ dict.home }}</a>
                 </li>
