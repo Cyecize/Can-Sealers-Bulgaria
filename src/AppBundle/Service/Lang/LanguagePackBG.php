@@ -78,6 +78,12 @@ class LanguagePackBG implements ILanguagePack
     public const QUESTIONS = "Въпроси";
     public const NOTIFICATIONS = "Известия";
     public const NOTIFY_ALL = "Извести всички";
+    public const USER_NOT_FOUND_FORMAT = "Потребител с потр. име %s не е намерен!";
+
+    public function userNotFoundFormat(): string
+    {
+       return self::USER_NOT_FOUND_FORMAT;
+    }
 
     function questions(): string
     {

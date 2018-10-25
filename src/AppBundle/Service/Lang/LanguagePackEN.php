@@ -78,6 +78,12 @@ class LanguagePackEN implements ILanguagePack
     public const QUESTIONS = "Questions";
     public const NOTIFICATIONS = "Notifications";
     public const NOTIFY_ALL = "Notify All";
+    public const USER_NOT_FOUND_FORMAT = "User with username %s does not exist!";
+
+    public function userNotFoundFormat(): string
+    {
+        return self::USER_NOT_FOUND_FORMAT;
+    }
 
     function questions(): string
     {

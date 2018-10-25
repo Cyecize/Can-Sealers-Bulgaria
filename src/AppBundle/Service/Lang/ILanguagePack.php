@@ -145,4 +145,6 @@ interface ILanguagePack
 
     function notifyAll() : string ;
 
+    function userNotFoundFormat() : string ;
+
 }
