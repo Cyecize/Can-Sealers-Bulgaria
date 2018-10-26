@@ -10,6 +10,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Constants\Config;
 use AppBundle\Constants\ProductType;
+use AppBundle\Utils\YamlParser;
 
 class TwigInformer
 {
@@ -69,5 +70,12 @@ class TwigInformer
      */
     public function simpleDateFormat(){
         return Config::SIMPLE_DATE_FORMAT;
+    }
+
+    /**
+     * @return string
+     */
+    public function appId() : string {
+        return YamlParser::getFbAppId();
     }
 }

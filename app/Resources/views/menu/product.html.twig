@@ -1,8 +1,19 @@
 {% extends 'base.html.twig' %}
+{# @var information \AppBundle\Service\TwigInformer #}
+{# @var twigUtil \AppBundle\Utils\TwigUtil #}
+{# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+
 {% block title %}{{ dict.websiteName }} - {{ viewModel.product.productName }}{% endblock %}
+
+{% block ogType %}product{% endblock %}
+{% block ogTitle %}{{ viewModel.product.productName }}{% endblock %}
+{% block ogImage %}{{ url('homepage')|trim('/', 'right') }}{{ viewModel.product.imgPath }}{% endblock %}
+{% block facebookMetas %}
+    <meta property="og:product:category" content="{{ twigUtil.categoryName(viewModel.product.category, dict.localLang ) }}"/>
+{% endblock %}
+
 {% block body %}
-    {# @var information \AppBundle\Service\TwigInformer #}
-    {# @var twigUtil \AppBundle\Utils\TwigUtil #}
+
     <div class="container pt-2 max-width-container bg-container mt-container pb-container">
         {% block productSection %}
             <h2 class="fat-text">
@@ -65,6 +76,7 @@
 {% block stylesheets %}
     <link type="text/css" rel="stylesheet" href="{{ asset('style/css/product-details.css') }}">
 {% endblock %}
+
 {% block javascripts %}
     <script src="{{ asset('style/js/product-details.js') }}"></script>
     <script>
