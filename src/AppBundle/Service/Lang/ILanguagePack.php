@@ -147,4 +147,6 @@ interface ILanguagePack
 
     function userNotFoundFormat() : string ;
 
+    function forgottenPassword() : string ;
+
 }

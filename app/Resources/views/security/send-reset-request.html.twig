@@ -1,27 +1,19 @@
 {% extends 'base.html.twig' %}
-{% block title %}Forgotten Password{% endblock %}
+{# @var dict \AppBundle\Service\Lang\ILanguagePack #}
+{# @var localLang \AppBundle\Service\LocalLanguage #}
+{% block title %}{{ dict.websiteName }} - {{ dict.forgottenPassword }}{% endblock %}
 
-    {% block body %}
-        {% embed 'partials/banner.html.twig' %} {% endembed %}
+{% block body %}
 
-        <div class="page_content">
-            <div class="container">
-                <div class="row row-lg-eq-height">
-                    <div class="col-lg-9">
-                        <div class="main_content">
-                            {% embed 'user/profile/profile-details.html.twig' with {'user':user} %} {% endembed %}
-                            {% embed 'partials/lang/' ~ localLang.getLocalLang ~ '/send-reset-request-form.html.twig' %} {% endembed %}
-                        </div>
-                    </div>
+    <div class="container pt-2 max-width-container bg-container mt-container pb-container">
+        <div class="row row-lg-eq-height">
+            <div class="col-lg-9">
+                <div class="main_content">
+                    {% embed 'users/partials/user-details.html.twig' with {'user':user} %} {% endembed %}
+                    {% embed 'security/lang/' ~ localLang.getLocalLang ~ '/send-reset-request-form.html.twig' %} {% endembed %}
                 </div>
             </div>
         </div>
-    {% endblock %}
+    </div>
 
-{% block javascripts %}
-    <script src="{{ asset('styles/js/custom.js') }}"></script>
-{% endblock %}
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/styles/post.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/styles/post_responsive.css') }}">
 {% endblock %}

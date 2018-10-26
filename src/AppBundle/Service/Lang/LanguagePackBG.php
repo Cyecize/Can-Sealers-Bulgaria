@@ -79,6 +79,12 @@ class LanguagePackBG implements ILanguagePack
     public const NOTIFICATIONS = "Известия";
     public const NOTIFY_ALL = "Извести всички";
     public const USER_NOT_FOUND_FORMAT = "Потребител с потр. име %s не е намерен!";
+    public const FORGOTTEN_PASSWORD = "Забравена парола";
+
+    public function forgottenPassword(): string
+    {
+       return self::FORGOTTEN_PASSWORD;
+    }
 
     public function userNotFoundFormat(): string
     {

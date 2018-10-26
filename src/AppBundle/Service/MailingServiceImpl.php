@@ -9,7 +9,9 @@
 namespace AppBundle\Service;
 
 use AppBundle\Constants\Roles;
+use AppBundle\Entity\PasswordRecovery;
 use AppBundle\Entity\Question;
+use AppBundle\Entity\User;
 
 class MailingServiceImpl implements MailingService
 {
@@ -66,6 +68,15 @@ class MailingServiceImpl implements MailingService
         }catch (\Exception $ex){
             $this->logger->log(self::LOGGER_LOCATION, sprintf("Error while sending emails: %s" ,$ex->getMessage()));
         }
+    }
+
+    public function sendMessagePasswordRecovery(PasswordRecovery $passwordRecovery, User $user): void
+    {
+        $content = $this->twig->render('mailing/password-recovery.html.twig', [
+            'user' => $user,
+            'passwordRecovery' => $passwordRecovery
+        ]);
+        $this->mailerService->sendHtml($this->language->dictionary()->forgottenPassword(), $content, $user->getEmail());
     }
 
 }

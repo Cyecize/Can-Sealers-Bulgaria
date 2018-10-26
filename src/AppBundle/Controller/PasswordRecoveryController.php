@@ -9,7 +9,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\BindingModel\ChangePasswordBindingModel;
-use AppBundle\Entity\ProductCategory;
 use AppBundle\Entity\User;
 use AppBundle\Exception\InternalRestException;
 use AppBundle\Exception\NotFoundException;
@@ -18,11 +17,9 @@ use AppBundle\Service\LocalLanguage;
 use AppBundle\Service\MailingService;
 use AppBundle\Service\PasswordRecoveryService;
 use AppBundle\Service\UserService;
-use AppBundle\Utils\ModelMapper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Routing\Annotation\Route;
 
 class PasswordRecoveryController extends BaseController
 {
@@ -108,7 +105,7 @@ class PasswordRecoveryController extends BaseController
                 $spool->flushQueue($transport);
                 return $this->render('security/request-was-send.html.twig');
             } catch (\Exception $exception) {
-
+                $a = 5;
             }
         }
         return $this->render('security/send-reset-request.html.twig', [
