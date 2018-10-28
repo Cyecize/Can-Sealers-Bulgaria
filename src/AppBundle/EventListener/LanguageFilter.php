@@ -47,7 +47,8 @@ class LanguageFilter implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::CONTROLLER => 'onKernelController',
+            //TODO place other filters if needed
+            //KernelEvents::CONTROLLER => 'onKernelController',
         );
     }
 }

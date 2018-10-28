@@ -8,6 +8,7 @@
 {% block ogType %}product{% endblock %}
 {% block ogTitle %}{{ viewModel.product.productName }}{% endblock %}
 {% block ogImage %}{{ url('homepage')|trim('/', 'right') }}{{ viewModel.product.imgPath }}{% endblock %}
+{% block ogDescription %}{{ dict.websiteName }}{% endblock %}
 {% block facebookMetas %}
     <meta property="og:product:category" content="{{ twigUtil.categoryName(viewModel.product.category, dict.localLang ) }}"/>
 {% endblock %}
