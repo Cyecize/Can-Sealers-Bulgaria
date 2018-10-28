@@ -149,4 +149,6 @@ interface ILanguagePack
 
     function forgottenPassword() : string ;
 
+    function share() : string ;
+
 }

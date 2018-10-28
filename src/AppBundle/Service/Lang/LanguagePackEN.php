@@ -80,6 +80,12 @@ class LanguagePackEN implements ILanguagePack
     public const NOTIFY_ALL = "Notify All";
     public const USER_NOT_FOUND_FORMAT = "User with username %s does not exist!";
     public const FORGOTTEN_PASSWORD = "Forgotten password";
+    public const SHARE = "Share";
+
+    public function share(): string
+    {
+        return self::SHARE;
+    }
 
     public function forgottenPassword(): string
     {

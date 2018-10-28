@@ -1,6 +1,7 @@
 {# @var product \AppBundle\Entity\Product #}
 {# @var dict \AppBundle\Service\Lang\ILanguagePack #}
 {# @var gallery \AppBundle\Entity\Gallery #}
+{# @var information \AppBundle\Service\TwigInformer #}
 
 <div class="row">
     <div class="col-md-5">
@@ -42,8 +43,17 @@
                     : {{ product.price|number_format(2, '.', ',') }} {{ dict.currency }}
                 </h5>
             </div>
-            <small>TODO: add button that shows contact modal</small>
         {% endif %}
+        <div>
+            <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="50" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+        </div>
+        <div class="pt-2 pb-2">
+            <a href="https://www.facebook.com/sharer/sharer.php?app_id={{ information.appId }}&amp;sdk=joey&amp;u={{ app.request.uri }}&amp;display=popup&amp;ref=plugin&amp;src=share_button"
+               onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')"
+               class="btn btn-sm btn-outline-primary">
+                <i class="fa fa-facebook"></i> {{ dict.share }}
+            </a>
+        </div>
         <div>
             <button id="quick-contact-btn" class="btn btn-outline-info">{{ dict.contacts }}</button>
         </div>
