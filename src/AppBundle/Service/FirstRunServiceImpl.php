@@ -17,9 +17,15 @@ class FirstRunServiceImpl implements FirstRunService
      */
     private $roleService;
 
-    public function __construct(RoleService $roleService)
+    /**
+     * @var LanguageDbService
+     */
+    private $langService;
+
+    public function __construct(RoleService $roleService, LanguageDbService $langService)
     {
         $this->roleService = $roleService;
+        $this->langService = $langService;
     }
 
     /**
@@ -28,5 +34,6 @@ class FirstRunServiceImpl implements FirstRunService
     public function initDb(): void
     {
         $this->roleService->createRolesIfNotExist();
+        $this->langService->initLanguages();
     }
 }

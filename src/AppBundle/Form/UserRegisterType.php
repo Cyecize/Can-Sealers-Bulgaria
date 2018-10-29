@@ -20,6 +20,7 @@ class UserRegisterType extends AbstractType
             ->add('password', TextType::class)
             ->add('confPassword', TextType::class)
             ->add('phoneNumber', TextType::class)
+            ->add('locale', TextType::class)
             ->add('fullName', TextType::class);
     }
     

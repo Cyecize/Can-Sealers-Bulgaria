@@ -30,19 +30,19 @@ interface LocalLanguage
      */
     public function forName(string $funcName): string;
 
-//    /**
-//     * @param string $langName
-//     * @return Language|null
-//     */
-//    public function findLanguageByName(string $langName): ?Language;
+    /**
+     * @param string $langName
+     * @return Language|null
+     */
+    public function findLanguageByName(string $langName): ?Language;
 
     /**
      * @return ILanguagePack
      */
     public function dictionary() : ILanguagePack;
 
-//    /**
-//     * @return Language[]
-//     */
-//    public function findCurrentLangs(): array;
+    /**
+     * @return Language[]
+     */
+    public function findCurrentLangs(): array;
 }

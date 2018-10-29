@@ -3,10 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\BindingModel\UserRegisterBindingModel;
+use AppBundle\Constants\Config;
 use AppBundle\Constants\Roles;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserRegisterType;
 use AppBundle\Service\FirstRunService;
+use AppBundle\Service\LanguageDbService;
 use AppBundle\Service\LogService;
 use AppBundle\Service\NotificationSendingService;
 use AppBundle\Service\RoleService;
@@ -105,6 +107,7 @@ class SecurityController extends BaseController
                 $user->addRole($roleService->findByRoleName(Roles::ROLE_ADMIN));
             }
             $user->addRole($roleService->findByRoleName(Roles::ROLE_USER));
+            $user->setLanguage($this->language->findLanguageByName($bindingModel->getLocale()));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -121,6 +124,7 @@ class SecurityController extends BaseController
         return $this->render(":security:register.html.twig", array(
             "bindingModel" => $bindingModel,
             'form1' => $userForm->createView(),
+            'langs'=> [Config::COOKIE_BG_LANG, Config::COOKIE_EN_LANG],
             'error' => $error,
         ));
 

@@ -151,4 +151,6 @@ interface ILanguagePack
 
     function share() : string ;
 
+    function language() : string ;
+
 }

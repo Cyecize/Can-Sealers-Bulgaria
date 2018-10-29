@@ -13,6 +13,7 @@ use AppBundle\Constants\Config;
 use AppBundle\Service\Lang\ILanguagePack;
 use AppBundle\Service\Lang\LanguagePackBG;
 use AppBundle\Service\Lang\LanguagePackEN;
+use AppBundle\Entity\Language;
 
 class LocalLanguageImpl implements LocalLanguage
 {
@@ -28,33 +29,33 @@ class LocalLanguageImpl implements LocalLanguage
      */
     private $currentLang;
 
-//    /**
-//     * @var LanguageDbService
-//     */
-//    private $languageDbService;
+    /**
+     * @var LanguageDbService
+     */
+    private $languageDbService;
 
-    public function __construct()
+    public function __construct(LanguageDbService $languageDb)
     {
-       // $this->languageDbService = $languageDb;
+        $this->languageDbService = $languageDb;
         $this->initLang();
         if(isset($_GET['lang']))
             $this->setLang($_GET['lang']);
     }
 
-//    public function findCurrentLangs(): array
-//    {
-//        return $this->languageDbService->findRange(array(Config::COOKIE_NEUTRAL_LANG, $this->currentLang));
-//    }
+    public function findCurrentLangs(): array
+    {
+        return $this->languageDbService->findRange(array(Config::COOKIE_NEUTRAL_LANG, $this->currentLang));
+    }
 
     public function getLocalLang(): string
     {
         return strtolower($this->currentLang);
     }
 
-//    public function findLanguageByName(string $langName): ?Language
-//    {
-//        return $this->languageDbService->findLangByLocale($langName);
-//    }
+    public function findLanguageByName(string $langName): ?Language
+    {
+        return $this->languageDbService->findLangByLocale($langName);
+    }
 
     public function forName(string $funcName): string
     {

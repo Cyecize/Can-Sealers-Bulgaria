@@ -35,6 +35,11 @@ services:
     public: true
     tags: ['controller.service_arguments']
 
+  account.security_listener:
+    class: AppBundle\EventListener\LoginListener
+    tags:
+    - { name: kernel.event_listener, event: security.interactive_login, method: onLogin }
+
 twig:
   globals:
     information: '@AppBundle\Service\TwigInformer'

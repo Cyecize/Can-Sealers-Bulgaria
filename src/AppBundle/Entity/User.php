@@ -68,6 +68,13 @@ class User implements UserInterface
     private $roles;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Language")
+     * @ORM\JoinColumn(name="lang_id", referencedColumnName="id")
+     * @var Language
+     */
+    private $language;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -202,6 +209,23 @@ class User implements UserInterface
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
+    }
+
+    /**
+     * @return Language
+     */
+    public function getLanguage(): Language
+    {
+        return $this->language;
+    }
+
+
+    /**
+     * @param Language $language
+     */
+    public function setLanguage(Language $language): void
+    {
+        $this->language = $language;
     }
 
 

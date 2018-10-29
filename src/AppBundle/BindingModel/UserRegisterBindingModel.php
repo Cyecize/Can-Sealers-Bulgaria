@@ -48,6 +48,12 @@ class UserRegisterBindingModel
      */
     private $fullName;
 
+    /**
+     * @Assert\NotBlank(message="fieldCannotBeNull")
+     * @Assert\Regex(pattern="/^(bg|en)$/", message="invalidValue")
+     */
+    private $locale;
+
     public function __construct()
     {
 
@@ -147,6 +153,22 @@ class UserRegisterBindingModel
     public function setFullName($fullName): void
     {
         $this->fullName = $fullName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param mixed $locale
+     */
+    public function setLocale($locale): void
+    {
+        $this->locale = $locale;
     }
 
 }

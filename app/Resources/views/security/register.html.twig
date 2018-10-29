@@ -40,12 +40,21 @@
                            aria-invalid="false">
                     {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.confPassword} %} {% endembed %}
                 </div>
+                <div class="form-group">
+                    <label for="locale">{{ dict.language }}</label>
+                    <select name="user_register[locale]" id="locale" required class="form-control">
+                        {% for lang in langs %}
+                            <option {% if lang == dict.localLang %} selected {% endif %}>{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.locale} %} {% endembed %}
+                </div>
                 <h4>{{ dict.optional }}</h4>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="fullName">{{ dict.name }}:</label>
                         <input id="fullName" type="text" class="form-control" maxlength="50"
-                                name="user_register[fullName]"
+                               name="user_register[fullName]"
                                aria-invalid="false" value="{{ bindingModel.fullName }}">
                         {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.fullName} %} {% endembed %}
                     </div>
