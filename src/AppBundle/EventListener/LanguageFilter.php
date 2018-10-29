@@ -8,11 +8,14 @@
 
 namespace AppBundle\EventListener;
 
-
+use AppBundle\Constants\Config;
+use AppBundle\Entity\User;
 use AppBundle\Service\LocalLanguage;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class LanguageFilter implements EventSubscriberInterface
 {
@@ -21,9 +24,21 @@ class LanguageFilter implements EventSubscriberInterface
      */
     private $language;
 
-    public function __construct(LocalLanguage $language)
+    /**
+     * @var User
+     */
+    private $loggedUser;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(LocalLanguage $language, TokenStorage $tokenStorage, EntityManagerInterface $entityManager)
     {
         $this->language = $language;
+        $this->loggedUser = $tokenStorage->getToken()->getUser();
+        $this->entityManager = $entityManager;
     }
 
     public function onKernelController(FilterControllerEvent $event)
@@ -34,21 +49,18 @@ class LanguageFilter implements EventSubscriberInterface
          * This is not usual in Symfony but it may happen.
          * If it is a class, it comes in array format
          */
-        if (!is_array($controller)) {
+        if (!is_array($controller) || $this->loggedUser == null || gettype($this->loggedUser) == 'string' || $this->loggedUser->getLanguage()->getLocaleName() == $this->language->getLocalLang())
             return;
-        }
-
-        $lang = $event->getRequest()->get('lang');
-        if($lang != null)
-            $this->language->setLang($lang);
-
+        $user = $this->entityManager->getRepository(User::class)->find($this->loggedUser->getId());
+        $user->setLanguage($this->language->findLanguageByName($this->language->getLocalLang()));
+        $this->entityManager->merge($user);
+        $this->entityManager->flush();
     }
 
     public static function getSubscribedEvents()
     {
         return array(
-            //TODO place other filters if needed
-            //KernelEvents::CONTROLLER => 'onKernelController',
+            KernelEvents::CONTROLLER => 'onKernelController',
         );
     }
 }
