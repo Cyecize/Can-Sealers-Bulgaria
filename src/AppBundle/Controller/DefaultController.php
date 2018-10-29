@@ -38,4 +38,11 @@ class DefaultController extends BaseController
             'products' => $this->productService->findByProductType(ProductType::PRODUCT),
         ]);
     }
+
+    /**
+     * @Route("/privacy-policy", name="privacy_policy")
+     */
+    public function privacyPolicyAction(){
+        return $this->render('default/privacy-policy.html.twig');
+    }
 }
