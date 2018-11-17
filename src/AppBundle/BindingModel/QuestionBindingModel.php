@@ -20,6 +20,7 @@ class QuestionBindingModel
 
     /**
      * @Assert\Length(max="50", maxMessage="invalidValue")
+     * @Assert\Email(message="invalidValue")
      */
     private $email;
 

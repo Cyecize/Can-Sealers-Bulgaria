@@ -6,9 +6,11 @@
         <div>
             {% set fullName = null %}
             {% set phoneNumber = null %}
+            {% set emailAddress = null %}
             {% if questionModel is defined %}
                 {% set fullName = questionModel.fullName %}
                 {% set phoneNumber = questionModel.phoneNumber %}
+                {% set emailAddress = questionModel.email %}
             {% endif %}
             {% if app.user %}
                 <p class="text-left">{{ usr.email }}</p>
@@ -18,8 +20,8 @@
                 {% if usr.phoneNumber %}
                     {% set phoneNumber = usr.phoneNumber %}
                 {% endif %}
+                {% set emailAddress = usr.email %}
             {% endif %}
-
             <div class="form-group">
                 <input required value="{{ fullName }}" type="text" class="form-control"
                        maxlength="50"
@@ -38,6 +40,14 @@
             </div>
 
             <div class="form-group">
+                <input type="email" name="question[email]" value="{{ emailAddress }}" required maxlength="50"
+                       class="form-control" placeholder="{{ dict.email }}">
+                {% if form1 is defined %}
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.email} %} {% endembed %}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
                         <textarea class="form-control" rows="5" placeholder="{{ dict.yourQuestion }} *" id="message"
                                   name="question[message]" required
                                   aria-invalid="false">{% if questionModel is defined %}{{ questionModel.message }}{% endif %}{% if about is defined %}{{ about }}{% endif %}</textarea>
@@ -51,7 +61,6 @@
         <div class="form-group">
             <input type="hidden" name="token" value="{{ csrf_token('token') }}">
             {% if app.user %}
-                <input type="hidden" name="question[email]" value="{{ usr.email }}">
                 <input type="hidden" name="question[userId]" value="{{ usr.id }}">
             {% endif %}
         </div>
