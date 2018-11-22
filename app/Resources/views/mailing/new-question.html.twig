@@ -6,7 +6,9 @@
         <p>тел. номер: {{ question.phoneNumber }}</p>
         {% if question.user %}
             <p>Потр. име: {{ user.username }}.  Преглед на профила <a href="{{ url('show_user', {'username':user.username}) }}">тук</a>. </p>
-            <p>Email: {{ user.email }}</p>
+        {% endif %}
+        {% if question.email %}
+            <p>Email: <a href="mailto:{{ question.email }}">{{ question.email }}</a></p>
         {% endif %}
     </div>
     <br>

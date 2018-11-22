@@ -13,10 +13,12 @@
                     <ul class="list-group">
                         <li class="list-group-item">Име: {{ question.fullName }}</li>
                         <li class="list-group-item">Тел. номер: {{ question.phoneNumber }}</li>
-                        {% if question.user %}
+                        {% if question.email %}
                             <li class="list-group-item">
-                                Email: <a href="mailto:{{ question.user.email }}">{{ question.user.email }}</a>
+                                Email: <a href="mailto:{{ question.email }}">{{ question.email }}</a>
                             </li>
+                        {% endif %}
+                        {% if question.user %}
                             <li class="list-group-item">
                                 Потр. Име: <a href="{{ path('show_user', {'username':question.user.username}) }}">
                                     {{ question.user.username }}

@@ -103,7 +103,7 @@ class Question
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -111,7 +111,7 @@ class Question
     /**
      * @param string $email
      */
-    public function setEmail(string $email): void
+    public function setEmail(string $email= null): void
     {
         $this->email = $email;
     }
