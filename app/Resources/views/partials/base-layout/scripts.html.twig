@@ -1,7 +1,12 @@
-<script>var CSRF_TOKEN = '{{ csrf_token('token') }}';</script>
+<script>
+    var CSRF_TOKEN = '{{ csrf_token('token') }}';
+    var CURRENT_URL = "{{ app.request.requestUri }}";
+</script>
 <script src="{{ asset('style/js/lang-manager.js') }}"></script>
 <script src="{{ asset('style/js/modal.js') }}"></script>
 <script src="{{ asset('style/js/custom-main.js') }}"></script>
+<script src="{{ asset('style/js/fields.js') }}"></script>
+<script src="{{ asset('style/js/header-routing.js') }}"></script>
 {% if app.user %}
     <script src="{{ asset('style/js/notifications.js') }}"></script>
 {% endif %}

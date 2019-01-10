@@ -36,6 +36,11 @@ body {
     transition: all 0.3s;
 }
 
+.active {
+    background: #4e555b;
+    background: rgba(0,0,0,0.2);
+}
+
 /*Navbar */
 
 .navbar{
