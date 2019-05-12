@@ -28,7 +28,7 @@ class LanguagePackBG implements ILanguagePack
     public const YOUR_QUESTION = "Вашето запитване";
     public const SEND = "Изпращане";
     public const ABOUT_US = "За нас";
-    public const WEBSITE_NAME = "Затварачки за консервни кутии";
+    public const WEBSITE_NAME = "Затварачка за консерви";
     public const USERNAME = "Потр. име";
     public const EMAIL = "E-Mail";
     public const PASSWORD = "Парола";
