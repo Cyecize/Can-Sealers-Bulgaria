@@ -19,3 +19,27 @@
     </div>
 
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            //Show spinner on submit and make so user can only submit the message once.
+            var sendMsgForm = document.querySelector('.send-msg-form');
+            var msgSentSpinner = $(document.querySelector('.message-sent-spinner'));
+            var isMessageSentOnce = false;
+
+            $('.btn-send-message').on('click', function (eventArgs) {
+                if (!sendMsgForm.checkValidity()) {
+                    return;
+                }
+
+                if (isMessageSentOnce) {
+                    eventArgs.preventDefault();
+                }
+
+                isMessageSentOnce = true;
+                msgSentSpinner.parent().show();
+            });
+        });
+    </script>
+{% endblock %}

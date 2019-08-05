@@ -55,6 +55,17 @@ var ModalManager = (function (id, openBtnId) {
         });
     }
 
+    function querySelector(selector) {
+        return modal.querySelector(selector);
+    }
+
+    function attachEventToElement(selector, eventType, listener) {
+        var element = querySelector(selector);
+        if (element) {
+            element.addEventListener(eventType, listener);
+        }
+    }
+
     //constructor
     initModal(id, openBtnId);
 
@@ -63,7 +74,9 @@ var ModalManager = (function (id, openBtnId) {
         showModal: showModal,
         hideModal: hideModal,
         isModalOpen: isModalOpen,
-        addMainContent: addMainContent
+        addMainContent: addMainContent,
+        querySelector: querySelector,
+        attachEventToElement: attachEventToElement,
     };
 
 });
