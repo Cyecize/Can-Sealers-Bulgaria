@@ -1,12 +1,12 @@
 1:
-    icon: fa-facebook
-    link: 'https://www.facebook.com/plastican/'
+  icon: fa-facebook
+  link: 'https://www.facebook.com/plastican/'
 2:
-    icon: fa-twitter
-    link: 'https://twitter.com/'
+  icon: fa-twitter
+  link: '#'
 3:
-    icon: fa-instagram
-    link: 'https://www.instagram.com/cyecize'
+  icon: fa-instagram
+  link: '#'
 4:
-    icon: fa-youtube-play
-    link: 'https://youtube.com/cyecize'
+  icon: fa-youtube-play
+  link: 'https://www.youtube.com/channel/UCwA0bp5DjX6nelAQDin8Inw'

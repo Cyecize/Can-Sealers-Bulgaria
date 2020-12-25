@@ -1,12 +1,12 @@
 1:
-    icon: fa-shopping-cart
-    title: 'Easy to Use'
-    body: 'For every household. Their simple process of work makes them excellent for making canned food at home.'
+  icon: fa-shopping-cart
+  title: 'Easy to Use'
+  body: 'For every household. Their simple process of work makes them excellent for making canned food at home.'
 2:
-    icon: fa-pie-chart
-    title: Quality
-    body: 'Made out of quality materials ensuring tight sealing.'
+  icon: fa-pie-chart
+  title: Quality
+  body: 'Made out of quality materials ensuring tight sealing.'
 3:
-    icon: fa-handshake-o
-    title: Loyalty
-    body: 'All models have one year of warranty. We also provide service after the warranty expires.'
+  icon: fa-handshake-o
+  title: Loyalty
+  body: 'All models have one year of warranty. We also provide service after the warranty expires.'
