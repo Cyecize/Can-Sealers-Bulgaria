@@ -10,24 +10,31 @@ namespace App\Service;
 
 
 use App\BindingModel\CharacteristicBindingModel;
+use App\Constants\Config;
 use App\Exception\IllegalArgumentException;
 use App\Utils\YamlParser;
 use App\ViewModel\CharacteristicViewModel;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class CharacteristicsYamlServiceImpl implements CharacteristicsYamlService
 {
     private const CHARACTERISTIC_NOT_FOUND = "Characteristic not found!";
 
-    private const FILE_DIR = "../config/";
+    private const FILE_DIR = "/config/";
 
     private $settings;
 
     private $fileDir;
 
-    public function __construct(LocalLanguage $localLanguage)
+    private $parameterBag;
+
+    private $localLanguage;
+
+    public function __construct(LocalLanguage $localLanguage, ParameterBagInterface $parameterBag)
     {
-        $this->fileDir = self::FILE_DIR . "_characteristics-" . $localLanguage->getLocalLang() . ".yml";
-        $this->settings = YamlParser::getFile($this->fileDir);
+        $this->parameterBag = $parameterBag;
+        $this->localLanguage = $localLanguage;
+        $this->settings = YamlParser::getFile($this->getFileName());
     }
 
     public function saveCharacteristic(CharacteristicBindingModel $bindingModel): void
@@ -57,5 +64,14 @@ class CharacteristicsYamlServiceImpl implements CharacteristicsYamlService
         foreach ($this->settings as $key => $setting)
             $res[] = $this->findOneById($key);
         return $res;
+    }
+
+    private function getFileName(): string
+    {
+        return $this->fileDir = $this->parameterBag->get(Config::KERNEL_PROJECT_DIR)
+            . self::FILE_DIR
+            . "_characteristics-"
+            . $this->localLanguage->getLocalLang()
+            . ".yml";
     }
 }

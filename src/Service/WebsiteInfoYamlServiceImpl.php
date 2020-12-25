@@ -11,20 +11,27 @@ namespace App\Service;
 
 use App\BindingModel\AboutUsBindingModel;
 use App\BindingModel\ContactsBindingModel;
+use App\Constants\Config;
 use App\Utils\YamlParser;
 use App\ViewModel\WebsiteInfoViewModel;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class WebsiteInfoYamlServiceImpl implements WebsiteInfoYamlService
 {
-    private const FILE_DIR = "../config/";
+    private const FILE_DIR = "/config/";
 
     private $settings;
 
     private $fileDir;
 
-    public function __construct(LocalLanguage $localLanguage)
+    public function __construct(LocalLanguage $localLanguage, ParameterBagInterface $parameterBag)
     {
-        $this->fileDir = self::FILE_DIR . "_info-" . $localLanguage->getLocalLang() . ".yml";
+        $this->fileDir = $parameterBag->get(Config::KERNEL_PROJECT_DIR)
+            . self::FILE_DIR
+            . "_info-"
+            . $localLanguage->getLocalLang()
+            . ".yml";
+
         $this->settings = YamlParser::getFile($this->fileDir);
     }
 

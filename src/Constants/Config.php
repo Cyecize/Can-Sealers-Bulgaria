@@ -35,4 +35,6 @@ class Config
 
     public const ENV_APP_ENV = 'APP_ENV';
 
+    public const KERNEL_PROJECT_DIR = 'kernel.project_dir';
+
 }

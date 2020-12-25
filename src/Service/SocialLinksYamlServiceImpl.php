@@ -10,20 +10,25 @@ namespace App\Service;
 
 
 use App\BindingModel\SocialLinkBindingModel;
+use App\Constants\Config;
 use App\Exception\IllegalArgumentException;
 use App\Utils\YamlParser;
 use App\ViewModel\SocialLinkViewModel;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class SocialLinksYamlServiceImpl implements SocialLinksYamlService
 {
     private const LINK_NOT_FOUND = "Link not found!";
-    private const FILE_PATH = "../config/_social-links.yml";
+    private const FILE_PATH = "/config/_social-links.yml";
 
     private $settings;
 
-    public function __construct()
+    private $parameterBag;
+
+    public function __construct(ParameterBagInterface $parameterBag)
     {
-        $this->settings = YamlParser::getFile(self::FILE_PATH);
+        $this->parameterBag = $parameterBag;
+        $this->settings = YamlParser::getFile($this->getFileName());
     }
 
     public function save(SocialLinkBindingModel $bindingModel): void
@@ -32,7 +37,7 @@ class SocialLinksYamlServiceImpl implements SocialLinksYamlService
             throw new IllegalArgumentException(self::LINK_NOT_FOUND);
         $this->settings[$bindingModel->getId()]['icon'] = $bindingModel->getIcon();
         $this->settings[$bindingModel->getId()]['link'] = $bindingModel->getLink();
-        YamlParser::saveFile($this->settings, self::FILE_PATH);
+        YamlParser::saveFile($this->settings, $this->getFileName());
     }
 
     public function findOneById(int $id): ?SocialLinkViewModel
@@ -48,5 +53,9 @@ class SocialLinksYamlServiceImpl implements SocialLinksYamlService
         foreach ($this->settings as $index => $setting)
             $res[] = new SocialLinkViewModel($index, $setting['icon'], $setting['link']);
         return $res;
+    }
+
+    private function getFileName() : string {
+        return $this->parameterBag->get(Config::KERNEL_PROJECT_DIR) . self::FILE_PATH;
     }
 }
