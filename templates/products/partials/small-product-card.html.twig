@@ -1,0 +1,18 @@
+{# @var product \App\Entity\Product #}
+{# @var twigUtil \App\Utils\TwigUtil #}
+<div class="d-flex align-items-xl-center align-items-center justify-content-start mt-1 side-product">
+    <div class="side-product-image d-flex align-items-center p-1">
+        <a href="{{ path('product_details', {'prodId':product.id}) }}">
+            <img src="{{ product.imgPath }}" style="width: 70px; height: 70px;">
+        </a>
+    </div>
+    <div class="side-product-content p-1">
+        <a style="color: inherit;" href="{{ path('product_details', {'prodId':product.id}) }}">
+            <small class="">{{ product.productName }}</small>
+        </a>
+        <hr class="hr-dark m-0">
+        <small>
+            <b>{{ twigUtil.categoryName(product.category, dict.localLang) }}</b>
+        </small>
+    </div>
+</div>

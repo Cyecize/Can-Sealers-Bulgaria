@@ -1,0 +1,118 @@
+{% extends 'admins/admin-panel.html.twig' %}
+{# @var dict \App\Service\Lang\ILanguagePack #}
+{# @var twigUtil \App\Utils\TwigUtil #}
+{% block sectionContent %}
+    <h2>{{ dict.products }}</h2>
+    <input class="form-control" id="searchUsers" placeholder="Type then press RETURN">
+    <div class="mt-2">
+        <label for="orderArticlesBy">Order By: </label>
+        <select id="orderArticlesBy" class="rounded btn btn-outline-dark">
+            <option value="prodId" selected>Id</option>
+            <option value="prodStatus">Status</option>
+            <option value="prodName">Product Name</option>
+        </select>
+        <select id="ascOrDesc" class="rounded btn btn-outline-dark">
+            <option>ASC</option>
+            <option selected>DESC</option>
+        </select>
+    </div>
+    <hr>
+    <div>
+        <table class="table">
+            <thead class="rounded bg-dark p-0 text-light">
+            <tr>
+                <th scope="row">
+                    Id
+                </th>
+                <th scope="row">
+                    {{ dict.name }}
+                </th>
+                <th scope="row">
+                    {{ dict.privateInfo }}
+                </th>
+                <th scope="row">
+
+                </th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            {# @var product \App\Entity\Product #}
+            {% for product in products %}
+                {#<hr>#}
+                <tr prodId="{{ product.id }}" prodStatus="{{ product.hidden }}" prodName="{{ product.productName }}">
+                    <td>
+                        <a href="{{ path('product_details', {'prodId':product.id}) }}">
+                            <p class="text-dark">{{ product.id }}</p>
+                        </a>
+                    </td>
+                    <td>
+                        <small class="text-dark">
+                            {{ product.productName }}
+                        </small>
+                    </td>
+                    <td>
+                        <small class="text-dark">
+                            {{ product.hidden ? 'true' : 'false' }}
+                        </small>
+                    </td>
+                    <td class="text-right">
+                        <a href="{{ path('edit_product', {'id':product.id}) }}" class="btn btn-outline-dark">
+                            {{ dict.edit }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block sectionScripts %}
+    <script>
+        var searchField = $('#searchUsers');
+        var tableBody = $('#tableBody');
+        var tableRows = tableBody.find('tr');
+
+        searchField.on('change', function (e) {
+            var searchWord = $(this).val();
+            tableRows.each(function (index,r) {
+                var searchCandidate = $(r).attr('prodName');
+                if(searchCandidate.toLowerCase().indexOf(searchWord.toLowerCase()) !== -1)
+                    $(r).show();
+                else
+                    $(r).hide();
+            }) ;
+        });
+
+
+        var selectOrderTypeField = $('#orderArticlesBy');
+        var orderStrategyField = $('#ascOrDesc');
+
+
+        function sortProducts(strategy, orderType) {
+            var direction = strategy === "ASC" ? 1 : -1;
+            tableBody.html('');
+            tableRows.toArray().sort(function (a, b) {
+                var el1 = $(a).attr(orderType);
+                var el2 = $(b).attr(orderType);
+                var diff = 0;
+                if(!isNaN(el1))
+                    diff = Number(el1) - Number(el2);
+                else
+                    diff = el1.localeCompare(el2);
+                return diff * direction;
+            }).forEach(function (row) {
+                tableBody.append($(row));
+            });
+        }
+
+        selectOrderTypeField.on('change', function (e) {
+            sortProducts(orderStrategyField.val(), $(this).val());
+        });
+
+        orderStrategyField.on('change', function (e) {
+            sortProducts($(this).val(), selectOrderTypeField.val());
+        });
+
+    </script>
+{% endblock %}

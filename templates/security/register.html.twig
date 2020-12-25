@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% block title %} Затварачки БГ - Регистрация {% endblock %}
+{% block body %}
+    {# @var dict \App\Service\Lang\ILanguagePack #}
+    {% set dict = localLang.dictionary %}
+    <div class="fit-in-screen">
+        <h1 class="fat-text">{{ dict.register }}</h1>
+        <hr>
+        <form method="post" action="{{ path('security_register') }}" name="authenticate">
+            {% if error %}
+                <h3 class="alert alert-danger">{{ error }}</h3>
+            {% endif %}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">{{ dict.username }}:</label>
+                    <input id="username" type="text" class="form-control" maxlength="25"
+                           placeholder="{{ dict.username }} *" name="user_register[username]"
+                           value="{{ bindingModel.username }}" required>
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.username} %} {% endembed %}
+                </div>
+                <div class="form-group">
+                    <label for="mail">{{ dict.email }}:</label>
+                    <input id="mail" type="email" class="form-control" maxlength="30"
+                           placeholder="{{ dict.email }} *"
+                           value="{{ bindingModel.email }}" required="" name="user_register[email]"
+                           aria-invalid="false">
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.email} %} {% endembed %}
+                </div>
+                <div class="form-group">
+                    <label for="password">{{ dict.password }}:</label>
+                    <input id="password" type="password" class="form-control" maxlength="50"
+                           placeholder="**********"
+                           required name="user_register[password]" aria-invalid="false">
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.password} %} {% endembed %}
+                </div>
+                <div class="form-group">
+                    <label for="password-conf">{{ dict.password }}:</label>
+                    <input id="password-conf" type="password" class="form-control" maxlength="50"
+                           placeholder="**********" required="" name="user_register[confPassword]"
+                           aria-invalid="false">
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.confPassword} %} {% endembed %}
+                </div>
+                <div class="form-group">
+                    <label for="locale">{{ dict.language }}</label>
+                    <select name="user_register[locale]" id="locale" required class="form-control">
+                        {% for lang in langs %}
+                            <option {% if lang == dict.localLang %} selected {% endif %}>{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                    {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.locale} %} {% endembed %}
+                </div>
+                <h4>{{ dict.optional }}</h4>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="fullName">{{ dict.name }}:</label>
+                        <input id="fullName" type="text" class="form-control" maxlength="50"
+                               name="user_register[fullName]"
+                               aria-invalid="false" value="{{ bindingModel.fullName }}">
+                        {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.fullName} %} {% endembed %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber">{{ dict.phoneNumber }}:</label>
+                        <input id="phoneNumber" type="text" class="form-control" maxlength="15"
+                               placeholder="08....." name="user_register[phoneNumber]"
+                               aria-invalid="false" value="{{ bindingModel.phoneNumber }}">
+                        {% embed 'partials/errors/field-error-handler.html.twig' with {'field':form1.phoneNumber} %} {% endembed %}
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-outline-primary">{{ dict.go }}!</button>
+                </div>
+            </div>
+
+        </form>
+
+        {% embed 'security/lang/' ~ dict.localLang ~ '/register-additional.html.twig' %} {% endembed %}
+
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

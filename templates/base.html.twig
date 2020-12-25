@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{# @var information \App\Service\TwigInformer #}
+{# @var dict \App\Service\Lang\ILanguagePack #}
+{% set dict = localLang.dictionary %}
+
+<html lang="{{ dict.localLang }}">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Сайт за затварачки на консервни кутии, рецепти и консервни кутии">
+    <meta name="keywords"
+          content="затварачки,консерви,рецепти,кутии,zatvarachki,консервиране,консервни кутии,can juno, изгодна цена, цена, изплащане, can sealers, sealers, cans, can magic plasticam">
+    <meta name="author" content="Tsvetelin Yakimov">
+
+    <!-- facebook  -->
+    <meta property="fb:app_id" content="{% block fpApp %}{{ information.appId }}{% endblock %}">
+    <meta property="og:type" content="{% block ogType %}website{% endblock %}"/>
+    <meta property="og:url" content="{{ app.request.uri }}"/>
+    <meta property="og:title" content="{% block ogTitle %}{{ dict.websiteName }}{% endblock %}"/>
+    <meta property="og:image"
+          content="{% block ogImage %}{{ url('homepage') }}img/fb-logo.jpg{% endblock %}"/>
+    <meta property="og:description"
+          content="{% block ogDescription %}{{ information.websiteInfo.aboutUs }}{% endblock %}"/>
+    {% block facebookMetas %} {% endblock %}
+    <!-- end facebook -->
+
+    <title>{% block title %}{{ dict.websiteName }}{% endblock %}</title>
+    {% embed 'partials/base-layout/styles.html.twig' %} {% endembed %}
+
+    <script src="{{ asset('static/jquery-3.js') }}"></script>
+    <script src="{{ asset('static/bootstrap.min.js') }}"></script>
+
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+<!-- The developer (Tsvetelin Yakimov) does not agree with that background image but the customer demanded it! -->
+{% embed 'partials/base-layout/header.html.twig' %} {% endembed %}
+{% block body %}{% endblock %}
+{% embed 'partials/base-layout/footer.html.twig' %} {% endembed %}
+{% embed 'partials/modal/modal-template.html.twig' with {'modalId':'sharedModal'} %} {% endembed %}
+{% embed 'partials/base-layout/scripts.html.twig' %} {% endembed %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

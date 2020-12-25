@@ -1,0 +1,51 @@
+{% extends 'admins/admin-panel.html.twig' %}
+{% block sectionContent %}
+    <h2>Logs</h2>
+    <hr>
+    <div>
+        <table class="table">
+            <thead class="rounded bg-dark p-0 text-light">
+            <tr>
+                <th scope="row">
+                    Id
+                </th>
+                <th scope="row">
+
+                </th>
+                <th scope="row">
+
+                </th>
+                <th scope="row">
+
+                </th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            {# @var log \App\Entity\Log #}
+            {% for log in page.elements %}
+                <tr>
+                    <td>
+                        <p class="text-dark">{{ log.id }}</p>
+                    </td>
+                    <td>
+                        <small class="text-dark">
+                            {{ log.date.format(information.simpleDateFormat) }}
+                        </small>
+                    </td>
+                    <td>
+                        <small class="text-dark">
+                            {{ log.location }}
+                        </small>
+                    </td>
+                    <td>
+                        <small class="text-dark">
+                            {{ log.message }}
+                        </small>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% embed 'partials/pagination.html.twig' with {'page':page} %} {% endembed %}
+{% endblock %}

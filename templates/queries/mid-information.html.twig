@@ -1,0 +1,38 @@
+{# @var information \App\Service\TwigInformer #}
+
+<form method="post" action="{{ path('get_address_phone_mail') }}" enctype="multipart/form-data">
+    <div class="form-group">
+        <div>
+            <i class="fa fa-map-marker"></i>
+            <p>
+                <input class="form-control" maxlength="255" type="text" name="contact_info[address]"
+                       value="{{ information.websiteInfo.address }}"><span>{{ information.websiteInfo.location }}</span>
+            </p>
+        </div>
+        <div>
+            <i class="fa fa-phone"></i>
+            <p>
+                <input type="text" maxlength="15" class="form-control" name="contact_info[phoneNumber]"
+                       value="{{ information.contacts.phoneNumber }}">
+            </p>
+        </div>
+        <div>
+            <i class="fa fa-phone"></i>
+            <p>
+                <input type="text" maxlength="15" class="form-control" name="contact_info[phoneNumber2]"
+                       value="{{ information.contacts.phoneNumber2 }}">
+            </p>
+        </div>
+        <div>
+            <i class="fa fa-envelope"></i>
+            <p>
+                <input type="text" value="{{ information.contacts.email }}" maxlength="30" name="contact_info[email]"
+                       class="form-control">
+            </p>
+        </div>
+        <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+        <div class="" style="text-align: center;">
+            <button type="submit" class="btn btn-outline-primary">Запази »</button>
+        </div>
+    </div>
+</form>

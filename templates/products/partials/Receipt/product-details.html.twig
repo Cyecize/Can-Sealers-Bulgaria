@@ -1,0 +1,22 @@
+{# @var product \App\Entity\Product #}
+{# @var dict \App\Service\Lang\ILanguagePack #}
+{# @var gallery \App\Entity\Gallery #}
+
+<div>
+    <div>
+        <div class="text-center">
+            <img src="{{ product.imgPath }}" style="max-width: 600px;" alt="{{ product.productName }}">
+        </div>
+    </div>
+    <div class="border-dark pt-1 bg-white">
+        <div>
+            <h2>{{ product.productName }}</h2>
+        </div>
+        <hr class="bg-trans-gray">
+        {% if product.productDescription and product.productDescription != '' %}
+            <div>
+                <div class="text-muted raw-content">{{ product.productDescription }}</div>
+            </div>
+        {% endif %}
+    </div>
+</div>

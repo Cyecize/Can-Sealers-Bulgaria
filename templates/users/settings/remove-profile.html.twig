@@ -1,0 +1,13 @@
+{% extends 'users/profile-page.html.twig' %}
+{# @var dict \App\Service\Lang\ILanguagePack #}
+{# @var twigUtil \App\Utils\TwigUtil #}
+{% block sectionContent %}
+    <h2 class="text-dark">{{ dict.removeAccount }}</h2>
+    <hr>
+    <h3 class="text-danger">Това ще изтрие вашия профил завинаги!</h3>
+    <h3 class="text-danger">This will permanently remove your account!</h3>
+    <form method="post">
+        <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+        <button class="btn btn-outline-danger">{{ dict.removeAccount }}</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{# @var dict \App\Service\Lang\ILanguagePack #}
+{% block title %} {{ dict.websiteName }} - {{ dict.home }} {% endblock %}
+{% block body %}
+
+    {% block indexHeader %}
+        <header class="site-header">
+            <div class="mid-header bg-banner p-1">
+                <h1 class="font-caveat font-banner smooth text-warning">{{ dict.welcomeMessage }}</h1>
+            </div>
+        </header>
+    {% endblock %}
+
+    <div class="container max-width-container pb-container bg-container">
+        {% block characteristics %}
+            <section class="industries">
+                <br>
+                <h2> {{ dict.weGuarantee }} </h2>
+                <hr>
+                {% embed 'partials/forms/characteristics.html.twig' with {'characteristics':characteristics} %} {% endembed %}
+            </section>
+        {% endblock %}
+
+        {% block products %}
+            <section class="our-products">
+                <h2>{{ dict.ourCanSealers }}</h2>
+                <hr>
+                    <div class="row container m-auto">
+                        <div class="col-lg-10 row m-auto">
+                        {% for product in products %}
+                            {% embed 'products/partials/regular-product-card.html.twig' with {'product':product} %} {% endembed %}
+                        {% endfor %}
+                        </div>
+                    </div>
+            </section>
+
+            <section class="text-center">
+                {% embed 'partials/lang/' ~ dict.localLang ~ '/checkout-more-products.html.twig' %} {% endembed %}
+            </section>
+        {% endblock %}
+
+        {% block contacts %}
+            <section class="contact-info clearfix">
+                <h1 align="center">{{ dict.contacts }}</h1>
+                <hr>
+                {% embed 'partials/forms/contact-form.html.twig' %} {% endembed %}
+            </section>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('style/js/customIndex.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('style/css/index-style-1.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('style/css/index-style-2.css') }}">
+{% endblock %}

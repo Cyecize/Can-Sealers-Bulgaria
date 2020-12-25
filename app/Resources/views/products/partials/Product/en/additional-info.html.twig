@@ -1,9 +1,0 @@
-{# @var product \AppBundle\Entity\Product #}
-{# @var information \AppBundle\Service\TwigInformer #}
-
-<h2>Contacts</h2>
-<hr>
-<p class="m-0">Do have questions about {{ product.productName }}?</p>
-<small>Perhaps you want to know which sizes of cans our sealers support or how to buy.</small>
-<p class="mt-2">You can ask us <a href="{{ path('contacts') }}?about=About Product: {{ product.productName }}">here</a>.</p>
-<p>Or call: {{ information.contacts.phoneNumber }}</p>
