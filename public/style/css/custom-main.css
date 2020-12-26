@@ -4,6 +4,7 @@
 /*Table of content
     1 -> Navbar
         1.1 notifications
+        1.2 language
 
     2 -> fonts
 
@@ -59,8 +60,6 @@ nav.navbar.shrink {
     padding: 0px;
 }
 
-
-
 nav.navbar.shrink a, nav.navbar.shrink i {
     font-size: 14px;
     padding-top: 5px;
@@ -68,14 +67,14 @@ nav.navbar.shrink a, nav.navbar.shrink i {
     transition: all 0.3s ease;
 }
 
-nav.navbar.shrink .shopping-cart{
-    width:30px;
+nav.navbar.shrink .shopping-cart {
+    width: 30px;
     height: 30px;
     font-size: 13px;
     padding: 7px;
 }
 
-nav.navbar.shrink .shopping-cart-items-count{
+nav.navbar.shrink .shopping-cart-items-count {
     padding: 4px;
 }
 
@@ -86,6 +85,7 @@ nav, nav.navbar.shrink, nav.navbar.shrink button, nav.navbar.shrink input, nav.n
     -o-transition: all 0.3s;
     transition: all 0.3s;
 }
+
 /* 1.1 - notifications*/
 #notificationsBtn {
     cursor: pointer;
@@ -121,6 +121,38 @@ nav, nav.navbar.shrink, nav.navbar.shrink button, nav.navbar.shrink input, nav.n
 }
 
 /*!notifications*/
+
+/* 1.2 language */
+.language-selection-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.language-selection {
+    font-size: 0.6em;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.lang-option {
+    padding: 1px;
+}
+
+.lang-icon {
+    width: 25px;
+    height: 20px;
+}
+
+nav.navbar.shrink .lang-option {
+    padding: 0;
+}
+
+nav.navbar.shrink .lang-icon {
+    height: 13px;
+    width: 15px;
+}
+/* !language */
 
 /*!Navbar */
 
@@ -285,6 +317,20 @@ hr {
 
     .font-amatic-very-big {
         font-size: 4em;
+    }
+
+    .language-selection-container {
+        align-items: flex-start;
+        justify-content: left;
+    }
+
+    .language-selection {
+        font-size: 1em;
+    }
+
+    .lang-icon {
+        width: 32px;
+        height: 28px;
     }
 }
 
