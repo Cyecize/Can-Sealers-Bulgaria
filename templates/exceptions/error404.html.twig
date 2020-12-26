@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container rounded bg-container mt-container pb-container">
+        <div class="row row-lg-eq-height">
+            <!-- Main Content -->
+
+            <div class="col-lg-9">
+                <div class="main_content mt-2">
+                    {% embed 'exceptions/lang/'  ~ localLang.getLocalLang ~ '/not-found-partial.html.twig' %} {% endembed %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

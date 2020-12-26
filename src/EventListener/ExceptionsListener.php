@@ -11,7 +11,6 @@ namespace App\EventListener;
 use App\Constants\Config;
 use App\Exception\NotFoundException;
 use App\Exception\RestException;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -36,13 +35,21 @@ class ExceptionsListener
      *
      * @param ExceptionEvent $event
      */
-    public function onKernelException(ExceptionEvent $event)
-    {
-        if ("prod" !== $_ENV[Config::ENV_APP_ENV]) {
+    public function onException(ExceptionEvent $event) {
+        if (!boolval($_ENV[Config::ENV_ENABLE_ERROR_HANDLING])) {
             return;
         }
 
-        //TODO: add templates
+        if (!$this->onKernelException($event)
+            && !$this->onNotFoundException($event)
+            && !$this->onRestException($event)) {
+            return;
+        }
+    }
+
+
+    private function onKernelException(ExceptionEvent $event) : bool
+    {
         $exception = $event->getThrowable();
 
         if ($exception instanceof AccessDeniedHttpException) {
@@ -51,29 +58,15 @@ class ExceptionsListener
                 'exception' => $exception
             ]));
             $event->setResponse($response);
-        }
 
-        if ($exception instanceof FatalThrowableError) {
-            $response = new Response();
-            $response->setContent($this->twig->render("exceptions/error500.html.twig", [
-                'exception' => $exception
-            ]));
-
-            $event->setResponse($response);
+            return true;
         }
 
 
-        if ($exception instanceof InternalServerException) {
-            $response = new Response();
-            $response->setContent($this->twig->render("exceptions/internal-server-error.html.twig", [
-                'exception' => $exception,
-            ]));
-            $event->setResponse($response);
-        }
-
+        return false;
     }
 
-    public function onNotFoundException(ExceptionEvent $event)
+    private function onNotFoundException(ExceptionEvent $event) : bool
     {
         $exception = $event->getThrowable();
         if ($exception instanceof NotFoundException) {
@@ -82,21 +75,26 @@ class ExceptionsListener
                 'exception' => $event->getThrowable(),
             ]));
             $event->setResponse($response);
+
+            return true;
         }
 
         if ($exception instanceof NotFoundHttpException) {
             $response = new Response();
             $response->setContent($this->twig->render("exceptions/error404.html.twig", []));
             $event->setResponse($response);
+
+            return true;
         }
 
+        return false;
     }
 
-    public function onRestException(ExceptionEvent $event)
+    private function onRestException(ExceptionEvent $event) : bool
     {
         $exception = $event->getThrowable();
         if (!$exception instanceof RestException) {
-            return;
+            return false;
         }
 
         $code = $exception->getCode();
@@ -105,5 +103,7 @@ class ExceptionsListener
             'message' => $exception->getMessage()
         ];
         $event->setResponse(new JsonResponse($responseData, $code));
+
+        return true;
     }
 }

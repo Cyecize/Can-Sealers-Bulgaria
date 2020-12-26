@@ -35,6 +35,8 @@ class Config
 
     public const ENV_APP_ENV = 'APP_ENV';
 
+    public const ENV_ENABLE_ERROR_HANDLING = 'ENABLE_ERROR_HANDLING';
+
     public const KERNEL_PROJECT_DIR = 'kernel.project_dir';
 
 }

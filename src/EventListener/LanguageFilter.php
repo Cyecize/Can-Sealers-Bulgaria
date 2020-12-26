@@ -50,6 +50,12 @@ class LanguageFilter implements EventSubscriberInterface
     public function onKernelController(ControllerEvent $event)
     {
         $controller = $event->getController();
+        $token = $this->tokenStorage->getToken();
+
+        if ($token == null) {
+            return;
+        }
+
         $loggedUser = $this->tokenStorage->getToken()->getUser();
 
         /*

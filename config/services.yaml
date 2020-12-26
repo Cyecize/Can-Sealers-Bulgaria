@@ -10,7 +10,7 @@ services:
   rest_exception.listener:
     class: App\EventListener\ExceptionsListener
     tags:
-      - { name: kernel.event_listener, event: kernel.exception, method: onRestException }
+      - { name: kernel.event_listener, event: kernel.exception, method: onException }
   #end exceptions
 
   account.security_listener:
