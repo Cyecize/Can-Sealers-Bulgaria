@@ -5,11 +5,15 @@
     <script>$('#notificationsBtn').removeClass('text-danger');</script>
     <small class="text-primary" style="cursor: pointer;"
            onclick="window.location.replace('/notifications/mobile');">{{ dict.viewFullScreen }}</small>
-    <hr>
+    <hr class="mb-0">
     <!-- notifications  -->
-    {% for noti in notis %}{% embed 'partials/notifications/single-notification.html.twig' with {'noti':noti} %} {% endembed %}{% endfor %}
+    <div class="notifications-list">
+        {% for noti in notis %}
+            {% embed 'partials/notifications/single-notification.html.twig' with {'noti':noti} %}{% endembed %}
+        {% endfor %}
+    </div>
     <!-- end notifications -->
-    <hr>
+    <hr class="mt-0">
     <small onclick="NotificationModalManager.removeAllNotifications()" class="text-primary" style="cursor: pointer;">
         {{ dict.removeAll }}
     </small>

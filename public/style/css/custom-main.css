@@ -97,7 +97,7 @@ nav, nav.navbar.shrink, nav.navbar.shrink button, nav.navbar.shrink input, nav.n
     position: absolute;
     top: 30px;
     width: 500px;
-    max-height: 400px;
+    max-height: 450px;
     min-height: 70px;
     right: 1%;
     color: black;
@@ -113,6 +113,11 @@ nav, nav.navbar.shrink, nav.navbar.shrink button, nav.navbar.shrink input, nav.n
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+#hidden-noti-bar .notifications-list {
+    max-height: 320px;
+    overflow-y: auto;
 }
 
 /*!notifications*/
