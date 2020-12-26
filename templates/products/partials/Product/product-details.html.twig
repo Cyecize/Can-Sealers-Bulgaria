@@ -36,19 +36,31 @@
             </div>
             <hr class="bg-trans-gray">
         {% endif %}
+
         {% if product.price > 0 %}
-            <div>
-                <h5>
-                    {{ dict.price }}
-                    : {{ product.price|number_format(2, '.', ',') }} {{ dict.currency }}
-                </h5>
-            </div>
-            <div>
-                <h5>
-                    {{ dict.productCode }}: <strong>P{{ product.id }} </strong>
-                </h5>
-            </div>
+           <div class="row">
+               <div class="col-6">
+                   <h5>
+                       {{ dict.price }}:
+                   </h5>
+               </div>
+               <div class="col-6">
+                   <strong>{{ product.price|number_format(2, '.', ',') }} {{ dict.currency }}</strong>
+               </div>
+           </div>
+
         {% endif %}
+        <div class="row">
+            <div class="col-6">
+                <h5>
+                    {{ dict.productCode }}:
+                </h5>
+            </div>
+            <div class="col-6">
+                <strong>P{{ product.id }} </strong>
+            </div>
+        </div>
+
         <div>
             <div class="fb-like" data-href="{{ url('product_details', {'prodId':product.id}) }}" data-width="50"
                  data-layout="standard" data-action="like" data-size="small" data-show-faces="true"
