@@ -6,12 +6,14 @@
         <a href="{{ path('product_details', {'prodId':product.id}) }}"><img class="card-img-top" src="{{ product.imgPath }}" height="200px"></a>
         <div class="card-body">
             <h4 class="card-title">
-                <a href="{{ path('product_details', {'prodId':product.id}) }}" class="text-success">{{ product.productName }}</a>
+                <a href="{{ path('product_details', {'prodId':product.id}) }}" class="text-success">
+                    {{ twigUtil.categoryName(product.category, dict.localLang) }}
+                </a>
             </h4>
             {% if product.price > 0 %}
                 <h5>{{ product.price }} {{ dict.currency }}</h5>
             {% endif %}
-            <p class="card-text">{{ twigUtil.categoryName(product.category, dict.localLang) }}</p>
+            <p class="card-text">{{ product.productName }}</p>
         </div>
         <div class="card-footer">
             <small class="text-muted row">
