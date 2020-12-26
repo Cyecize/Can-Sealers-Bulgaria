@@ -43,6 +43,11 @@
                     : {{ product.price|number_format(2, '.', ',') }} {{ dict.currency }}
                 </h5>
             </div>
+            <div>
+                <h5>
+                    {{ dict.productCode }}: <strong>P{{ product.id }} </strong>
+                </h5>
+            </div>
         {% endif %}
         <div>
             <div class="fb-like" data-href="{{ url('product_details', {'prodId':product.id}) }}" data-width="50"

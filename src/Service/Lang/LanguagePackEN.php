@@ -82,6 +82,12 @@ class LanguagePackEN implements ILanguagePack
     public const FORGOTTEN_PASSWORD = "Forgotten password";
     public const SHARE = "Share";
     public const LANGUAGE = "Language";
+    public const PRODUCT_CODE = "Product Code";
+
+    public function productCode(): string
+    {
+        return self::PRODUCT_CODE;
+    }
 
     public function language(): string
     {

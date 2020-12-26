@@ -82,6 +82,12 @@ class LanguagePackBG implements ILanguagePack
     public const FORGOTTEN_PASSWORD = "Забравена парола";
     public const SHARE = "Споделяне";
     public const LANGUAGE = "Език";
+    public const PRODUCT_CODE = "Код на продукта";
+
+    public function productCode(): string
+    {
+        return self::PRODUCT_CODE;
+    }
 
     public function language(): string
     {

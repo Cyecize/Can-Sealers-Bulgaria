@@ -153,4 +153,6 @@ interface ILanguagePack
 
     function language() : string ;
 
+    function productCode() : string;
+
 }
