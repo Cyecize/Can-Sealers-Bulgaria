@@ -24,7 +24,7 @@
 body {
     font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
-    background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('../../img/fon.png');
+    background: linear-gradient(rgba(235, 235, 235, 0.95), rgba(235, 235, 235, 0.95)), url('../../img/fon.png');
     -webkit-background-size: 100%;
     background-size: 100%;
 }
@@ -201,6 +201,7 @@ nav.navbar.shrink .lang-icon {
 .t-white{
     color: white;
 }
+
 /*!Fonts*/
 
 /* sidebar */
@@ -252,7 +253,7 @@ nav.navbar.shrink .lang-icon {
 }
 
 .bg-container{
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 /*!Backgrounds*/

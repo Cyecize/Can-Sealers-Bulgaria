@@ -15,11 +15,11 @@
             <ul class="navbar-nav mr-auto">
                 <!-- consider adding items on the left -->
                 <li class="nav-item">
-                    <div class="text-info d-mobile-none">{{ dict.callNow }}</div>
+                    <div class="text-light d-mobile-none">{{ dict.callNow }}</div>
                     <span>
                         <i class="fa fa-phone"></i>
-                        <a href="tel:{{ information.contacts.phoneNumber }}" class="text-info">
-                            {{ information.contacts.phoneNumber }}
+                        <a href="tel:{{ information.contacts.phoneNumber }}" class="text-light">
+                            <strong>{{ information.contacts.phoneNumber }}</strong>
                         </a>
                     </span>
                 </li>
@@ -75,11 +75,6 @@
                     <li class="nav-item">
                         <a href="{{ path('security_login') }}" class="nav-link smooth text-orange-hover">
                             {{ dict.login }}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('security_register') }}" class="nav-link smooth text-orange-hover">
-                            {{ dict.register }}
                         </a>
                     </li>
                 {% endif %}

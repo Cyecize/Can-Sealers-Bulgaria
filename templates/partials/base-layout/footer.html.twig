@@ -76,17 +76,28 @@
                 </p>
             </div>
             <div>
-                <i class="fa fa-phone"></i>
-                <p>{{ information.contacts.phoneNumber }}</p>
-            </div>
-            <div>
-                <i class="fa fa-phone"></i>
-                <p>{{ information.contacts.phoneNumber2 }}</p>
-            </div>
-            <div>
-                <i class="fa fa-envelope"></i>
                 <p>
-                    <a href="mailto:{{ information.contacts.email }}?Subject=Въпрос%20относно">{{ information.contacts.email }}</a>
+                    <a class="t-white text-orange-hover smooth" href="tel:{{ information.contacts.phoneNumber }}">
+                        <i class="fa fa-phone"></i>
+                        {{ information.contacts.phoneNumber }}
+                    </a>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <a class="t-white text-orange-hover smooth" href="tel:{{ information.contacts.phoneNumber2 }}">
+                        <i class="fa fa-phone"></i>
+                        {{ information.contacts.phoneNumber2 }}
+                    </a>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <a class="t-white text-orange-hover smooth"
+                       href="mailto:{{ information.contacts.email }}?Subject=Въпрос%20относно">
+                        <i class="fa fa-envelope"></i>
+                        {{ information.contacts.email }}
+                    </a>
                 </p>
             </div>
             {% if is_granted('ROLE_ADMIN') %}
@@ -116,12 +127,13 @@
 
             <div class="footer-icons">
                 {% for link in information.socialLinks %}
-                    <div style="display:inline-block; color: white;">
-                        <a href="{{ link.link }}"><i class="fa {{ link.icon }}"></i></a>
+                    <div class="d-inline-block t-white">
+                        <a href="{{ link.link }}" target="_blank"><i class="fa {{ link.icon }}"></i></a>
                         {% if app.user %}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <div class="object-right">
-                                    <i class="fa fa-pencil-square-o social-link-edit" linkId="{{ link.id }}" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil-square-o social-link-edit" linkId="{{ link.id }}"
+                                       aria-hidden="true"></i>
                                 </div>
                             {% endif %}
                         {% endif %}
