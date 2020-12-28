@@ -1,0 +1,33 @@
+{% extends 'menu/product.html.twig' %}
+
+{% block facebookMetas %} {% endblock %}
+
+{% block productSection %}
+    <h2 class="fat-text">
+        <span class="font-kirang-hearang" style="font-size: 1.4em;">{{ viewModel.product.name }}</span>
+    </h2>
+    <hr>
+    <section class="product-section clearfix" id="product-holding-section">
+        <div class="row">
+            <div class="col-lg-9">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="mt-2 mb-2">
+                        <a href="{{ path('edit_product', {'id':viewModel.product.id}) }}"
+                           class="btn btn-outline-dark">
+                            {{ dict.edit }} TODO: update link!
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% embed 'receipts/receipt-details.html.twig' with {'product':viewModel.product } %} {% endembed %}
+
+
+                {% block additionalInfoSection %}
+                    <section class="mt-2">
+                        {% embed 'receipts/' ~ dict.localLang ~  '/additional-info.html.twig' with {'product':viewModel.product} %} {% endembed %}
+                    </section>
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
-use App\Constants\ProductType;
+use App\Constants\Config;
 use App\Service\CharacteristicsYamlService;
 use App\Service\LocalLanguage;
 use App\Service\ProductService;
+use App\Utils\Pageable;
+use App\Utils\PageRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,7 +38,8 @@ class DefaultController extends BaseController
         return $this->render('default/index.html.twig', [
             'characteristics' => $characteristicsService->getCharacteristics(),
             'err' => $err, //error
-            'products' => $this->productService->findByProductType(ProductType::PRODUCT),
+            'products' => $this->productService
+                ->findAll(new PageRequest(1, Config::MAX_PAGE_SIZE))->getElements(),
         ]);
     }
 

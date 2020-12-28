@@ -1,0 +1,22 @@
+{# @var product \App\Entity\Receipt #}
+{# @var dict \App\Service\Lang\ILanguagePack #}
+{# @var gallery \App\Entity\Gallery #}
+
+<div>
+    <div>
+        <div class="text-center">
+            <img src="{{ product.imgPath }}" style="max-width: 600px;" alt="{{ product.name }}">
+        </div>
+    </div>
+    <div class="border-dark pt-1 bg-white">
+        <div>
+            <h2>{{ product.name }}</h2>
+        </div>
+        <hr class="bg-trans-gray">
+        {% if product.receiptDescription and product.receiptDescription != '' %}
+            <div>
+                <div class="text-muted raw-content">{{ product.receiptDescription }}</div>
+            </div>
+        {% endif %}
+    </div>
+</div>

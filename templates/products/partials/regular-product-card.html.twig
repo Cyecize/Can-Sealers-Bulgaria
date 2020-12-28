@@ -1,26 +1,43 @@
 {# @var product \App\Entity\Product #}
 {# @var dict \App\Service\Lang\ILanguagePack #}
 {# @var twigUtil \App\Utils\TwigUtil #}
+
+{% set detailsUrl = '' %}
+{% set editUrl = '' %}
+
+{# Then this is a product type #}
+{% if product.price is defined %}
+    {% set detailsUrl = path('product_details', {'prodId':product.id})  %}
+    {% set editUrl = path('edit_product', {'id':product.id}) %}
+{% endif %}
+
+{% if product.price is not defined %}
+    {% set detailsUrl = path('receipt_details', {'id': product.id}) %}
+    {% set editUrl = 'FIX ME TOO' %}
+{% endif %}
+
 <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
-        <a href="{{ path('product_details', {'prodId':product.id}) }}"><img class="card-img-top" src="{{ product.imgPath }}" height="200px"></a>
+        <a href="{{ detailsUrl }}"><img class="card-img-top" src="{{ product.imgPath }}" height="200px"></a>
         <div class="card-body">
             <h4 class="card-title">
-                <a href="{{ path('product_details', {'prodId':product.id}) }}" class="text-success">
-                    {{ twigUtil.categoryName(product.category, dict.localLang) }}
-                </a>
+                {% if product.category is defined %}
+                    <a href="{{ detailsUrl }}" class="text-success">
+                        {{ twigUtil.categoryName(product.category, dict.localLang) }}
+                    </a>
+                {% endif %}
             </h4>
-            {% if product.price > 0 %}
+            {% if product.price is defined and product.price > 0 %}
                 <h5>{{ product.price }} {{ dict.currency }}</h5>
             {% endif %}
-            <p class="card-text">{{ product.productName }}</p>
+            <p class="card-text">{{ product.name }}</p>
         </div>
         <div class="card-footer">
             <small class="text-muted row">
                 {% if  is_granted('ROLE_ADMIN') %}
-                    <a class="col-md-5 btn btn-sm btn-outline-dark  " href="{{ path('edit_product', {'id':product.id}) }}">{{ dict.edit }}</a>
+                    <a class="col-md-5 btn btn-sm btn-outline-dark  " href="{{ editUrl }}">{{ dict.edit }}</a>
                 {% endif %}
-                <a class="col-md-5 btn btn-sm ml-auto btn-outline-success" href="{{ path('product_details', {'prodId':product.id}) }}">
+                <a class="col-md-5 btn btn-sm ml-auto btn-outline-success" href="{{ detailsUrl }}">
                     {{ dict.details }}
                 </a>
             </small>

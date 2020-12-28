@@ -13,6 +13,8 @@ class Config
 {
     public const DEFAULT_TIMEZONE = "Europe/Sofia";
 
+    public const MAX_PAGE_SIZE = 100;
+
     public const SIMPLE_DATE_FORMAT = "d M, Y -  H:m a";
 
     public const COOKIE_BG_LANG = "bg";

@@ -83,6 +83,12 @@ class LanguagePackEN implements ILanguagePack
     public const SHARE = "Share";
     public const LANGUAGE = "Language";
     public const PRODUCT_CODE = "Product Code";
+    public const RECIPES = "Recipes";
+
+    public function recipes(): string
+    {
+        return self::RECIPES;
+    }
 
     public function productCode(): string
     {

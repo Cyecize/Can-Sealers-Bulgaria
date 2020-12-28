@@ -24,13 +24,7 @@ class Product
      * @var string
      * @ORM\Column(name="product_name", type="string", length=40)
      */
-    private $productName;
-
-    /**
-     * @var string
-     * @ORM\Column(name="product_type", type="string", length=40, nullable=false)
-     */
-    private $productType;
+    private $name;
 
     /**
      * @var string
@@ -88,33 +82,17 @@ class Product
     /**
      * @return string
      */
-    public function getProductName(): string
+    public function getName(): string
     {
-        return $this->productName;
+        return $this->name;
     }
 
     /**
-     * @param string $productName
+     * @param string $name
      */
-    public function setProductName(string $productName): void
+    public function setName(string $name): void
     {
-        $this->productName = $productName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProductType(): string
-    {
-        return $this->productType;
-    }
-
-    /**
-     * @param string $productType
-     */
-    public function setProductType(string $productType): void
-    {
-        $this->productType = $productType;
+        $this->name = $name;
     }
 
     /**

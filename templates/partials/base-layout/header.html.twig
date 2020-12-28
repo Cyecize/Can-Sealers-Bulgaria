@@ -58,6 +58,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ path('show_recipes') }}" class="nav-link smooth text-orange-hover">
+                        {{ dict.recipes }}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ path('contacts') }}" class="nav-link smooth text-orange-hover">{{ dict.contacts }}</a>
                 </li>
                 {% if app.user %}

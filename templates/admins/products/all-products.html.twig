@@ -39,7 +39,7 @@
             {# @var product \App\Entity\Product #}
             {% for product in products %}
                 {#<hr>#}
-                <tr prodId="{{ product.id }}" prodStatus="{{ product.hidden }}" prodName="{{ product.productName }}">
+                <tr prodId="{{ product.id }}" prodStatus="{{ product.hidden }}" prodName="{{ product.name }}">
                     <td>
                         <a href="{{ path('product_details', {'prodId':product.id}) }}">
                             <p class="text-dark">{{ product.id }}</p>
@@ -47,7 +47,7 @@
                     </td>
                     <td>
                         <small class="text-dark">
-                            {{ product.productName }}
+                            {{ product.name }}
                         </small>
                     </td>
                     <td>

@@ -1,0 +1,11 @@
+{% extends 'menu/browse-products.html.twig' %}
+{# @var dict \App\Service\Lang\ILanguagePack #}
+{# @var twigUtil \App\Utils\TwigUtil #}
+
+{% block title %} {{ dict.websiteName }} - {{ dict.recipes }} {% endblock %}
+
+{% block titleData %}
+    <h2>{{ dict.recipes }}</h2>
+{% endblock %}
+
+{% block sidebar %} {% endblock %}

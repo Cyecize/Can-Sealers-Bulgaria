@@ -155,4 +155,6 @@ interface ILanguagePack
 
     function productCode() : string;
 
+    function recipes(): string;
+
 }

@@ -91,11 +91,6 @@ class ProductServiceImpl implements ProductService
         return $this->productRepo->findByCategory($category, $pageable);
     }
 
-    public function findByProductType(string $productType): array
-    {
-        return $this->productRepo->findBy(array('productType' => $productType, 'hidden' => false));
-    }
-
     public function findAll(Pageable $pageable, bool $showHidden = false): Page
     {
         return $this->productRepo->findAllPage($pageable, $showHidden);

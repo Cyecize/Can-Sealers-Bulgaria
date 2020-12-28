@@ -9,7 +9,6 @@
 namespace App\Service;
 
 use App\Constants\Config;
-use App\Constants\ProductType;
 use App\ViewModel\ContactsViewModel;
 use App\ViewModel\SocialLinkViewModel;
 use App\ViewModel\WebsiteInfoViewModel;
@@ -60,13 +59,6 @@ class TwigInformer
      */
     public function getDateFormat() : string {
         return "d/m/Y";
-    }
-
-    /**
-     * @return array
-     */
-    public function getProductTypes() : array {
-        return ProductType::PRODUCT_TYPES;
     }
 
     /**

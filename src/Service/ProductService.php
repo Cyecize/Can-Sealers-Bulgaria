@@ -54,12 +54,6 @@ interface ProductService
     public function findByCategory(ProductCategory $category, Pageable $pageable) : Page;
 
     /**
-     * @param string $productType
-     * @return Product[]
-     */
-    public function findByProductType(string $productType): array;
-
-    /**
      * @param Pageable $pageable
      * @param bool $showHidden
      * @return Page

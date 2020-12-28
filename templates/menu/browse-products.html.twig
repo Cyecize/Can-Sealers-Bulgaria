@@ -5,13 +5,16 @@
 
 {% block body %}
     <div class="container rounded bg-container mt-container pb-container">
-        <h2>{{ dict.products }}
-            <small>({{ viewModel.productPage.itemsCount }})</small>
-        </h2>
-        <h4>{{ dict.category }}: {{ twigUtil.categoryName(viewModel.category, dict.localLang) }}</h4>
-        {% if is_granted('ROLE_ADMIN') and viewModel.category.id != null %}
-            <a href="{{ path('edit_category', {'catId':viewModel.category.id}) }}" class="d-inline">{{ dict.category }} - {{ dict.edit }}</a>
-        {% endif %}
+        {% block titleData %}
+            <h2>{{ dict.products }}
+                <small>({{ viewModel.productPage.itemsCount }})</small>
+            </h2>
+            <h4>{{ dict.category }}: {{ twigUtil.categoryName(viewModel.category, dict.localLang) }}</h4>
+            {% if is_granted('ROLE_ADMIN') and viewModel.category.id != null %}
+                <a href="{{ path('edit_category', {'catId':viewModel.category.id}) }}"
+                   class="d-inline">{{ dict.category }} - {{ dict.edit }}</a>
+            {% endif %}
+        {% endblock %}
         <hr>
         <div class="row" style="margin-top: 30px;">
             <div class="col-lg-9">
@@ -25,15 +28,17 @@
                 </div>
             </div>
 
-            {% embed 'partials/sidebar/sidebar.html.twig' %}
-                {% block sidebarBody %}
-                    {% embed 'partials/sidebar/categories-sidebar-html.twig' with {'parentCategory':viewModel.category.parentCategory, 'categories':viewModel.categories} %}
-                        {% block catSectionTitle %}
-                            {{ twigUtil.categoryName(viewModel.category, dict.localLang) }}:
-                        {% endblock %}
-                    {% endembed %}
-                {% endblock %}
-            {% endembed %}
+            {% block sidebar %}
+                {% embed 'partials/sidebar/sidebar.html.twig' %}
+                    {% block sidebarBody %}
+                        {% embed 'partials/sidebar/categories-sidebar-html.twig' with {'parentCategory':viewModel.category.parentCategory, 'categories':viewModel.categories} %}
+                            {% block catSectionTitle %}
+                                {{ twigUtil.categoryName(viewModel.category, dict.localLang) }}:
+                            {% endblock %}
+                        {% endembed %}
+                    {% endblock %}
+                {% endembed %}
+            {% endblock %}
         </div>
         <div>
             {% embed 'partials/pagination.html.twig' with {'page':viewModel.productPage} %} {% endembed %}

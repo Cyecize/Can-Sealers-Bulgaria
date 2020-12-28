@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
-{% block title %}Добавяне на снимка към продукт: {{ product.productName }}{% endblock %}
+{% block title %}Добавяне на снимка към продукт: {{ product.name }}{% endblock %}
 {% block body %}
     <div class="fit-in-screen clearfix">
-        <h2>Добавяне на снимка към галерията на {{ product.productName }} </h2>
+        <h2>Добавяне на снимка към галерията на {{ product.name }} </h2>
         <hr>
 
         <div class="com-md-6">
@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <label for="targetprod">Снимката се отнася за:</label>
                         <input id="targetprod" type="text" class="form-control" disabled
-                               value="{{ product.productName }}">
+                               value="{{ product.name }}">
                     </div>
 
                     <div class="form-group">

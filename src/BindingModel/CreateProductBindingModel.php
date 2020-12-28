@@ -16,13 +16,7 @@ class CreateProductBindingModel
      * @Assert\NotBlank()
      * @Assert\Length(max="40")
      */
-    private $productName;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Regex(pattern="/^Product$|^Receipt$/")
-     */
-    private $productType;
+    private $name;
 
     /**
      * @Assert\Length(max="2000", maxMessage="Max Length is 2000")
@@ -63,33 +57,17 @@ class CreateProductBindingModel
     /**
      * @return mixed
      */
-    public function getProductName()
+    public function getName()
     {
-        return $this->productName;
+        return $this->name;
     }
 
     /**
-     * @param mixed $productName
+     * @param mixed $name
      */
-    public function setProductName($productName): void
+    public function setName($name): void
     {
-        $this->productName = $productName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProductType()
-    {
-        return $this->productType;
-    }
-
-    /**
-     * @param mixed $productType
-     */
-    public function setProductType($productType): void
-    {
-        $this->productType = $productType;
+        $this->name = $name;
     }
 
     /**

@@ -3,10 +3,10 @@
 {# @var twigUtil \App\Utils\TwigUtil #}
 {# @var dict \App\Service\Lang\ILanguagePack #}
 
-{% block title %}{{ dict.websiteName }} - {{ viewModel.product.productName }}{% endblock %}
+{% block title %}{{ dict.websiteName }} - {{ viewModel.product.name }}{% endblock %}
 
 {% block ogType %}product{% endblock %}
-{% block ogTitle %}{{ viewModel.product.productName }}{% endblock %}
+{% block ogTitle %}{{ viewModel.product.name }}{% endblock %}
 {% block ogImage %}{{ url('homepage')|trim('/', 'right') }}{{ viewModel.product.imgPath }}{% endblock %}
 {% block ogDescription %}{{ dict.websiteName }}{% endblock %}
 {% block facebookMetas %}
@@ -19,7 +19,7 @@
     <div class="container pt-2 max-width-container bg-container mt-container pb-container">
         {% block productSection %}
             <h2 class="fat-text">
-                <span class="font-kirang-hearang" style="font-size: 1.4em;">{{ viewModel.product.productName }}</span>
+                <span class="font-kirang-hearang" style="font-size: 1.4em;">{{ viewModel.product.name }}</span>
             </h2>
             <small>
                 <a href="{{ path('category_details', {'catName':viewModel.product.category.latinName}) }}">
@@ -38,10 +38,10 @@
                                 </a>
                             </div>
                         {% endif %}
-                        {% embed 'products/partials/'~ viewModel.product.productType ~ '/product-details.html.twig' with {'product':viewModel.product, 'gallery': viewModel.gallery} %} {% endembed %}
+                        {% embed 'products/partials/Product/product-details.html.twig' with {'product':viewModel.product, 'gallery': viewModel.gallery} %} {% endembed %}
                         {% block additionalInfoSection %}
                             <section class="mt-2">
-                                {% embed 'products/partials/'~ viewModel.product.productType ~ '/' ~ dict.localLang ~  '/additional-info.html.twig' with {'product':viewModel.product} %} {% endembed %}
+                                {% embed 'products/partials/Product/' ~ dict.localLang ~  '/additional-info.html.twig' with {'product':viewModel.product} %} {% endembed %}
                             </section>
                         {% endblock %}
                     </div>
@@ -69,7 +69,7 @@
         {% block modalContent %}
             <div style="max-width: 400px;" class="m-auto">
                 <h2>{{ dict.contacts }}</h2>
-                {% embed 'partials/forms/contact-form-fields.html.twig' with {'about':viewModel.product.productName ~ '\r\n'} %} {% endembed %}
+                {% embed 'partials/forms/contact-form-fields.html.twig' with {'about':viewModel.product.name ~ '\r\n'} %} {% endembed %}
             </div>
         {% endblock %}
     {% endembed %}

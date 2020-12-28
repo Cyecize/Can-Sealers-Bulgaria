@@ -1,12 +1,12 @@
 {
   "methodCalls": [
     {
-      "class": "\\AppBundle\\Utils\\ModelMapper",
+      "class": "\\App\\Utils\\ModelMapper",
       "method": "merge",
       "position": 1
     },
     {
-      "class": "\\AppBundle\\Utils\\ModelMapper",
+      "class": "\\App\\Utils\\ModelMapper",
       "method": "map",
       "position": 1
     }

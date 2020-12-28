@@ -1,17 +1,5 @@
 <form method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="productType">Product Type</label>
-        <select required id="productType" name="create_product[productType]" class="form-control">
-            <option disabled selected value="">Choose</option>
-            {% for type in information.productTypes %}
-                <option {% if type == model.productType %} selected {% endif %}>
-                    {{ type }}
-                </option>
-            {% endfor %}
-        </select>
-        {{ form_errors(form1.productType) }}
-    </div>
-    <div class="form-group">
         <label for="category">{{ dict.category }}</label>
         <select required id="category" name="create_product[categoryId]" class="form-control">
             <option disabled selected value="">Choose</option>
@@ -30,10 +18,10 @@
         {{ form_errors(form1.categoryId) }}
     </div>
     <div class="form-group">
-        <label for="productName">{{ dict.name }}</label>
-        <input required id="productName" maxlength="40" type="text" name="create_product[productName]"
-               value="{{ model.productName }}" class="form-control">
-        {{ form_errors(form1.productName) }}
+        <label for="name">{{ dict.name }}</label>
+        <input required id="name" maxlength="40" type="text" name="create_product[name]"
+               value="{{ model.name }}" class="form-control">
+        {{ form_errors(form1.name) }}
     </div>
     <div class="form-group">
         <label for="price">{{ dict.price }}</label>
