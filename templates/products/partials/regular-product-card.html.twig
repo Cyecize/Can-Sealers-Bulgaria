@@ -13,7 +13,7 @@
 
 {% if product.price is not defined %}
     {% set detailsUrl = path('receipt_details', {'id': product.id}) %}
-    {% set editUrl = 'FIX ME TOO' %}
+    {% set editUrl = path('edit_receipt', {'id': product.id}) %}
 {% endif %}
 
 <div class="col-lg-4 col-md-6 mb-4">

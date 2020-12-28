@@ -10,7 +10,7 @@ class EditReceiptBindingModel
      * @Assert\NotBlank()
      * @Assert\Length(max="40")
      */
-    private $receiptName;
+    private $name;
 
     /**
      * @Assert\Length(max="2000", maxMessage="Max Length is 2000")
@@ -27,17 +27,17 @@ class EditReceiptBindingModel
     /**
      * @return mixed
      */
-    public function getReceiptName()
+    public function getName()
     {
-        return $this->receiptName;
+        return $this->name;
     }
 
     /**
-     * @param mixed $receiptName
+     * @param mixed $name
      */
-    public function setReceiptName($receiptName): void
+    public function setName($name): void
     {
-        $this->receiptName = $receiptName;
+        $this->name = $name;
     }
 
     /**

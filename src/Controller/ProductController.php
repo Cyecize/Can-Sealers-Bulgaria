@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\BindingModel\CreateProductBindingModel;
 use App\BindingModel\EditProductBindingModel;
 use App\BindingModel\ImageBindingModel;
+use App\Constants\Constants;
 use App\Entity\Gallery;
 use App\Exception\NotFoundException;
 use App\Form\CreateProductType;
@@ -24,8 +25,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends BaseController
 {
-    private const INVALID_IMAGE_MSG = "Invalid Image Type or Size > 2MB";
-
     /**
      * @var ProductService
      */
@@ -114,7 +113,7 @@ class ProductController extends BaseController
             if ($bindingModel->getImage() != null) {
                 $imgBindingModel = ImageBindingModel::imageOverload($bindingModel->getImage());
                 if (count($this->validator->validate($imgBindingModel)) > 0) {
-                    $err = self::INVALID_IMAGE_MSG;
+                    $err = Constants::INVALID_IMAGE_MSG;
                     goto escape;
                 }
             }

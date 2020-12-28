@@ -43,7 +43,13 @@ class ReceiptServiceImpl implements ReceiptService
 
     function editReceipt(Receipt $receipt, EditReceiptBindingModel $bindingModel): Receipt
     {
-        // TODO: Implement editReceipt() method.
+        $this->modelMapper->merge($bindingModel, $receipt, true);
+
+        if ($bindingModel->getImage() != null) {
+            $this->fileService->removeFile(substr($receipt->getImgPath(), 1));
+            $receipt->setImgPath($this->fileService->uploadProductImage($bindingModel->getImage()));
+        }
+        return $this->save($receipt);
     }
 
     function findAll(Pageable $pageable, bool $showHidden = false): Page
@@ -51,8 +57,16 @@ class ReceiptServiceImpl implements ReceiptService
         return $this->receiptRepo->findAllPage($pageable, $showHidden);
     }
 
-    public function findOneById(int $id): ?Receipt
+    public function findOneById(int $id, bool $showHidden = false): ?Receipt
     {
-        return $this->receiptRepo->find($id);
+        if ($showHidden) return $this->receiptRepo->find($id);
+        return $this->receiptRepo->findOneBy(array('id' => $id, 'hidden' => false));
+    }
+
+    private function save(Receipt $receipt): Receipt
+    {
+        $this->entityManager->merge($receipt);
+        $this->entityManager->flush();
+        return $receipt;
     }
 }

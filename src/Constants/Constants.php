@@ -14,4 +14,6 @@ class Constants
     public static $galleryPath = "product-gallery" . DIRECTORY_SEPARATOR. "galleries" . DIRECTORY_SEPARATOR; // productId/imgName.jpg
 
     public static $categoriesPath = "product-gallery/categories/";
+
+    public const INVALID_IMAGE_MSG = "Invalid Image Type or Size > 2MB";
 }

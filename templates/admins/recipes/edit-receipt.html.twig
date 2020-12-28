@@ -1,0 +1,51 @@
+{% extends 'admins/admin-panel.html.twig' %}
+{# @var dict \App\Service\Lang\ILanguagePack #}
+{# @var information \App\Service\TwigInformer #}
+{# @var twigUtil \App\Utils\TwigUtil #}
+{% block sectionContent %}
+    <h2>{{ dict.edit }}: {{ model.name }}</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            {% embed 'admins/partials/receipt-form.html.twig' %} {% endembed %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block sectionScripts %}
+    <script src="{{ asset('style/js/img-preview.js') }}"></script>
+    <script>
+        ImagePreviewManager.attachEvent('productImage', 'imgPrev');
+    </script>
+    <script descr="Upload image file">
+
+        $('#addImgForm').on('submit', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('action');
+
+            var data = new FormData(this); // <-- 'this' is your form element
+            console.log(data);
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (err) {
+                    alert(err.responseJSON.message)
+                }
+            });
+
+        });
+
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('style/css/product-details.css') }}" type="text/css">
+{% endblock %}

@@ -12,9 +12,9 @@
             <div class="col-lg-9">
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="mt-2 mb-2">
-                        <a href="{{ path('edit_product', {'id':viewModel.product.id}) }}"
+                        <a href="{{ path('edit_receipt', {'id':viewModel.product.id}) }}"
                            class="btn btn-outline-dark">
-                            {{ dict.edit }} TODO: update link!
+                            {{ dict.edit }}
                         </a>
                     </div>
                 {% endif %}

@@ -1,0 +1,34 @@
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">{{ dict.name }}</label>
+        <input required id="name" maxlength="40" type="text" name="create_receipt[name]"
+               value="{{ model.name }}" class="form-control">
+        {{ form_errors(form1.name) }}
+    </div>
+
+    <div class="form-group">
+        <label for="hidden">{{ dict.privateInfo }}</label>
+        <input id="hidden" type="checkbox" name="create_receipt[hidden]"
+               {% if model.hidden %}checked{% endif %}>
+        {{ form_errors(form1.hidden) }}
+    </div>
+    <div class="form-group">
+        <label for="receiptDescription">Description</label>
+        <textarea rows="10" id="receiptDescription" name="create_receipt[receiptDescription]"
+                  class="form-control">{{ model.receiptDescription }}</textarea>
+        {{ form_errors(form1.receiptDescription) }}
+    </div>
+    <div class="form-group">
+        <label for="receiptImage">Image</label>
+        <input type="file" id="receiptImage" name="create_receipt[image]" class="form-control">
+        {{ form_errors(form1.image) }}
+        <br>
+        <div style="max-width: 400px;">
+            <img src="{% if model.imgPath is defined %}{{ model.imgPath }}{% endif %}" id="imgPrev" width="100%">
+        </div>
+    </div>
+    <div class="form-group text-right">
+        <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+        <button class="btn btn-outline-primary" type="submit">{{ dict.save }}</button>
+    </div>
+</form>

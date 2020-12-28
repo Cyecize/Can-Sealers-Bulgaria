@@ -16,5 +16,5 @@ interface ReceiptService
 
     function findAll(Pageable $pageable, bool $showHidden = false): Page;
 
-    function findOneById(int $id): ?Receipt;
+    function findOneById(int $id, bool $showHidden = false): ?Receipt;
 }
