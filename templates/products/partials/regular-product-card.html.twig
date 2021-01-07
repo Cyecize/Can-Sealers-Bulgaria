@@ -20,17 +20,17 @@
     <div class="card h-100">
         <a href="{{ detailsUrl }}"><img class="card-img-top" src="{{ product.imgPath }}" height="200px"></a>
         <div class="card-body">
-            <h4 class="card-title">
+            <h5 class="card-title">
                 {% if product.category is defined %}
-                    <a href="{{ detailsUrl }}" class="text-success">
+                    <span class="text-success user-select-none">
                         {{ twigUtil.categoryName(product.category, dict.localLang) }}
-                    </a>
+                    </span>
                 {% endif %}
-            </h4>
+            </h5>
             {% if product.price is defined and product.price > 0 %}
                 <h5>{{ product.price }} {{ dict.currency }}</h5>
             {% endif %}
-            <p class="card-text">{{ product.name }}</p>
+            <p class="card-text"><a class="text-dark" href="{{ detailsUrl }}">{{ product.name }}</a></p>
         </div>
         <div class="card-footer">
             <small class="text-muted row">
