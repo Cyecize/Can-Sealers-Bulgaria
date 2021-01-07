@@ -22,6 +22,18 @@
             </section>
             <hr>
             <section class="sidebar-item">
+                <h4>{{ dict.recipes }}</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="{{ path('create_receipt') }}">
+                        {{ dict.addReceipt }}
+                    </a>
+                    <a class="list-group-item list-group-item-action" href="{{ path('admin_browse_recipes') }}">
+                        {{ dict.showAll }}
+                    </a>
+                </div>
+            </section>
+            <hr
+            <section class="sidebar-item">
                 <h4>{{ dict.categories }}</h4>
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action" href="{{ path('create_category') }}">

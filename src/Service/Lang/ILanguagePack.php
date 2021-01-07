@@ -157,4 +157,6 @@ interface ILanguagePack
 
     function recipes(): string;
 
+    function addReceipt() : string ;
+
 }

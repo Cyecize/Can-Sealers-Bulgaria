@@ -84,6 +84,12 @@ class LanguagePackEN implements ILanguagePack
     public const LANGUAGE = "Language";
     public const PRODUCT_CODE = "Product Code";
     public const RECIPES = "Recipes";
+    public const ADD_RECEIPT = "New Recipe";
+
+    public function addReceipt(): string
+    {
+        return self::ADD_RECEIPT;
+    }
 
     public function recipes(): string
     {

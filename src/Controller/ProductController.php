@@ -73,7 +73,12 @@ class ProductController extends BaseController
         $gallery = $galleryRepo->findOneBy(array("product" => $prod));
 
         return $this->render("menu/product.html.twig", [
-            'viewModel' => new ProductDetailsViewModel($prod, $this->categoryService->findMain(), $this->productService->findByCategory($prod->getCategory(), new PageRequest(1, 5)), $gallery)
+            'viewModel' => new ProductDetailsViewModel(
+                $prod,
+                $this->categoryService->findMain(),
+                $this->productService->findByCategory($prod->getCategory(), new PageRequest(1, 5)),
+                $gallery
+            )
         ]);
     }
 

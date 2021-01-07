@@ -4,10 +4,12 @@ namespace App\Service;
 
 use App\BindingModel\CreateReceiptBindingModel;
 use App\BindingModel\EditReceiptBindingModel;
+use App\Constants\Config;
 use App\Entity\Receipt;
 use App\Utils\ModelMapper;
 use App\Utils\Page;
 use App\Utils\Pageable;
+use App\Utils\PageRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ReceiptServiceImpl implements ReceiptService
@@ -39,6 +41,8 @@ class ReceiptServiceImpl implements ReceiptService
 
         $this->entityManager->persist($receipt);
         $this->entityManager->flush();
+
+        return $receipt;
     }
 
     function editReceipt(Receipt $receipt, EditReceiptBindingModel $bindingModel): Receipt
@@ -52,8 +56,9 @@ class ReceiptServiceImpl implements ReceiptService
         return $this->save($receipt);
     }
 
-    function findAll(Pageable $pageable, bool $showHidden = false): Page
+    function findAll(?Pageable $pageable, bool $showHidden = false): Page
     {
+        if ($pageable == null) $pageable = new PageRequest(1, Config::MAX_PAGE_SIZE);
         return $this->receiptRepo->findAllPage($pageable, $showHidden);
     }
 

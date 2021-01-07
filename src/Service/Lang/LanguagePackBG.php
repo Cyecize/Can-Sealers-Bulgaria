@@ -84,6 +84,12 @@ class LanguagePackBG implements ILanguagePack
     public const LANGUAGE = "Език";
     public const PRODUCT_CODE = "Код на продукта";
     public const RECIPES = "Рецепти";
+    public const ADD_RECEIPT = "Нова Рецепта";
+
+    public function addReceipt(): string
+    {
+        return self::ADD_RECEIPT;
+    }
 
     public function recipes(): string
     {

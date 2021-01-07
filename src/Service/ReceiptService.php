@@ -14,7 +14,7 @@ interface ReceiptService
 
     function editReceipt(Receipt $receipt, EditReceiptBindingModel $bindingModel): Receipt;
 
-    function findAll(Pageable $pageable, bool $showHidden = false): Page;
+    function findAll(?Pageable $pageable, bool $showHidden = false): Page;
 
     function findOneById(int $id, bool $showHidden = false): ?Receipt;
 }

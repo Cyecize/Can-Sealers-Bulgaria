@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\BindingModel\CreateReceiptBindingModel;
 use App\BindingModel\EditReceiptBindingModel;
 use App\BindingModel\ImageBindingModel;
 use App\Constants\Constants;
@@ -116,6 +117,47 @@ class ReceiptController extends BaseController
             'error' => $err,
             'model' => $receipt,
             'form1' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/receipt/create", name="create_receipt")
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     * @return Response
+     * @throws InternalRestException
+     */
+    public function createProductAction(Request $request): Response
+    {
+        $bindingModel = new CreateReceiptBindingModel();
+        $form = $this->createForm(CreateReceiptType::class, $bindingModel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && count($this->validator->validate($bindingModel)) < 1) {
+            $this->validateToken($request);
+
+            $receipt = $this->receiptService->createReceipt($bindingModel);
+            if (!$receipt->getHidden()) {
+                return $this->redirectToRoute('receipt_details', ['id' => $receipt->getId()]);
+            }
+
+            return $this->redirectToRoute('admin_panel', ['info' => 'Receipt Created!']);
+        }
+
+        return $this->render('admins/recipes/add-receipt.html.twig', [
+            'form1' => $form->createView(),
+            'model' => $bindingModel,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/recipes/browse", name="admin_browse_recipes")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function showAllProductsAction(): Response
+    {
+        return $this->render('admins/recipes/all-recipes.html.twig', [
+            'recipes' => $this->receiptService->findAll(null, true)
         ]);
     }
 }
