@@ -4,6 +4,11 @@
     border-radius: 4px;
 }
 
+.image {
+    max-height: 350px;
+    max-width: 600px;
+}
+
 .product-image{
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
