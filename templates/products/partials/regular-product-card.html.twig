@@ -33,7 +33,7 @@
             <p class="card-text"><a class="text-dark" href="{{ detailsUrl }}">{{ product.name }}</a></p>
         </div>
         <div class="card-footer">
-            <div class="rowfunction attachEvent(inputId, imgSrcId)">
+            <div class="row">
                 <div class="col-6">
                     {% if  is_granted('ROLE_ADMIN') %}
                         <a class="btn btn-sm btn-outline-dark  " href="{{ editUrl }}">{{ dict.edit }}</a>
