@@ -33,14 +33,20 @@
             <p class="card-text"><a class="text-dark" href="{{ detailsUrl }}">{{ product.name }}</a></p>
         </div>
         <div class="card-footer">
-            <small class="text-muted row">
-                {% if  is_granted('ROLE_ADMIN') %}
-                    <a class="col-md-5 btn btn-sm btn-outline-dark  " href="{{ editUrl }}">{{ dict.edit }}</a>
-                {% endif %}
-                <a class="col-md-5 btn btn-sm ml-auto btn-outline-success" href="{{ detailsUrl }}">
-                    {{ dict.details }}
-                </a>
-            </small>
+            <div class="rowfunction attachEvent(inputId, imgSrcId)">
+                <div class="col-6">
+                    {% if  is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-sm btn-outline-dark  " href="{{ editUrl }}">{{ dict.edit }}</a>
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                    <small class="text-muted row">
+                        <a class="btn btn-sm ml-auto btn-outline-success" href="{{ detailsUrl }}">
+                            {{ dict.details }}
+                        </a>
+                    </small>
+                </div>
+            </div>
         </div>
     </div>
 </div>
