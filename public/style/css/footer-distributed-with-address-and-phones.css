@@ -58,6 +58,11 @@
 	margin: 0;
 }
 
+.footer-distributed .footer-honorable-mentions {
+	padding-top: 10px;
+	font-size: 0.8em;
+}
+
 /* Footer Center */
 
 .footer-distributed .footer-center{
