@@ -1,48 +1,21 @@
 Zatvarachki BG - Can Sealers 
 ========================
 
-Zatvarachki BG is a simple website that has products (can sealers and cans), receipts and 
+Zatvarachki BG is a simple website that has products (can sealers and cans), recipes and 
     contact info.
 
-Originally created in 2017 it is now being reworked to support two languages, some new features
-and to put better code practices in practice.
+Originally created in 2017 by me, it is now being reworked to support two languages and some new features.
 
 Visit
 --------------
 https://zatvarachki.com/
 --------------
 https://zatvarachki.com/?lang=en
-
-The main features
---------------
-
-Zatvarachki BG has those features:
-
-  * Visitors can view products, switch between languages.
-
-  * Users can register, ask questions which will notify admins through email.
-
-  * Administrators can edit website info directly from the home page or add/edit products.
-
-What has changed from the old website:
-
-  * **Code** - The code is rewritten using services, binding models instead of 100 lines long
-  methods
-  
-  * **Db calls** - Some information is now stored in files such as contact info and about us text
-  in both languages to avoid unnecessary calls to the db for every request.
-  Now files are being cached instead.
-
-  * **Design and js** - Almost all views are reworked, sidebar is added for some of them.
-  Moved from bootstrap 3 to bootstrap 4.1. Javascript files are segregated and imported correctly.
-  onclick="" is replaced with event listeners.
-  
-  * **Twig** - Templates are more segregated and views are reused where needed.
  
 Want to run the app?
 ---------------------
 	
-Steps: 
+Steps: TODO: update these
 	
 	* Git pull
 	
