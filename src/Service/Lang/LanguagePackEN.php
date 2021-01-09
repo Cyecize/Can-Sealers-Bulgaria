@@ -22,7 +22,7 @@ class LanguagePackEN implements ILanguagePack
     public const WE_GUARANTEE = "We Guarantee";
     public const CATEGORIES = "Categories:";
     public const ADDRESS = "Address";
-    public const SEND_QUESTION = "Ask us something";
+    public const SEND_QUESTION = "Ask us anything";
     public const YOUR_NAME = "Your name";
     public const YOUR_PHONE_NUMBER = "Your phone number";
     public const YOUR_QUESTION = "Your question";
