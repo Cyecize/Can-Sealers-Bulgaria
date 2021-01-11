@@ -19,20 +19,23 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SecurityController extends BaseController
 {
-    /**
-     * @var ValidatorInterface
-     */
     private $validator;
 
-    public function __construct(LocalLanguage $language, ValidatorInterface $validator)
+    private $encoder;
+
+    public function __construct(LocalLanguage $language,
+                                ValidatorInterface $validator,
+                                UserPasswordEncoderInterface $encoder)
     {
         parent::__construct($language);
         $this->validator = $validator;
+        $this->encoder = $encoder;
     }
 
     private const LOGGER_LOCATION = "Security Controller";
@@ -117,7 +120,7 @@ class SecurityController extends BaseController
             }
 
             $user = $modelMapper->map($bindingModel, User::class);
-            $user->setPassword($this->get('security.password_encoder')->encodePassword($user, $user->getPassword()));
+            $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
 
             if (count($roleService->findAll()) < 1) {
                 $firstRunService->initDb();
