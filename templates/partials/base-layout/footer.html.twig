@@ -80,7 +80,7 @@
             {% if app.user %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <p class="btn btn-primary btn-sm" id="edit-contact-info">
-                        Редакция »
+                        {{ dict.edit }} »
                     </p>
                 {% endif %}
             {% endif %}
@@ -103,6 +103,16 @@
                     <a class="t-white text-orange-hover smooth" href="tel:{{ information.contacts.phoneNumber2 }}">
                         <i class="fa fa-phone"></i>
                         {{ information.contacts.phoneNumber2 }}
+                    </a>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <a class="t-white text-orange-hover smooth"
+                       href="https://wa.me/{{ information.contacts.whatsapp }}"
+                       target="_blank">
+                        <i class="fa fa-whatsapp"></i>
+                        Whatsapp
                     </a>
                 </p>
             </div>
@@ -141,19 +151,23 @@
             </div>
 
             <div class="footer-icons">
-                {% for link in information.socialLinks %}
-                    <div class="d-inline-block t-white">
-                        <a href="{{ link.link }}" target="_blank"><i class="fa {{ link.icon }}"></i></a>
-                        {% if app.user %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <div class="object-right">
-                                    <i class="fa fa-pencil-square-o social-link-edit" linkId="{{ link.id }}"
-                                       aria-hidden="true"></i>
-                                </div>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    {% for link in information.allSocialLinks %}
+                        <div class="d-inline-block t-white">
+                            <a href="{{ link.link }}" target="_blank"><i class="fa {{ link.icon }}"></i></a>
+                            <div class="object-right">
+                                <i class="fa fa-pencil-square-o social-link-edit" linkId="{{ link.id }}"
+                                   aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for link in information.socialLinks %}
+                        <div class="d-inline-block t-white">
+                            <a href="{{ link.link }}" target="_blank"><i class="fa {{ link.icon }}"></i></a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

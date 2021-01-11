@@ -17,11 +17,14 @@ class ContactsViewModel
 
     private $phoneNumber2;
 
+    private $whatsapp;
+
     public function __construct(array $settings)
     {
         $this->email = $settings['email'];
         $this->phoneNumber = $settings['phoneNumber'];
         $this->phoneNumber2 = $settings['phoneNumber2'];
+        $this->whatsapp = $settings['whatsapp'];
     }
 
     /**
@@ -46,5 +49,13 @@ class ContactsViewModel
     public function getPhoneNumber2()
     {
         return $this->phoneNumber2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWhatsapp()
+    {
+        return $this->whatsapp;
     }
 }

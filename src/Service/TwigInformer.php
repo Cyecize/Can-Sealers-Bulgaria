@@ -51,6 +51,15 @@ class TwigInformer
      */
     public function getSocialLinks()
     {
+        return array_filter($this->socialLinks, function (SocialLinkViewModel $socialLink) {
+            return null != $socialLink->getLink() && $socialLink->getLink() != '#';
+        });
+    }
+
+    /**
+     * @return SocialLinkViewModel[]|array
+     */
+    public function getAllSocialLinks() {
         return $this->socialLinks;
     }
 

@@ -17,6 +17,7 @@ class ContactInfoType extends AbstractType
             ->add('address')
             ->add('phoneNumber')
             ->add('phoneNumber2')
+            ->add('whatsapp')
             ->add('email');
     }
 

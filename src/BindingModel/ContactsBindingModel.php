@@ -34,6 +34,13 @@ class ContactsBindingModel
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/(([+][(]?[0-9]{1,3}[)]?)|([(]?[0-9]{4}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})/")
+     * @Assert\Length(max="15")
+     */
+    private $whatsapp;
+
+    /**
+     * @Assert\NotBlank()
      * @Assert\Email()
      * @Assert\Length(max="50")
      */
@@ -90,6 +97,22 @@ class ContactsBindingModel
     public function setPhoneNumber2($phoneNumber2): void
     {
         $this->phoneNumber2 = $phoneNumber2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWhatsapp()
+    {
+        return $this->whatsapp;
+    }
+
+    /**
+     * @param mixed $whatsapp
+     */
+    public function setWhatsapp($whatsapp): void
+    {
+        $this->whatsapp = $whatsapp;
     }
 
     /**
