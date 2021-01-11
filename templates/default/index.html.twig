@@ -12,18 +12,20 @@
     {% endblock %}
 
     <div class="container max-width-container pb-container bg-container">
-        {% block characteristics %}
-            <section class="industries">
-                <br>
-                <h2> {{ dict.weGuarantee }} </h2>
-                <hr>
-                {% embed 'partials/forms/characteristics.html.twig' with {'characteristics':characteristics} %} {% endembed %}
-            </section>
-        {% endblock %}
+
+        <!--Uncomment to display characteristics/testimonial section -->
+{#        {% block characteristics %}#}
+{#            <section class="industries">#}
+{#                <br>#}
+{#                <h2> {{ dict.weGuarantee }} </h2>#}
+{#                <hr>#}
+{#                {% embed 'partials/forms/characteristics.html.twig' with {'characteristics':characteristics} %} {% endembed %}#}
+{#            </section>#}
+{#        {% endblock %}#}
 
         {% block products %}
             <section class="our-products">
-                <h2>{{ dict.ourCanSealers }}</h2>
+                <h1>{{ dict.ourCanSealers }}</h1>
                 <hr>
                     <div class="row container m-auto">
                         <div class="col-lg-10 row m-auto">
