@@ -21,6 +21,7 @@ class CreateProductType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('productDescription', TextType::class)
+            ->add('productDescriptionEn', TextType::class)
             ->add('hidden', CheckboxType::class)
             ->add('price', NumberType::class)
             ->add('taxIncluded', CheckboxType::class)

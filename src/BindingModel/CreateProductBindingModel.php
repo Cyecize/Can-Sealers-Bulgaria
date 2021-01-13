@@ -24,6 +24,11 @@ class CreateProductBindingModel
     private $productDescription;
 
     /**
+     * @Assert\Length(max="2000", maxMessage="Max Length is 2000")
+     */
+    private $productDescriptionEn;
+
+    /**
      * @Assert\Regex(pattern="/^-?[0-9.]+$/", message="Invalid price")
      */
     private $price;
@@ -89,6 +94,22 @@ class CreateProductBindingModel
     public function setProductDescription($productDescription): void
     {
         $this->productDescription = $productDescription;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductDescriptionEn()
+    {
+        return $this->productDescriptionEn;
+    }
+
+    /**
+     * @param mixed $productDescriptionEn
+     */
+    public function setProductDescriptionEn($productDescriptionEn): void
+    {
+        $this->productDescriptionEn = $productDescriptionEn;
     }
 
     /**

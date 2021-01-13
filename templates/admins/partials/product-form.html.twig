@@ -43,10 +43,16 @@
         {{ form_errors(form1.hidden) }}
     </div>
     <div class="form-group">
-        <label for="productDescription">Description</label>
+        <label for="productDescription">{{ dict.details }}</label>
         <textarea rows="10" id="productDescription" name="create_product[productDescription]"
                   class="form-control">{{ model.productDescription }}</textarea>
         {{ form_errors(form1.productDescription) }}
+    </div>
+    <div class="form-group">
+        <label for="productDescriptionEn">{{ dict.details }} EN</label>
+        <textarea rows="10" id="productDescriptionEn" name="create_product[productDescriptionEn]"
+                  class="form-control">{{ model.productDescriptionEn }}</textarea>
+        {{ form_errors(form1.productDescriptionEn) }}
     </div>
     <div class="form-group">
         <label for="productImage">Image</label>

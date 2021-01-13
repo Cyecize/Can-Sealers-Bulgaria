@@ -10,6 +10,7 @@ namespace App\Utils;
 
 
 use App\Constants\Config;
+use App\Entity\Product;
 use App\Entity\ProductCategory;
 
 
@@ -31,9 +32,21 @@ class TwigUtil
         switch ($locale){
             case Config::COOKIE_EN_LANG:
                 return $category->getLatinName();
-            default:
+            case Config::COOKIE_BG_LANG:
                 return $category->getCategoryName();
+            default:
+                throw new \Exception("Cannot get category name, locale not found!");
         }
     }
 
+    public function getProductDescription(Product $product, string $locale) {
+        switch ($locale){
+            case Config::COOKIE_EN_LANG:
+                return $product->getProductDescriptionEn();
+            case Config::COOKIE_BG_LANG:
+                return $product->getProductDescription();
+            default:
+                throw new \Exception("Cannot get product description, locale not found!");
+        }
+    }
 }

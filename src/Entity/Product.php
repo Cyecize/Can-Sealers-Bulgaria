@@ -39,6 +39,12 @@ class Product
     private $productDescription;
 
     /**
+     * @var string
+     * @ORM\Column(name="product_description_en", type="text", nullable=true)
+     */
+    private $productDescriptionEn;
+
+    /**
      * @var double
      * @ORM\Column(name="price", type="float")
      */
@@ -89,7 +95,7 @@ class Product
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -97,7 +103,7 @@ class Product
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -105,7 +111,7 @@ class Product
     /**
      * @return string
      */
-    public function getImgPath(): string
+    public function getImgPath(): ?string
     {
         return $this->imgPath;
     }
@@ -113,7 +119,7 @@ class Product
     /**
      * @param string $imgPath
      */
-    public function setImgPath(string $imgPath): void
+    public function setImgPath(?string $imgPath): void
     {
         $this->imgPath = $imgPath;
     }
@@ -127,11 +133,27 @@ class Product
     }
 
     /**
-     * @param string $productDescription
+     * @param string|null $productDescription
      */
-    public function setProductDescription(string $productDescription): void
+    public function setProductDescription(?string $productDescription): void
     {
         $this->productDescription = $productDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductDescriptionEn(): ?string
+    {
+        return $this->productDescriptionEn;
+    }
+
+    /**
+     * @param string|null $productDescriptionEn
+     */
+    public function setProductDescriptionEn(?string $productDescriptionEn): void
+    {
+        $this->productDescriptionEn = $productDescriptionEn;
     }
 
     /**

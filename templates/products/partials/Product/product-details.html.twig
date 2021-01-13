@@ -31,12 +31,10 @@
             <span class="font-weight-bold">{{ product.name }}</span>
         </div>
         <hr class="bg-trans-gray">
-        {% if product.productDescription and product.productDescription != '' %}
-            <div>
-                <div class="text-muted raw-content">{{ product.productDescription }}</div>
-            </div>
-            <hr class="bg-trans-gray">
-        {% endif %}
+        <div>
+            <div class="text-muted raw-content">{{ twigUtil.productDescription(product, dict.localLang) }}</div>
+        </div>
+        <hr class="bg-trans-gray">
 
         {% if product.price > 0 %}
            <div class="row">
