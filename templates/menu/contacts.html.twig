@@ -21,25 +21,10 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('style/js/contact-us-form.js') }}"></script>
     <script>
         $(function () {
-            //Show spinner on submit and make so user can only submit the message once.
-            var sendMsgForm = document.querySelector('.send-msg-form');
-            var msgSentSpinner = $(document.querySelector('.message-sent-spinner'));
-            var isMessageSentOnce = false;
-
-            $('.btn-send-message').on('click', function (eventArgs) {
-                if (!sendMsgForm.checkValidity()) {
-                    return;
-                }
-
-                if (isMessageSentOnce) {
-                    eventArgs.preventDefault();
-                }
-
-                isMessageSentOnce = true;
-                msgSentSpinner.parent().show();
-            });
+            new ContactUsFormManager().initContactUsFormSpinnerStandard();
         });
     </script>
 {% endblock %}

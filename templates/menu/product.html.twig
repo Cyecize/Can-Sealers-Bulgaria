@@ -82,6 +82,7 @@
 
 {% block javascripts %}
     <script src="{{ asset('style/js/product-details.js') }}"></script>
+    <script src="{{ asset('style/js/contact-us-form.js') }}"></script>
     <script>
         var zoomImageModal = new ModalManager('zoomImageModal', '');
         var zoomedImage = $('#zoomedImage');
@@ -96,24 +97,9 @@
     </script>
     <script>
         var quickContactsModal = new ModalManager('contactUsModal', 'quick-contact-btn');
-
-        //Show spinner on submit and make so user can only submit the message once.
-        var sendMsgForm = quickContactsModal.querySelector('.send-msg-form');
-        var msgSentSpinner = $(quickContactsModal.querySelector('.message-sent-spinner'));
-        var isMessageSentOnce = false;
-
-        quickContactsModal.attachEventToElement('.btn-send-message', 'click', function (eventArgs) {
-            if (!sendMsgForm.checkValidity()) {
-                return;
-            }
-
-            if (isMessageSentOnce) {
-                eventArgs.preventDefault();
-            }
-
-            isMessageSentOnce = true;
-            msgSentSpinner.parent().show();
-        })
+        $(function () {
+           new ContactUsFormManager().initContactUsFormSpinnerModal(quickContactsModal);
+        });
     </script>
 
     <script>(function (d, s, id) {
