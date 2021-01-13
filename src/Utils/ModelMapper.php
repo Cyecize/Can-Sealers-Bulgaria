@@ -28,18 +28,57 @@ class ModelMapper
         $reflOfSource = new \ReflectionObject($sourceInstance);
 
         foreach ($reflOfSource->getProperties() as $sourceProperty) {
-            $sourceProperty->setAccessible(true);
-            if (!$reflOfDestination->hasProperty($sourceProperty->getName()))
+            $sourceVal = $this->getValue($reflOfSource, $sourceInstance, $sourceProperty);
+            if (!$skipNull && $sourceVal == null) {
                 continue;
-            $destProperty = $reflOfDestination->getProperty($sourceProperty->getName());
-            $destProperty->setAccessible(true);
+            }
 
-            $sourceValue = $sourceProperty->getValue($sourceInstance);
-            if (!$skipNull && $sourceValue == null)
-                continue;
-            $destProperty->setValue($destinationInstance, $sourceValue);
+            $this->setValue($reflOfDestination, $destinationInstance, $sourceVal, $sourceProperty->getName());
         }
 
         return $destinationInstance;
+    }
+
+    private function getValue(\ReflectionObject $reflectionObject, $instance, \ReflectionProperty $property)
+    {
+        $propName = $property->getName();
+
+        foreach ($reflectionObject->getMethods() as $method) {
+            if ($method->getNumberOfParameters() == 0
+                && (strtolower($method->getName()) == strtolower("is" . $propName)
+                    || strtolower($method->getName()) == strtolower("get" . $propName))) {
+                $method->setAccessible(true);
+                return $method->invoke($instance);
+            }
+        }
+
+        return $property->getValue($instance);
+    }
+
+    private function setValue(\ReflectionObject $reflectionObject,
+                              $instance,
+                              $value,
+                              string $propertyName): bool
+    {
+        foreach ($reflectionObject->getMethods() as $method) {
+            if ($method->getNumberOfParameters() == 1
+                && strtolower($method->getName()) == strtolower("set" . $propertyName)) {
+                $method->setAccessible(true);
+                $method->invoke($instance, $value);
+
+                return true;
+            }
+        }
+
+        if (!$reflectionObject->hasProperty($propertyName)) {
+            return false;
+        }
+
+        $prop = $reflectionObject->getProperty($propertyName);
+        $prop->setAccessible(true);
+
+        $prop->setValue($instance, $value);
+
+        return true;
     }
 }
