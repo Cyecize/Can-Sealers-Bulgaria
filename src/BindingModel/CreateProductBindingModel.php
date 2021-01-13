@@ -34,6 +34,11 @@ class CreateProductBindingModel
     private $hidden;
 
     /**
+     * @var boolean
+     */
+    private $taxIncluded;
+
+    /**
      * @Assert\NotBlank()
      * @Assert\Regex(pattern="/^[0-9]+$/")
      */
@@ -120,6 +125,22 @@ class CreateProductBindingModel
         if ($hidden == "on")
             $hidden = true;
         $this->hidden = $hidden;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTaxIncluded()
+    {
+        return $this->taxIncluded != null;
+    }
+
+    /**
+     * @param mixed $taxIncluded
+     */
+    public function setTaxIncluded($taxIncluded): void
+    {
+        $this->taxIncluded = $taxIncluded == "on";
     }
 
     /**

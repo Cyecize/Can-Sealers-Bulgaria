@@ -23,6 +23,7 @@ class CreateProductType extends AbstractType
             ->add('productDescription', TextType::class)
             ->add('hidden', CheckboxType::class)
             ->add('price', NumberType::class)
+            ->add('taxIncluded', CheckboxType::class)
             ->add('image', FileType::class)
             ->add('categoryId', IntegerType::class);
     }

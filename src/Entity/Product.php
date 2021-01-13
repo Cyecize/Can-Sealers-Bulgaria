@@ -46,6 +46,12 @@ class Product
 
     /**
      * @var bool
+     * @ORM\Column(name="tax_included", type="boolean", options={"default": 0})
+     */
+    private $taxIncluded;
+
+    /**
+     * @var bool
      * @ORM\Column(name="hidden", type="boolean", options={"default":0})
      */
     private $hidden;
@@ -61,6 +67,7 @@ class Product
     {
         $this->price = 0.0;
         $this->hidden = false;
+        $this->taxIncluded = false;
     }
 
     /**
@@ -157,6 +164,22 @@ class Product
     public function setHidden(bool $hidden): void
     {
         $this->hidden = $hidden;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTaxIncluded(): bool
+    {
+        return $this->taxIncluded;
+    }
+
+    /**
+     * @param bool $taxIncluded
+     */
+    public function setTaxIncluded(bool $taxIncluded): void
+    {
+        $this->taxIncluded = $taxIncluded;
     }
 
     /**

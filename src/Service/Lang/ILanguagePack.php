@@ -157,6 +157,9 @@ interface ILanguagePack
 
     function recipes(): string;
 
-    function addReceipt() : string ;
+    function addReceipt(): string;
 
+    function taxIncluded(): string;
+
+    function taxNotIncluded(): string;
 }

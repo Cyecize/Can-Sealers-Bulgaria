@@ -31,6 +31,11 @@ class EditProductBindingModel
     /**
      * boolean
      */
+    private $taxIncluded;
+
+    /**
+     * boolean
+     */
     private $hidden;
 
     /**
@@ -114,6 +119,22 @@ class EditProductBindingModel
         if ($hidden == "on")
             $hidden = true;
         $this->hidden = $hidden;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTaxIncluded()
+    {
+        return $this->taxIncluded != null;
+    }
+
+    /**
+     * @param mixed $taxIncluded
+     */
+    public function setTaxIncluded($taxIncluded): void
+    {
+        $this->taxIncluded = $taxIncluded == "on";
     }
 
     /**

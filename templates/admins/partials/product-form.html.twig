@@ -1,3 +1,4 @@
+{# @var dict \App\Service\Lang\ILanguagePack #}
 <form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="category">{{ dict.category }}</label>
@@ -28,6 +29,12 @@
         <input required id="price" type="number" step="any" name="create_product[price]" value="{{ model.price }}"
                class="form-control">
         {{ form_errors(form1.price) }}
+    </div>
+    <div class="form-group">
+        <label for="taxIncluded">{{ dict.taxIncluded }}</label>
+        <input id="taxIncluded" type="checkbox" name="create_product[taxIncluded]"
+               {% if model.taxIncluded %}checked{% endif %}>
+        {{ form_errors(form1.taxIncluded) }}
     </div>
     <div class="form-group">
         <label for="hidden">{{ dict.privateInfo }}</label>
