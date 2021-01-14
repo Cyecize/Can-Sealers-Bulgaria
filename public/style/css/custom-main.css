@@ -268,6 +268,10 @@ nav.navbar.shrink .lang-icon {
 
 /*!Backgrounds*/
 
+.display-none {
+    display: none;
+}
+
 .pb-container{
     padding-bottom: 20px;
 }

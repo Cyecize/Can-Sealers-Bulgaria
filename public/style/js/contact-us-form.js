@@ -25,7 +25,6 @@ var ContactUsFormManager = (function () {
         });
     }
 
-
     return {
         initContactUsFormSpinnerStandard: function () {
             initContactUsFormSpinner(document, function (selector, callback) {
@@ -33,9 +32,25 @@ var ContactUsFormManager = (function () {
             });
         },
         initContactUsFormSpinnerModal: function (modalManager) {
-            initContactUsFormSpinner(modalManager, function(selector, callback) {
+            initContactUsFormSpinner(modalManager, function (selector, callback) {
                 modalManager.attachEventToElement(selector, 'click', callback);
             });
         }
     };
+});
+
+$(function () {
+    var sendMessageForm = $('.send-msg-form-container');
+
+    function initContactFormOptions() {
+        $('.contact-form-option-email').on('click', function (eventArgs) {
+            if (sendMessageForm.is(':visible')) {
+                sendMessageForm.hide();
+            } else {
+                sendMessageForm.show();
+            }
+        });
+    }
+
+    initContactFormOptions();
 });

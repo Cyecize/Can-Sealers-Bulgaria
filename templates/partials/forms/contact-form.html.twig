@@ -11,7 +11,28 @@
                 <h3 class="fat-text">{{ dict.sendQuestion }}</h3>
                 <br>
             </div>
-            {% embed 'partials/forms/contact-form-fields.html.twig' %} {% endembed %}
+            <div class="row p-1">
+                <div class="col-md-4 facebook-message-button-container display-none">
+                    <span class="btn btn-outline-primary facebook-message-button">
+                        <i class="fa fa-facebook"></i> Facebook
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <a href="https://wa.me/{{ information.contacts.whatsapp }}"
+                       target="_blank"
+                       class="btn btn-outline-success">
+                        <i class="fa fa-whatsapp"></i> Whatsapp
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <span class="btn btn-outline-secondary contact-form-option-email">
+                        <i class="fa fa-envelope"></i> Email
+                    </span>
+                </div>
+            </div>
+            <div class="send-msg-form-container display-none">
+                {% embed 'partials/forms/contact-form-fields.html.twig' %} {% endembed %}
+            </div>
         </div>
     </div>
 
