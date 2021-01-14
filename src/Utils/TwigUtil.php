@@ -21,6 +21,10 @@ class TwigUtil
     {
     }
 
+    public function getEnv(): string {
+        return $_ENV[Config::ENV_APP_ENV];
+    }
+
     public function errorToArray($error = ""): array
     {
         $str = str_replace('</ul>', '', str_replace('<ul>', '', $error));
