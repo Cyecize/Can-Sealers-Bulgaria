@@ -67,20 +67,19 @@
             </div>
         </div>
 
-        <div>
-            <div class="fb-like" data-href="{{ url('product_details', {'prodId':product.id}) }}" data-width="50"
-                 data-layout="standard" data-action="like" data-size="small" data-show-faces="true"
-                 data-share="false"></div>
-        </div>
-        <div class="pt-2 pb-2">
-            <a href="https://www.facebook.com/sharer/sharer.php?app_id={{ information.appId }}&amp;sdk=joey&amp;u={{ app.request.uri }}&amp;display=popup&amp;ref=plugin&amp;src=share_button"
-               onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')"
-               class="btn btn-sm btn-outline-primary">
-                <i class="fa fa-facebook"></i> {{ dict.share }}
-            </a>
-        </div>
-        <div>
-            <button id="quick-contact-btn" class="btn btn-outline-info">{{ dict.contacts }}</button>
+        <div class="row">
+            <div class="col-6">
+                <div class="fb-like" data-href="{{ url('product_details', {'prodId':product.id}) }}" data-width="50"
+                     data-layout="standard" data-action="like" data-size="small" data-show-faces="true"
+                     data-share="false"></div>
+            </div>
+            <div class="col-6">
+                <a href="https://www.facebook.com/sharer/sharer.php?app_id={{ information.appId }}&amp;sdk=joey&amp;u={{ app.request.uri }}&amp;display=popup&amp;ref=plugin&amp;src=share_button"
+                   onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')"
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="fa fa-facebook"></i> {{ dict.share }}
+                </a>
+            </div>
         </div>
     </div>
 </div>
