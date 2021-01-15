@@ -1,6 +1,5 @@
-var FacebookChatManager = (function () {
+var FacebookChatManager = (function (env, greetingMessage) {
     var facebookInstance = null;
-    var isInit = false;
 
     var facebookMessageButtonContainer = $('.facebook-message-button-container');
     var facebookMessageButton = $('.facebook-message-button');
@@ -19,38 +18,45 @@ var FacebookChatManager = (function () {
      */
     function loadFacebookSdk(callback) {
         window.fbAsyncInit = function () {
-            FB.init({
-                xfbml: true,
+            facebookInstance = FB;
+            facebookInstance.init({
+                xfbml: false,
                 version: 'v9.0'
             });
 
-            callback(FB);
+            facebookInstance.XFBML.parse(document, callback);
         };
+
         injectFacebookSdk(document, 'script', 'facebook-jssdk');
     }
 
     function initEvents() {
         facebookMessageButton.on('click', function (eventArgs) {
-            FB.CustomerChat.show();
+            facebookInstance.CustomerChat.show(true);
         });
     }
 
-    function init(env) {
+    function init(env, greetingMessage) {
         if (env !== 'prod') {
             console.warn('Facebook chat only works on prod!');
             return;
         }
 
-        loadFacebookSdk(function(fb) {
-            facebookInstance = fb;
-            isInit = true;
+        loadFacebookSdk(function () {
+            facebookInstance.CustomerChat.hideDialog();
+            facebookInstance.CustomerChat.update({
+                logged_in_greeting: greetingMessage,
+                logged_out_greeting: greetingMessage,
+            });
 
-            facebookMessageButtonContainer.show();
             initEvents();
+            facebookMessageButtonContainer.show();
         });
     }
 
-    return {
-        init: init
-    };
+    init(env, greetingMessage);
+
+    return {};
 });
+
+var facebookChatManager = new FacebookChatManager(ENV, CONTACT_US_MESSAGE);

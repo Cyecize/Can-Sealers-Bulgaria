@@ -1,12 +1,16 @@
 <script>
+    var ENV = '{{ twigUtil.env }}';
     var CSRF_TOKEN = '{{ csrf_token('token') }}';
     var CURRENT_URL = "{{ app.request.requestUri }}";
+
+    var CONTACT_US_MESSAGE = '{{ dict.sendQuestion }}';
 </script>
 <script src="{{ asset('style/js/lang-manager.js') }}"></script>
 <script src="{{ asset('style/js/modal.js') }}"></script>
 <script src="{{ asset('style/js/custom-main.js') }}"></script>
 <script src="{{ asset('style/js/fields.js') }}"></script>
 <script src="{{ asset('style/js/header-routing.js') }}"></script>
+<script src="{{ asset('style/js/facebook-chat.js') }}"></script>
 {% if app.user %}
     <script src="{{ asset('style/js/notifications.js') }}"></script>
 {% endif %}

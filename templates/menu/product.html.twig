@@ -83,13 +83,6 @@
 {% block javascripts %}
     <script src="{{ asset('style/js/product-details.js') }}"></script>
     <script src="{{ asset('style/js/contact-us-form.js') }}"></script>
-    <script src="{{ asset('style/js/facebook-chat.js') }}"></script>
-
-    <script>
-        $(function () {
-            new FacebookChatManager().init('{{ twigUtil.env }}');
-        });
-    </script>
 
     <script>
         var zoomImageModal = new ModalManager('zoomImageModal', '');
