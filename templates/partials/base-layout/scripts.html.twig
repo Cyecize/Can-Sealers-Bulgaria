@@ -1,5 +1,6 @@
 <script>
     var ENV = '{{ twigUtil.env }}';
+    var SELECTED_LANGUAGE = '{{ dict.localLang }}';
     var CSRF_TOKEN = '{{ csrf_token('token') }}';
     var CURRENT_URL = "{{ app.request.requestUri }}";
 
