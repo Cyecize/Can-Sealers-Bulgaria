@@ -3,7 +3,25 @@
 
 <h2>Контакти</h2>
 <hr>
-<p class="m-0">Имате ли въпроси относно  {{ product.name }}?</p>
+<p class="m-0">Имате ли въпроси относно {{ product.name }}?</p>
 <small>Например поддържани размери на кутии или как да поръчате.</small>
-<p class="mt-2">Можете да ни питате  <a href="{{ path('contacts') }}?about=Относно продукт {{ product.name }}">тук</a>.</p>
-<p>Или може да ни се обадите на номер: {{ information.contacts.phoneNumber }}</p>
+
+<p class="mt-2">Можете да ни се обадите на номер: <strong>{{ information.contacts.phoneNumber }}</strong></p>
+<p>Или можете да се свържете с нас по тези начини:</p>
+<div class="d-md-flex w-50 flex-wrap justify-content-around">
+    <div class="m-1 facebook-message-button-container display-none">
+        <span class="btn btn-outline-primary facebook-message-button"><i class="fa fa-facebook"></i> Facebook</span>
+    </div>
+    <div class="m-1">
+        <a href="https://wa.me/{{ information.contacts.whatsapp }}"
+           target="_blank"
+           class="btn btn-outline-success">
+            <i class="fa fa-whatsapp"></i> Whatsapp
+        </a>
+    </div>
+    <div class="m-1">
+        <button id="quick-contact-btn" class="btn btn-outline-secondary">
+            <i class="fa fa-envelope"></i> {{ dict.email }}
+        </button>
+    </div>
+</div>
