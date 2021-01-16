@@ -3,18 +3,22 @@
 {# @var twigUtil \App\Utils\TwigUtil #}
 
 {% set detailsUrl = '' %}
-{% set editUrl = '' %}
+{% set videoModalId = '' %}
+{% set showVideoModalId = '' %}
 
 {# Then this is a product type #}
 {% if product.price is defined %}
-    {% set detailsUrl = path('product_details', {'prodId':product.id})  %}
-    {% set editUrl = path('edit_product', {'id':product.id}) %}
+    {% set detailsUrl = path('product_details', {'prodId':product.id}) %}
 {% endif %}
 
 {% if product.price is not defined %}
     {% set detailsUrl = path('receipt_details', {'id': product.id}) %}
-    {% set editUrl = path('edit_receipt', {'id': product.id}) %}
 {% endif %}
+
+ {% if product.videoPath is defined and product.videoPath %}
+    {% set videoModalId = 'videoModalForProd' ~ product.id %}
+    {% set showVideoModalId = 'showVideoModalForProd' ~ product.id %}
+ {% endif %}
 
 <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
@@ -35,8 +39,8 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-6">
-                    {% if  is_granted('ROLE_ADMIN') %}
-                        <a class="btn btn-sm btn-outline-dark  " href="{{ editUrl }}">{{ dict.edit }}</a>
+                    {% if showVideoModalId %}
+                        <span id="{{ showVideoModalId }}" class="btn btn-sm btn-outline-dark">{{ dict.video }}</span>
                     {% endif %}
                 </div>
                 <div class="col-6">
@@ -47,4 +51,21 @@
             </div>
         </div>
     </div>
+
+    {% if videoModalId %}
+        {% embed 'partials/modal/modal-template.html.twig' with {'modalId': videoModalId } %}
+        {% block modalContent %}
+        <div class="embed-responsive embed-responsive-16by9" style="max-height: 400px; max-width: 100%;">
+            <video class="embed-responsive-item" controls>
+                <source src="{{ product.videoPath }}" type="video/mp4">
+            </video>
+        </div>
+        {% endblock %}
+        {% endembed %}
+        <script>
+            $(function () {
+                new ModalManager('{{ videoModalId }}', '{{ showVideoModalId }}');
+            });
+        </script>
+    {% endif %}
 </div>

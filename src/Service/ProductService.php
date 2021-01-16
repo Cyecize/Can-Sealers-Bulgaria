@@ -10,6 +10,7 @@ namespace App\Service;
 
 use App\BindingModel\CreateProductBindingModel;
 use App\BindingModel\EditProductBindingModel;
+use App\BindingModel\VideoBindingModel;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Utils\Page;
@@ -31,6 +32,13 @@ interface ProductService
      * @return Product
      */
     public function createProduct(CreateProductBindingModel $bindingModel, ProductCategory $category) : Product;
+
+    /**
+     * @param Product $product
+     * @param VideoBindingModel|null $bindingModel
+     * @return Product
+     */
+    public function updateProductVideo(Product $product, VideoBindingModel $bindingModel = null): Product;
 
     /**
      * @param int|null $id

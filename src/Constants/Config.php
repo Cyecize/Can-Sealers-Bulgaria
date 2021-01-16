@@ -27,6 +27,8 @@ class Config
 
     public const PRODUCT_FILES_PATH = "files/" . "products/";
 
+    public const PRODUCT_VIDEO_FILES_PATH = "files/" . "videos/";
+
     public const GALLERIES_PATH = "files/galleries/";
 
     public const ENV_FB_APP_ID = "FB_APP_ID";

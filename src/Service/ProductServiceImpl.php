@@ -10,6 +10,7 @@ namespace App\Service;
 
 use App\BindingModel\CreateProductBindingModel;
 use App\BindingModel\EditProductBindingModel;
+use App\BindingModel\VideoBindingModel;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Repository\ProductRepository;
@@ -69,6 +70,23 @@ class ProductServiceImpl implements ProductService
         $product->setImgPath($this->fileService->uploadProductImage($bindingModel->getImage()));
         $this->entityManager->persist($product);
         $this->entityManager->flush();
+        return $product;
+    }
+
+    public function updateProductVideo(Product $product, VideoBindingModel $bindingModel = null): Product
+    {
+        if ($product->getVideoPath() != null) {
+            $this->fileService->removeFile(substr($product->getVideoPath(), 1));
+            $product->setVideoPath(null);
+        }
+
+        if ($bindingModel != null) {
+            $product->setVideoPath($this->fileService->uploadProductVideo($bindingModel->getFile()));
+        }
+
+        $this->entityManager->merge($product);
+        $this->entityManager->flush();
+
         return $product;
     }
 

@@ -87,6 +87,12 @@ class LanguagePackBG implements ILanguagePack
     public const ADD_RECEIPT = "Нова Рецепта";
     public const TAX_INCLUDED = "с ДДС";
     public const TAX_NOT_INCLUDED = "без ДДС";
+    public const VIDEO = "Видео";
+
+    public function video(): string
+    {
+        return self::VIDEO;
+    }
 
     public function taxIncluded(): string
     {

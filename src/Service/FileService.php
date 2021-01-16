@@ -33,9 +33,15 @@ interface FileService
 
     /**
      * @param UploadedFile $file
-     * @return string
+     * @return string - file path
      */
     public function uploadProductImage(UploadedFile $file) : string ;
+
+    /**
+     * @param UploadedFile $file
+     * @return string - file path
+     */
+    public function uploadProductVideo(UploadedFile $file) : string ;
 
     /**
      * @param UploadedFile $file

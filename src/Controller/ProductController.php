@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\BindingModel\CreateProductBindingModel;
 use App\BindingModel\EditProductBindingModel;
 use App\BindingModel\ImageBindingModel;
+use App\BindingModel\VideoBindingModel;
 use App\Constants\Constants;
 use App\Entity\Gallery;
+use App\Exception\InternalRestException;
 use App\Exception\NotFoundException;
 use App\Form\CreateProductType;
+use App\Form\FileFormType;
 use App\Service\CategoryService;
 use App\Service\GalleryService;
 use App\Service\LocalLanguage;
@@ -16,6 +19,7 @@ use App\Service\ProductService;
 use App\Utils\PageRequest;
 use App\ViewModel\ProductDetailsViewModel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +29,12 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends BaseController
 {
+    private const INVALID_VIDEO_MSG = "Please provide a valid video!";
+    private const FORM_NOT_SUBMITTED_MSG = "Form not submitted!";
+    private const PRODUCT_NOT_FOUND_MSG = "Product not found!";
+    private const VIDEO_ADDED_MSG = "Video added!";
+    private const VIDEO_DELETED_MSG = "Video deleted!";
+
     /**
      * @var ProductService
      */
@@ -172,6 +182,63 @@ class ProductController extends BaseController
             'form1' => $form->createView(),
             'categories' => $this->categoryService->findAll(),
             'model' => $bindingModel,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/product/{prodId}/video/add",
+     *     name="add_video_to_product",
+     *     defaults={"prodId"=null}, methods={"POST"})
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     * @param $prodId
+     * @throws NotFoundException
+     * @throws InternalRestException
+     */
+    public function addVideoToProductAction(Request $request, $prodId): JsonResponse
+    {
+        $product = $this->productService->findOneById($prodId, true);
+        if ($product == null)
+            throw new NotFoundException($this->dictionary->productNotFound());
+
+        $bindingModel = new VideoBindingModel();
+
+        $form = $this->createForm(FileFormType::class, $bindingModel);
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted()) {
+            throw new InternalRestException(self::FORM_NOT_SUBMITTED_MSG);
+        }
+
+        if (count($this->validator->validate($bindingModel)) > 0) {
+            throw new InternalRestException(self::INVALID_VIDEO_MSG);
+        }
+
+        $this->productService->updateProductVideo($product, $bindingModel);
+
+        return new JsonResponse(array('message' => self::VIDEO_ADDED_MSG));
+    }
+
+    /**
+     * @Route("/admin/product/{prodId}/video/remove",
+     *      name="remove_video_from_product",
+     *      defaults={"prodId" = null})
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param $prodId
+     * @return RedirectResponse
+     * @throws NotFoundException
+     */
+    public function removeVideoAction($prodId): RedirectResponse
+    {
+        $product = $this->productService->findOneById($prodId);
+        if ($product == null) {
+            throw new NotFoundException(self::PRODUCT_NOT_FOUND_MSG);
+        }
+
+        $this->productService->updateProductVideo($product);
+
+        return $this->redirectToRoute("edit_product", [
+            'id' => $product->getId()
         ]);
     }
 }

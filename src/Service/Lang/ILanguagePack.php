@@ -162,4 +162,6 @@ interface ILanguagePack
     function taxIncluded(): string;
 
     function taxNotIncluded(): string;
+
+    function video(): string;
 }

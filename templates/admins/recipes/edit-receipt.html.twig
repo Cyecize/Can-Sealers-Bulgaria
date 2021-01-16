@@ -17,33 +17,6 @@
     <script>
         ImagePreviewManager.attachEvent('receiptImage', 'imgPrev');
     </script>
-    <script descr="Upload image file">
-
-        $('#addImgForm').on('submit', function (e) {
-            e.preventDefault();
-            var url = $(this).attr('action');
-
-            var data = new FormData(this); // <-- 'this' is your form element
-            console.log(data);
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (err) {
-                    alert(err.responseJSON.message)
-                }
-            });
-
-        });
-
-    </script>
 {% endblock %}
 
 {% block stylesheets %}

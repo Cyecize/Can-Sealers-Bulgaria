@@ -12,7 +12,8 @@
         <div class="col-md-6">
             <div class="mt-2 mb-2">
                 <h3>Add Image</h3>
-                <form method="post" enctype="multipart/form-data" id="addImgForm"
+                <form method="post" enctype="multipart/form-data"
+                      class="form-rest"
                       action="{{ path('add_image_to_product', {'prodId':model.id}) }}">
                     <div class="form-group">
                         <label for="imgAlt">Img Description</label>
@@ -20,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="imgFile">Select image up to 2MB</label>
-                        <input type="file" id="imgFile" class="form-control" required name="image[file]">
+                        <input type="file" id="imgFile" class="form-control" required name="file_form[file]">
                     </div>
                     <div class="form-group">
                         <input type="hidden" name="token" value="{{ csrf_token('token') }}">
@@ -41,6 +42,40 @@
                 </div>
             {% endif %}
 
+            <hr>
+
+            <!-- Video section -->
+            <div class="mt-2 mb-2">
+                <h3>Add Video</h3>
+                <form method="post" enctype="multipart/form-data"
+                      class="form-rest"
+                      action="{{ path('add_video_to_product', {'prodId':model.id}) }}">
+                    <div class="form-group">
+                        <label for="videoFile">Select video up to 30MB</label>
+                        <input type="file" id="videoFile" class="form-control" required name="file_form[file]">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="token" value="{{ csrf_token('token') }}">
+                        <button type="submit" class="btn btn-outline-dark">{{ dict.save }}</button>
+                    </div>
+                </form>
+            </div>
+
+            {% if model.videoPath %}
+                <h3>Video</h3>
+                <div class="embed-responsive embed-responsive-16by9" style="max-height: 400px; max-width: 100%;">
+                    <video class="embed-responsive-item" controls>
+                        <source src="{{ model.videoPath }}" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="mt-2">
+                    <a href="{{ path('remove_video_from_product', {'prodId': model.id}) }}"
+                       class="btn btn-outline-danger">
+                        {{ dict.remove }}
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
@@ -48,34 +83,33 @@
 {% block sectionScripts %}
     <script src="{{ asset('style/js/img-preview.js') }}"></script>
     <script>
-        ImagePreviewManager.attachEvent('productImage', 'imgPrev');
-    </script>
-    <script descr="Upload image file">
+        $(function () {
+            ImagePreviewManager.attachEvent('productImage', 'imgPrev');
 
-        $('#addImgForm').on('submit', function (e) {
-            e.preventDefault();
-            var url = $(this).attr('action');
 
-            var data = new FormData(this); // <-- 'this' is your form element
-            console.log(data);
+            $('.form-rest').on('submit', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('action');
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (err) {
-                    alert(err.responseJSON.message)
-                }
+                var data = new FormData(this); // <-- 'this' is your form element
+                console.log(data);
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        location.reload();
+                    },
+                    error: function (err) {
+                        alert(err.responseJSON.message)
+                    }
+                });
             });
-
-        });
-
+        })
     </script>
 {% endblock %}
 

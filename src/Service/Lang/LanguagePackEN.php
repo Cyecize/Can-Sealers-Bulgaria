@@ -87,6 +87,12 @@ class LanguagePackEN implements ILanguagePack
     public const ADD_RECEIPT = "New Recipe";
     public const TAX_INCLUDED = "VAT included";
     public const TAX_NOT_INCLUDED = "VAT not included";
+    public const VIDEO = "Video";
+
+    public function video(): string
+    {
+        return self::VIDEO;
+    }
 
     public function taxIncluded(): string
     {

@@ -11,7 +11,7 @@ namespace App\Controller;
 use App\BindingModel\ImageBindingModel;
 use App\Exception\InternalRestException;
 use App\Exception\NotFoundException;
-use App\Form\ImageType;
+use App\Form\FileFormType;
 use App\Service\GalleryService;
 use App\Service\ImageService;
 use App\Service\LocalLanguage;
@@ -77,7 +77,7 @@ class GalleryController extends BaseController
             throw new NotFoundException($this->dictionary->productNotFound());
 
         $bindingModel = new ImageBindingModel();
-        $form = $this->createForm(ImageType::class, $bindingModel);
+        $form = $this->createForm(FileFormType::class, $bindingModel);
         $form->handleRequest($request);
         if (!$form->isSubmitted())
             throw new InternalRestException(self::FORM_NOT_SUBMITTED_MSG);

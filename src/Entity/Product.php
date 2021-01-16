@@ -34,6 +34,12 @@ class Product
 
     /**
      * @var string
+     * @ORM\Column(name="video_path", type="string", length=255, nullable=true)
+     */
+    private $videoPath;
+
+    /**
+     * @var string
      * @ORM\Column(name="product_description", type="text", nullable=true)
      */
     private $productDescription;
@@ -122,6 +128,22 @@ class Product
     public function setImgPath(?string $imgPath): void
     {
         $this->imgPath = $imgPath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVideoPath(): ?string
+    {
+        return $this->videoPath;
+    }
+
+    /**
+     * @param string|null $videoPath
+     */
+    public function setVideoPath(?string $videoPath): void
+    {
+        $this->videoPath = $videoPath;
     }
 
     /**
