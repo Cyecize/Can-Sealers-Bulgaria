@@ -196,6 +196,17 @@ nav.navbar.shrink .lang-icon {
     color: #FA6A2E;
 }
 
+.btn-outline-viber {
+    color: rgb(102, 92, 172);
+    border-color: rgb(102, 92, 172);
+    background: transparent;
+}
+
+.btn-outline-viber:hover {
+    background-color: rgb(102, 92, 172);
+    color: white;
+}
+
 .font-caveat, .font-caveat-big{
     font-family: 'Caveat', cursive;
 }
