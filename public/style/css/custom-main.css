@@ -273,6 +273,10 @@ nav.navbar.shrink .lang-icon {
     display: none;
 }
 
+.show-on-mobile-only {
+    display: none;
+}
+
 .pb-container{
     padding-bottom: 20px;
 }
