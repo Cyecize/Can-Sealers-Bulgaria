@@ -33,7 +33,6 @@ class ProductController extends BaseController
     private const FORM_NOT_SUBMITTED_MSG = "Form not submitted!";
     private const PRODUCT_NOT_FOUND_MSG = "Product not found!";
     private const VIDEO_ADDED_MSG = "Video added!";
-    private const VIDEO_DELETED_MSG = "Video deleted!";
 
     /**
      * @var ProductService
