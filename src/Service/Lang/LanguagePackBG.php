@@ -43,7 +43,7 @@ class LanguagePackBG implements ILanguagePack
     public const ALL = "Всички";
     public const CATEGORY = "Категория";
     public const DETAILS = "Детайли";
-    public const CURRENCY = "лв.";
+    public const CURRENCY = "EUR";
     public const EMPTY_CATEGORY = "Категорията е празна.";
     public const CAT_NOT_FOUND_FORMAT = "Категория с име %s не беше намерена.";
     public const OUR_CAN_SEALERS = "Нашите Продукти";

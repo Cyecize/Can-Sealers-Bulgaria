@@ -32,17 +32,6 @@ class TwigUtil
         return explode(' ', $str);
     }
 
-    public function convertEur($val): string
-    {
-        if ($val === null) {
-            return "";
-        }
-
-        return number_format(
-            $val * 0.511292, 2, ',', ' '
-            ) . " EUR";
-    }
-
     public function getCategoryName(ProductCategory $category, string $locale){
         switch ($locale){
             case Config::COOKIE_EN_LANG:

@@ -43,7 +43,7 @@ class LanguagePackEN implements ILanguagePack
     public const ALL = "All";
     public const CATEGORY = "Category";
     public const DETAILS = "Details";
-    public const CURRENCY = "BGN";
+    public const CURRENCY = "EUR";
     public const EMPTY_CATEGORY = "Empty Category.";
     public const CAT_NOT_FOUND_FORMAT = "Category with name %s was not found.";
     public const OUR_CAN_SEALERS = "Our Products";

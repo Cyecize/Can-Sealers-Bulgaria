@@ -32,7 +32,7 @@
                 {% endif %}
             </h5>
             {% if product.price is defined and product.price > 0 %}
-                <h5>{{ product.price }} {{ dict.currency }} ({{ twigUtil.convertEur(product.price) }})</h5>
+                <h5>{{ product.price }} {{ dict.currency }}</h5>
             {% endif %}
             <p class="card-text"><a class="text-dark" href="{{ detailsUrl }}">{{ product.name }}</a></p>
         </div>

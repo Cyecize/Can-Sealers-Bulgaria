@@ -45,7 +45,6 @@
                </div>
                <div class="col-6">
                    <strong>{{ product.price|number_format(2, '.', ',') }} {{ dict.currency }}</strong>
-                   ({{ twigUtil.convertEur(product.price) }})
                    <small>
                        {% if product.taxIncluded %}
                            {{ dict.taxIncluded }}
